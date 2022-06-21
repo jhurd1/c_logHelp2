@@ -1,0 +1,32 @@
+1. Command for debugging from the terminal: gcc -g <somefile>
+
+2.
+Undefined symbols for architecture x86_64:
+"SearchLogic::searchLogic(std::1::basic_string<char, std::1::char_traits, std::1::allocator >, std::1::basic_string<char, std::1::char_traits, std::1::allocator >, std::1::basic_string<char, std::1::char_traits, std::1::allocator >)", referenced from:
+_main in searchDriver-2efc36.o
+"SearchLogic::SearchLogic()", referenced from:
+_main in searchDriver-2efc36.o
+"Search::Search(std::1::basic_string<char, std::1::char_traits, std::1::allocator >)", referenced from:
+_main in searchDriver-2efc36.o
+"Search::Search(std::1::basic_string<char, std::1::char_traits, std::1::allocator >, std::1::basic_string<char, std::1::char_traits, std::1::allocator >)", referenced from:
+_main in searchDriver-2efc36.o
+"Search::Search()", referenced from:
+_main in searchDriver-2efc36.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+I included <string> in the searchDriver.cpp file. I'll see if maybe that's why it can't find the "symbols."
+
+No dice!
+
+3. https://stackoverflow.com/questions/66057404/launch-program-does-not-exist-in-visual-studio-code
+    I'm still getting this error in vscode.
+    
+4. I have copied the project into xcode as I have had better success with this IDE. Here is the resolution I found for the following error:
+    https://pinkstone.co.uk/how-to-fix-no-rule-to-process-file-warning-in-xcode/
+    
+5. Yan Cherno says that MS VS proves the best IDE because it runs on the most ubiquitous OS in the world (Windows) and because it performs faster than Xcode. Fine. But what I have found is that Xcode shows me all the values of my variables during debugging and that it's easier to configure and keep operating than VSCode (granted VSCode is the lightweight version of MS VS).
+    I can see, for instance, that my comparitor variable does not contain the user input string and therefore I must discover a manner for getting it to hold the user's input.
+
+    The corresponding string variable also contains an entire while we want to read the file a word at a time to make the comparison.
+ 
