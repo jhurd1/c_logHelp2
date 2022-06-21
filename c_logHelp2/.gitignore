@@ -5,6 +5,18 @@ notes.txt
 *.xcodeproject/*.pbxproj
 *.xcodeproject
 *.xcuserstate
+.Trashes
+*.swp
+*.lock
+*~.nib
+DerivedData/
+build/
+*.pbxuser
+*.mode1v3
+*.perspectivev3
+*.xccheckout
+xcuserdata/
+*.moved-aside
 
 # Compiled Object files
 *.slo

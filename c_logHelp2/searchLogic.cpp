@@ -1,5 +1,6 @@
 #include "searchLogic.hpp"
 #include "search.hpp"
+#include <sstream>
 
 SearchLogic::SearchLogic()
 {
@@ -20,9 +21,10 @@ SearchLogic::SearchLogic(std::string correspPath, std::string correspStrings,
     setStringInFile(stringInFile);
 }
 
+//Destructor
 SearchLogic::~SearchLogic()
 {
- in.close();
+ in->close();
 }
 
 std::string SearchLogic::getcorrespPath() const
@@ -59,24 +61,31 @@ void SearchLogic::setStringInFile(std::string stringInFile)
  void SearchLogic::searchLogic(std::string correspPath, std::string correspStrings,
     std::string stringInFile)
  {
-    std::ifstream in(correspPath);
-    //while(getline(in, correspStrings)&&(!in.eof()))
+    // Create a new file.
+    std::fstream out;
+    out.open("new.txt", std::ios::out);
+    if(!out)
+    {
+    std::cout << "Creating new output file failed.";
+    abort();
+    }
+    std::cout << "file created.";
+    out.close();
+    
+    // Search the existing file.
+    std::fstream in;
+    in.open(correspPath, std::ios::in);
     while(in >> stringInFile)
     {
         if(stringInFile == correspStrings)
         {
-            std::cout << "Found a match: " + stringInFile;
-        } else if(!in.eof())
-        {
-            //std::cout << "I should keep searching, if my logic proves correct. ";
-            std::cout << "The last word searched is: " + stringInFile << std::endl;
-        } else
-        {
-         std::cout << "You must have reached the end of the file.";
+            std::ofstream write;
+            write.open("new.txt");
+            //write << in << std::endl;
+
         }
     }
-    //in.close(); Do I need to call this again if the destructor does already?
+    in.close();
     std::cin.ignore();
     std::cin.get();
-    //std::exit();
  }

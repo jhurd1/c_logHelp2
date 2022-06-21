@@ -11,7 +11,7 @@ class SearchLogic
         std::string correspPath;
         std::string correspStrings;
         std::string stringInFile;
-        std::ifstream in;
+        std::ifstream *in;
         Search search;
 
     public:

@@ -21,9 +21,7 @@ int main()
     std::cout << "string to search: ";
     std::cin >> correspStrings;
 
-    std::cout << "Your path: " + correspPath + " , " + "and your search string: " + correspStrings;
-
     search.searchLogic(correspPath, correspStrings, stringInFile);
-
+    
    return 0;
 }
