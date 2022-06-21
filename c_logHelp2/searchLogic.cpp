@@ -61,31 +61,33 @@ void SearchLogic::setStringInFile(std::string stringInFile)
  void SearchLogic::searchLogic(std::string correspPath, std::string correspStrings,
     std::string stringInFile)
  {
-    // Create a new file.
-    std::fstream out;
-    out.open("new.txt", std::ios::out);
-    if(!out)
-    {
-    std::cout << "Creating new output file failed.";
-    abort();
-    }
-    std::cout << "file created.";
-    out.close();
     
     // Search the existing file.
     std::fstream in;
+    std::ofstream write;
     in.open(correspPath, std::ios::in);
+    // the following loop is problematic for a number of reasons
     while(in >> stringInFile)
     {
         if(stringInFile == correspStrings)
         {
-            std::ofstream write;
-            write.open("new.txt");
-            //write << in << std::endl;
-
+          // Create a new file.
+          std::fstream outputFile;
+          outputFile.open("Users/jamiehurd/desktop/temp/new.txt", std::ios::out);
+          if(!outputFile)
+          {
+            std::cout << "Creating new output file failed.";
+            abort();
+          }
+            std::cout << "file created.";
+            outputFile.close();
+            //Write to the new file.
+            write.open("Users/jamiehurd/desktop/temp/new.txt");
+            write << stringInFile << "\n";
         }
     }
     in.close();
+    write.close();
     std::cin.ignore();
     std::cin.get();
  }
