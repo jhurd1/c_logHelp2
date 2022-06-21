@@ -20,6 +20,11 @@ SearchLogic::SearchLogic(std::string correspPath, std::string correspStrings,
     setStringInFile(stringInFile);
 }
 
+SearchLogic::~SearchLogic()
+{
+ in.close();
+}
+
 std::string SearchLogic::getcorrespPath() const
 {
     return correspPath;
@@ -56,18 +61,22 @@ void SearchLogic::setStringInFile(std::string stringInFile)
  {
     std::ifstream in(correspPath);
     //while(getline(in, correspStrings)&&(!in.eof()))
-    while(in >> correspStrings)
+    while(in >> stringInFile)
     {
-        std::cout << stringInFile << std::endl;
-        if(correspStrings == stringInFile)
+        if(stringInFile == correspStrings)
         {
             std::cout << "Found a match: " + stringInFile;
+        } else if(!in.eof())
+        {
+            //std::cout << "I should keep searching, if my logic proves correct. ";
+            std::cout << "The last word searched is: " + stringInFile << std::endl;
         } else
         {
-            std::cout << "No such string. ";
-            in.close();
+         std::cout << "You must have reached the end of the file.";
         }
     }
+    //in.close(); Do I need to call this again if the destructor does already?
     std::cin.ignore();
     std::cin.get();
+    //std::exit();
  }

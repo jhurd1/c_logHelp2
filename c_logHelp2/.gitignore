@@ -1,9 +1,10 @@
 # Prerequisites
 *.d
-*DS_Store
+.DS_Store
 notes.txt
 *.xcodeproject/*.pbxproj
 *.xcodeproject
+*.xcuserstate
 
 # Compiled Object files
 *.slo

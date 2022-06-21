@@ -23,6 +23,7 @@ class Search
         Search(std::string fpath);
 
         Search(std::string fpath, std::string searchStrings);
+
 };
 
 
