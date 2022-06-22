@@ -27,7 +27,7 @@ class SearchLogic
         SearchLogic(std::string correspPath, std::string correspStrings,
             std::string stringInFile);
         ~SearchLogic();
-        void searchLogic(std::string correspPath, std::string correspStrings,
+        std::string searchLogic(std::string correspPath, std::string correspStrings,
             std::string stringInFile);
 };
 #endif
