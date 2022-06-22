@@ -72,6 +72,7 @@ void SearchLogic::setStringInFile(std::string stringInFile)
      in >> stringInFile;
         if(stringInFile == correspStrings)
         {
+          file.open(stringInFile, std::ios::out);
           file << stringInFile << "\n" << std::endl;
           in.close();
           file.close();
