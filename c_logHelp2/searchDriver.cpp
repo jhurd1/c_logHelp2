@@ -20,7 +20,7 @@ int main()
     std::cin >> correspPath;
     std::cout << "string to search: ";
     std::cin >> correspStrings;
-
+    
     search.searchLogic(correspPath, correspStrings, stringInFile);
     
    return 0;

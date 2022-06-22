@@ -23,11 +23,11 @@ SearchLogic::SearchLogic(std::string correspPath, std::string correspStrings,
     setStringInFile(stringInFile);
 }
 
-//Destructor
-SearchLogic::~SearchLogic()
+//Destructor giving bad access because we already closed the files!
+/*SearchLogic::~SearchLogic()
 {
  in->close();
-}
+}*/
 
 std::string SearchLogic::getcorrespPath() const
 {
@@ -60,7 +60,7 @@ void SearchLogic::setStringInFile(std::string stringInFile)
     this->stringInFile = stringInFile;
 }
 
- std::string SearchLogic::searchLogic(std::string correspPath, std::string correspStrings,
+ void SearchLogic::searchLogic(std::string correspPath, std::string correspStrings,
     std::string stringInFile)
  {
   
@@ -75,10 +75,6 @@ void SearchLogic::setStringInFile(std::string stringInFile)
           file << stringInFile << "\n" << std::endl;
           in.close();
           file.close();
-          return 0;
         }
     }
-    std::cin.ignore();
-    std::cin.get();
-    return 0;
  }
