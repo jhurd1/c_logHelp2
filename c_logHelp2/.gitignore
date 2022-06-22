@@ -5,6 +5,7 @@ notes.txt
 *.xcodeproject/*.pbxproj
 *.xcodeproject
 *.xcuserstate
+*.scbkptlist
 .Trashes
 *.swp
 *.lock
