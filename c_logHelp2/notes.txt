@@ -48,3 +48,13 @@ No dice!
  
  Creating the file and placing it in the working dir worked, but now writing to it is broken. I wonder why.
  
+ Looks like it's also writing here still: /Users/jamiehurd/Library/Developer/Xcode/DerivedData/c_logHelp2-fudatkpdnbdytzgnykjrciapnurn/Build/Products/Debug/new.txt
+ I'll test this again with a different string.
+ The string in the text file for the above path should be "is" but it's still showing as "test," which
+ reflects the original input.
+ 
+5. http://stackoverflow.com/questions/1557265/ddg#1557282
+   It could be a write access/permissions issue.
+   Program now completes but it is still not writing after chmod 755 on the dir.
+   CPU started reaching 100% after I changed permissions on the working directory.
+ 
