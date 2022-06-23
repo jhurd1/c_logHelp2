@@ -65,17 +65,17 @@ void SearchLogic::setStringInFile(std::string stringInFile)
  {
   
     std::fstream in;
-    std::ofstream file("Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
     in.open(correspPath, std::ios::in);
     while(in.is_open())
     {
      in >> stringInFile;
         if(stringInFile == correspStrings)
         {
-          file.open(stringInFile, std::ios::out);
+          std::ofstream file("new.txt");
+          //file.open(stringInFile, std::ios::out);
           file << stringInFile << "\n" << std::endl;
           in.close();
-          file.close();
+          //file.close();
         }
     }
  }
