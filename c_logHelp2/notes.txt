@@ -29,4 +29,22 @@ No dice!
     I can see, for instance, that my comparitor variable does not contain the user input string and therefore I must discover a manner for getting it to hold the user's input.
 
     The corresponding string variable also contains an entire while we want to read the file a word at a time to make the comparison.
+    
+4. When searching for the new.txt file, which I believed I had directed the program to
+ deposit in a certain place, and upon not finding it, I discovered it may have been
+ written after all.
+ 
+ I ran the find command and, after receiving permission denied on sundry directories,
+ it showed this:
+ 
+ /System/Volumes/Data/Users/jamiehurd/Library/Developer/Xcode/DerivedData/c_logHelp2-fudatkpdnbdytzgnykjrciapnurn/Build/Products/Debug/new.txt
+ 
+ I have confirmed. The new.txt contains the search string returned from my program!
+ 
+ It sees that I direct it to create the new file and the new name, but it doesn't drop it in the
+ path that I specified. I wonder why.
+ 
+ Testing the following: http://stackoverflow.com/questions/14098836/ddg#14098917
+ 
+ Creating the file and placing it in the working dir worked, but now writing to it is broken. I wonder why.
  

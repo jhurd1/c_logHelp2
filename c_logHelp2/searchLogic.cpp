@@ -65,7 +65,7 @@ void SearchLogic::setStringInFile(std::string stringInFile)
  {
   
     std::fstream in;
-    std::ofstream file("Users/jamiehurd/desktop/temp/new.txt");
+    std::ofstream file("new.txt");
     in.open(correspPath, std::ios::in);
     while(in.is_open())
     {
