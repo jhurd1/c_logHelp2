@@ -59,4 +59,30 @@ No dice!
    CPU started reaching 100% after I changed permissions on the working directory.
    
    It can't read the new file path, so I'll roll back to using a relative path: "/new.txt"
+   
+   Opening the file with ios::out caused an imposition on the write procedure. Resolved.
+   
+6. I need to meet my own requirement to search files in a directory and the subdirectories. Way to go, self!
+   It seems to me that passing in something like grep from shell would fit so much easier here, but
+   as I research it, it seems like it might be overly complex. So, I'll first see if there's a
+   straight C++ option.
+   https://dev.to/aggsol/calling-shell-commands-from-c-8ej
+   
+7. Okay, let's talk about searching subdirectories in the path the user provides.
+    https://stackoverflow.com/questions/10209310/how-to-search-a-file-in-subdirectories
+    
+    https://www.boost.org/doc/libs/1_49_0/libs/filesystem/v3/doc/reference.html#Class-recursive_directory_iterator
+    
+    http://synesis.com.au/software/recls/
+    
+    https://www.codeproject.com/questions/231424/how-to-find-the-sub-folders-in-directory-using-cpl
+    This is all looking complex to me. Gee, I wish I would have left this for a stretch
+    exercise.
+    
+8. Let's go with something that may prove easier (harvest the low hanging fruit first).
+   Overwrite IPs and MAC addresses.
+   https://cplusplus.com/forum/general/90814/
+   
+   https://stackoverflow.com/questions/15237898/better-solution-of-finding-a-pattern-of-a-string
+   Find a pattern in a string search (for overwriting IPs and MAC addresses.)
  

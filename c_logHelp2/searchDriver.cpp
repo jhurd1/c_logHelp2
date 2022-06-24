@@ -2,7 +2,7 @@
 #include <string>
 
 #include "searchLogic.hpp"
-#include "search.h"
+#include "search.hpp"
 
 /****************************************************************
  * Function: main

@@ -10,6 +10,7 @@
 		FDC010012861720200BBF290 /* search.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDC00FFF2861720200BBF290 /* search.cpp */; };
 		FDC010042861729800BBF290 /* searchLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDC010022861729800BBF290 /* searchLogic.cpp */; };
 		FDC01006286172D000BBF290 /* searchDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDC01005286172D000BBF290 /* searchDriver.cpp */; };
+		FDCCE567286555020093A8A2 /* replaceDatString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDCCE565286555020093A8A2 /* replaceDatString.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,8 @@
 		FDC010022861729800BBF290 /* searchLogic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = searchLogic.cpp; sourceTree = "<group>"; };
 		FDC010032861729800BBF290 /* searchLogic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = searchLogic.hpp; sourceTree = "<group>"; };
 		FDC01005286172D000BBF290 /* searchDriver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = searchDriver.cpp; sourceTree = "<group>"; };
+		FDCCE565286555020093A8A2 /* replaceDatString.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = replaceDatString.cpp; sourceTree = "<group>"; };
+		FDCCE566286555020093A8A2 /* replaceDatString.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = replaceDatString.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +77,8 @@
 				FDC010022861729800BBF290 /* searchLogic.cpp */,
 				FDC010032861729800BBF290 /* searchLogic.hpp */,
 				FDC01005286172D000BBF290 /* searchDriver.cpp */,
+				FDCCE565286555020093A8A2 /* replaceDatString.cpp */,
+				FDCCE566286555020093A8A2 /* replaceDatString.hpp */,
 			);
 			path = c_logHelp2;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDC010042861729800BBF290 /* searchLogic.cpp in Sources */,
+				FDCCE567286555020093A8A2 /* replaceDatString.cpp in Sources */,
 				FDC010012861720200BBF290 /* search.cpp in Sources */,
 				FDC01006286172D000BBF290 /* searchDriver.cpp in Sources */,
 			);

@@ -1,5 +1,6 @@
 #include "searchLogic.hpp"
 #include "search.hpp"
+#include "replaceDatString.hpp"
 #include <sstream>
 #include <iostream>
 #include <fstream>
@@ -22,12 +23,6 @@ SearchLogic::SearchLogic(std::string correspPath, std::string correspStrings,
     setcorrespStrings(correspStrings);
     setStringInFile(stringInFile);
 }
-
-//Destructor giving bad access because we already closed the files!
-/*SearchLogic::~SearchLogic()
-{
- in->close();
-}*/
 
 std::string SearchLogic::getcorrespPath() const
 {
@@ -63,7 +58,6 @@ void SearchLogic::setStringInFile(std::string stringInFile)
  void SearchLogic::searchLogic(std::string correspPath, std::string correspStrings,
     std::string stringInFile)
  {
-  
     std::fstream in;
     in.open(correspPath, std::ios::in);
     while(in.is_open())
@@ -72,10 +66,8 @@ void SearchLogic::setStringInFile(std::string stringInFile)
         if(stringInFile == correspStrings)
         {
           std::ofstream file("new.txt");
-          //file.open(stringInFile, std::ios::out);
           file << stringInFile << "\n" << std::endl;
           in.close();
-          //file.close();
         }
     }
  }
