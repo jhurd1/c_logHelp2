@@ -21,6 +21,11 @@ std::string ReplaceDatString::getReplacement() const
  return replacement;
 }
 
+std::string ReplaceDatString::getstringInFile() const
+{
+ return stringInFile;
+}
+
 void ReplaceDatString::setcorrespStrings()
 {
   this->correspStrings = searchLogic.getcorrespStrings();
@@ -72,7 +77,6 @@ std::string ReplaceDatString::overwriteContent(std::string stringInFile)
    if(std::regex_match(stringInFile, r))
    {
     stringInFile = replacement;
-    //breaker = false; don't really need this because of the return statements
     return stringInFile;
    }
   }

@@ -67,6 +67,7 @@ void SearchLogic::setStringInFile(std::string stringInFile)
         {
           ReplaceDatString replaceDatString;
           replaceDatString.overwriteContent(stringInFile);
+          stringInFile = replaceDatString.getReplacement();
           std::ofstream file("new.txt");
           file << stringInFile << "\n" << std::endl;
           in.close();

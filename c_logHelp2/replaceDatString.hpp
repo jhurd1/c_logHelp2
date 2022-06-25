@@ -22,15 +22,14 @@ class ReplaceDatString
   std::string correspStrings;
   std::string stringInFile;
   std::string replacement;
+  
+ public:
   std::string getcorrespStrings() const;
   std::string getstringInFile() const;
   std::string getReplacement() const;
   void setcorrespStrings();
   void setstringInFile();
   void setReplacement();
-  
-  
- public:
   std::string overwriteContent(std::string stringInFile);
   ReplaceDatString();
   ReplaceDatString(std::string correspStrings);
