@@ -46,16 +46,47 @@ void ReplaceDatString::setReplacement()
   this->replacement = " ******* ";
 }
 
+/*******************************************
+* CONSTRUCTORS
+************************************************/
+  ReplaceDatString::ReplaceDatString()
+  {
+   correspPath = "";
+   correspStrings = "";
+   stringInFile = "";
+   replacement = "";
+  }
+  
+  ReplaceDatString::ReplaceDatString(std::string correspStrings)
+  {
+   setcorrespStrings();
+  }
+  ReplaceDatString::ReplaceDatString(std::string correspStrings, std::string stringInFile, std::string replacement)
+  {
+   setcorrespStrings();
+   setstringInFile();
+   setReplacement();
+  }
+
+
 /****************************************
 FUNCTIONS and LOGIC
  ****************************************/
 std::string ReplaceDatString::overwriteContent()
 {
   std::string line;
-  size_t len = stringInFile.length();
+  //size_t len = stringInFile.length();
   std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
+  std::smatch match;
+  while(!stringInFile.empty())
+  {
+   if(stringInFile == match.str())
+   {
+    stringInFile = replacement;
+    return stringInFile;
+   }
+  }
   
-  
-  return stringInFile;
+  return 0;
   
 }

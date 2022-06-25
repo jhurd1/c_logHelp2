@@ -33,8 +33,12 @@ class ReplaceDatString
   void setstringInFile();
   void setReplacement();
   
+  
  public:
   std::string overwriteContent();
+  ReplaceDatString();
+  ReplaceDatString(std::string correspStrings);
+  ReplaceDatString(std::string correspStrings, std::string stringInFile, std::string replacement);
 };
 
 
