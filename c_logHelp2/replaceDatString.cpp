@@ -71,11 +71,12 @@ std::string ReplaceDatString::overwriteContent(std::string stringInFile)
 {
   bool breaker = true;
   std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
+  std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
   std::smatch match;
   // the while loop is used because it runs at least once
   while(breaker)
   {
-   if(std::regex_match(stringInFile, r))
+   if((std::regex_match(stringInFile, r)) || (std::regex_match(stringInFile, m)))
    {
     replacement = " REDACTED ";
     stringInFile = replacement;
