@@ -16,19 +16,9 @@
 ***************************************************/
 SearchLogic searchLogic;
 
-std::string ReplaceDatString::getcorrespPath() const
-{
-   return correspPath;
-}
-
 std::string ReplaceDatString::getReplacement() const
 {
  return replacement;
-}
-
-void ReplaceDatString::setcorrespPath()
-{
-  this->correspPath = searchLogic.getcorrespPath();
 }
 
 void ReplaceDatString::setcorrespStrings()
@@ -51,15 +41,14 @@ void ReplaceDatString::setReplacement()
 ************************************************/
   ReplaceDatString::ReplaceDatString()
   {
-   correspPath = "";
    correspStrings = "";
    stringInFile = "";
    replacement = "";
   }
   
-  ReplaceDatString::ReplaceDatString(std::string correspStrings)
+  ReplaceDatString::ReplaceDatString(std::string stringInFile)
   {
-   setcorrespStrings();
+   setstringInFile();
   }
   ReplaceDatString::ReplaceDatString(std::string correspStrings, std::string stringInFile, std::string replacement)
   {
@@ -72,7 +61,7 @@ void ReplaceDatString::setReplacement()
 /****************************************
 FUNCTIONS and LOGIC
  ****************************************/
-std::string ReplaceDatString::overwriteContent()
+std::string ReplaceDatString::overwriteContent(std::string stringInFile)
 {
   std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
   std::smatch match;

@@ -19,23 +19,19 @@
 class ReplaceDatString
 {
  private:
-  FILE *pFile;
-  std::string correspPath;
   std::string correspStrings;
   std::string stringInFile;
   std::string replacement;
-  std::string getcorrespPath() const;
   std::string getcorrespStrings() const;
   std::string getstringInFile() const;
   std::string getReplacement() const;
-  void setcorrespPath();
   void setcorrespStrings();
   void setstringInFile();
   void setReplacement();
   
   
  public:
-  std::string overwriteContent();
+  std::string overwriteContent(std::string stringInFile);
   ReplaceDatString();
   ReplaceDatString(std::string correspStrings);
   ReplaceDatString(std::string correspStrings, std::string stringInFile, std::string replacement);
