@@ -10,10 +10,32 @@
 #include <stdio.h>
 #include <regex>
 
-/*************************************************
-* DATA MEMBERS and
-* their respective accessors and mutators.
-***************************************************/
+/* ***************************
+* CONSTRUCTORS
+*******************************/
+  ReplaceDatString::ReplaceDatString()
+  {
+   //stringInFile = getstringInFile();
+   //replacement = getReplacement();
+  }
+  
+  ReplaceDatString::ReplaceDatString(std::string stringInFile)
+  {
+   setstringInFile(stringInFile);
+  }
+  
+  ReplaceDatString::ReplaceDatString(std::string correspStrings, std::string stringInFile, std::string replacement)
+  {
+   setcorrespStrings(correspStrings);
+   setstringInFile(stringInFile);
+   setReplacement(replacement);
+  }
+
+
+/* *******************************
+* ACCESSORS AND MUTATORS
+* for encapsulation, of course!
+*********************************/
 SearchLogic searchLogic;
 
 std::string ReplaceDatString::getReplacement() const
@@ -42,31 +64,13 @@ void ReplaceDatString::setReplacement(std::string replacement)
   this->replacement = replacement;
 }
 
-/*******************************************
-* CONSTRUCTORS
-************************************************/
-  ReplaceDatString::ReplaceDatString()
-  {
-   //stringInFile = getstringInFile();
-   //replacement = getReplacement();
-  }
-  
-  ReplaceDatString::ReplaceDatString(std::string stringInFile)
-  {
-   setstringInFile(stringInFile);
-  }
-  
-  ReplaceDatString::ReplaceDatString(std::string correspStrings, std::string stringInFile, std::string replacement)
-  {
-   setcorrespStrings(correspStrings);
-   setstringInFile(stringInFile);
-   setReplacement(replacement);
-  }
-
-
-/****************************************
-FUNCTIONS and LOGIC
- ****************************************/
+/* ****************************************
+* OVERWRITECONTENT
+* Takes searchLogic's stringInFile value
+* Compares it to IP and MAC regex
+* Overwrites it if it compares
+* Returns the original value, if not.
+*******************************************/
 std::string ReplaceDatString::overwriteContent(std::string stringInFile)
 {
   bool breaker = true;

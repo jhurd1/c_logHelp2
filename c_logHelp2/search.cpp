@@ -3,26 +3,37 @@
 #include <string>
 #include "search.hpp"
 
+/* ********************
+* CONSTRUCTORS
+***********************/
+
+//default
 Search::Search()
 {
     fpath = "";
     searchStrings = "";
 }
 
+// non-default #1
 Search::Search(std::string fpath)
 {
     setPath(fpath);
 }
 
+// non-default #2
 Search::Search(std::string fpath, std::string searchStrings)
 {
     setPath(fpath);
     setStrings(searchStrings);
 }
 
-void Search::setPath(std::string fpath)
+/* *******************************
+* ACCESSORS AND MUTATORS
+* for encapsulation, of course!
+*********************************/
+std::string Search::getStrings() const
 {
-    this->fpath = fpath;
+    return searchStrings;
 }
 
 std::string Search::getPath() const
@@ -35,8 +46,8 @@ void Search::setStrings(std::string searchStrings)
     this->searchStrings = searchStrings;
 }
 
-std::string Search::getStrings() const
+void Search::setPath(std::string fpath)
 {
-    return searchStrings;
+    this->fpath = fpath;
 }
 

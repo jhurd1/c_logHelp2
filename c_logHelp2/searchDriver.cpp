@@ -3,11 +3,11 @@
 
 #include "searchLogic.hpp"
 #include "search.hpp"
-
-/****************************************************************
- * Function: main
- * Purpose: Drive the machinery for the search
- ****************************************************************/
+/* ****************************************
+* SEARCHDRIVER
+* The "main()" function that
+* presses my objects into service.
+*******************************************/
 int main()
 {
     SearchLogic search;
