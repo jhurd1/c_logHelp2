@@ -74,8 +74,6 @@ FUNCTIONS and LOGIC
  ****************************************/
 std::string ReplaceDatString::overwriteContent()
 {
-  std::string line;
-  //size_t len = stringInFile.length();
   std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
   std::smatch match;
   while(!stringInFile.empty())
@@ -86,7 +84,5 @@ std::string ReplaceDatString::overwriteContent()
     return stringInFile;
    }
   }
-  
-  return 0;
-  
+  return stringInFile;
 }
