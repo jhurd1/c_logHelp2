@@ -80,15 +80,15 @@ void SearchLogic::setStringInFile(std::string stringInFile)
     std::fstream in;
     in.open(correspPath, std::ios::in);
     std::string line;
-    while(in >> stringInFile)
+    //while(in >> stringInFile)
+    while(in >> stringInFile && getline(in, line))
     {
         if(stringInFile == correspStrings)
         {
-          //getline(in, line);
           ReplaceDatString replaceDatString(stringInFile);
           stringInFile = replaceDatString.overwriteContent(stringInFile);
           std::ofstream file("new.txt");
-          file << getline(in, stringInFile) << "\n" << std::endl;
+          file << stringInFile << line << "\n" << std::endl;
           in.close();
         }
     }

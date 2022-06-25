@@ -5,6 +5,7 @@ notes.txt
 *.xcodeproject/*.pbxproj
 *.xcodeproject
 *.xcuserstate
+c_logHelp2.xcodeproj/project.xcworkspace/xcuserdata/jamiehurd.xcuserdatad/UserInterfaceState.xcuserstate
 *.xcbkptlist
 *.scbkptlist
 .Trashes
