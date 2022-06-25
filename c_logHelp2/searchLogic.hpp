@@ -17,7 +17,7 @@ class SearchLogic
     public:
         std::string getcorrespPath() const;
         std::string getcorrespStrings() const;
-        std::string getStringInFile() const;
+        std::string getstringInFile() const;
         void setcorrespPath(std::string correspPath);
         void setcorrespStrings(std::string correspStrings);
         void setStringInFile(std::string stringInFile);

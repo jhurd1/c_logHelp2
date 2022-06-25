@@ -27,9 +27,9 @@ class ReplaceDatString
   std::string getcorrespStrings() const;
   std::string getstringInFile() const;
   std::string getReplacement() const;
-  void setcorrespStrings();
-  void setstringInFile();
-  void setReplacement();
+  void setcorrespStrings(std::string correspStrings);
+  void setstringInFile(std::string stringInFile);
+  void setReplacement(std::string replacement);
   std::string overwriteContent(std::string stringInFile);
   ReplaceDatString();
   ReplaceDatString(std::string correspStrings);

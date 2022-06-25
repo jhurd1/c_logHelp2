@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D497BC0C-6D0C-44DF-9A16-368D985E605E"
+            uuid = "3950920E-5DDA-4DCF-825A-DA20B389DABC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "c_logHelp2/searchLogic.cpp"
+            filePath = "c_logHelp2/replaceDatString.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "SearchLogic::searchLogic(correspPath, correspStrings, stringInFile)"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "ReplaceDatString::overwriteContent(stringInFile)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

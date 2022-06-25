@@ -34,7 +34,7 @@ std::string SearchLogic::getcorrespStrings() const
     return correspStrings;
 }
 
-std::string SearchLogic::getStringInFile() const
+std::string SearchLogic::getstringInFile() const
 {
     return stringInFile;
 }
@@ -65,9 +65,9 @@ void SearchLogic::setStringInFile(std::string stringInFile)
      in >> stringInFile;
         if(stringInFile == correspStrings)
         {
-          ReplaceDatString replaceDatString;
-          replaceDatString.overwriteContent(stringInFile);
-          stringInFile = replaceDatString.getReplacement();
+          ReplaceDatString replaceDatString(stringInFile);
+          stringInFile = replaceDatString.overwriteContent(stringInFile);
+          //stringInFile = replaceDatString.getstringInFile();
           std::ofstream file("new.txt");
           file << stringInFile << "\n" << std::endl;
           in.close();

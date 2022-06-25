@@ -12,7 +12,7 @@
 
 /*************************************************
 * DATA MEMBERS and
-* their respective mutators.
+* their respective accessors and mutators.
 ***************************************************/
 SearchLogic searchLogic;
 
@@ -23,22 +23,23 @@ std::string ReplaceDatString::getReplacement() const
 
 std::string ReplaceDatString::getstringInFile() const
 {
- return stringInFile;
+ return searchLogic.getstringInFile();
 }
 
-void ReplaceDatString::setcorrespStrings()
+void ReplaceDatString::setcorrespStrings(std::string correspStrings)
 {
   this->correspStrings = searchLogic.getcorrespStrings();
 }
 
-void ReplaceDatString::setstringInFile()
+void ReplaceDatString::setstringInFile(std::string stringInFile)
 {
-  this->stringInFile = searchLogic.getStringInFile();
+  //setting this to call overwrite() leads to empty string
+  this->stringInFile = searchLogic.getstringInFile();
 }
 
-void ReplaceDatString::setReplacement()
+void ReplaceDatString::setReplacement(std::string replacement)
 {
-  this->replacement = " ******* ";
+  this->replacement = replacement;
 }
 
 /*******************************************
@@ -46,20 +47,20 @@ void ReplaceDatString::setReplacement()
 ************************************************/
   ReplaceDatString::ReplaceDatString()
   {
-   correspStrings = "";
-   stringInFile = "";
-   setReplacement();
+   //stringInFile = getstringInFile();
+   //replacement = getReplacement();
   }
   
   ReplaceDatString::ReplaceDatString(std::string stringInFile)
   {
-   setstringInFile();
+   setstringInFile(stringInFile);
   }
+  
   ReplaceDatString::ReplaceDatString(std::string correspStrings, std::string stringInFile, std::string replacement)
   {
-   setcorrespStrings();
-   setstringInFile();
-   setReplacement();
+   setcorrespStrings(correspStrings);
+   setstringInFile(stringInFile);
+   setReplacement(replacement);
   }
 
 
@@ -76,8 +77,12 @@ std::string ReplaceDatString::overwriteContent(std::string stringInFile)
   {
    if(std::regex_match(stringInFile, r))
    {
+    replacement = " REDACTED ";
     stringInFile = replacement;
     return stringInFile;
+   } else
+   {
+    breaker = false;
    }
   }
   return stringInFile;
