@@ -85,4 +85,8 @@ No dice!
    
    https://stackoverflow.com/questions/15237898/better-solution-of-finding-a-pattern-of-a-string
    Find a pattern in a string search (for overwriting IPs and MAC addresses.)
+   
+   I found a regex to match IP addresses for overwriting those, but I found I needed to
+   escape all the backslashes with another backslash, like this:
+   \\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b
  
