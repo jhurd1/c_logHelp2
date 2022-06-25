@@ -43,7 +43,7 @@ void ReplaceDatString::setReplacement()
   {
    correspStrings = "";
    stringInFile = "";
-   replacement = "";
+   setReplacement();
   }
   
   ReplaceDatString::ReplaceDatString(std::string stringInFile)
@@ -63,13 +63,16 @@ FUNCTIONS and LOGIC
  ****************************************/
 std::string ReplaceDatString::overwriteContent(std::string stringInFile)
 {
+  bool breaker = true;
   std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
   std::smatch match;
-  while(!stringInFile.empty())
+  // the while loop is used because it runs at least once
+  while(breaker)
   {
-   if(stringInFile == match.str())
+   if(std::regex_match(stringInFile, r))
    {
     stringInFile = replacement;
+    //breaker = false; don't really need this because of the return statements
     return stringInFile;
    }
   }
