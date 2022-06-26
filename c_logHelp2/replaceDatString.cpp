@@ -48,9 +48,9 @@ std::string ReplaceDatString::getstringInFile() const
  return searchLogic.getstringInFile();
 }
 
-void ReplaceDatString::setcorrespStrings(std::string correspStrings)
+void ReplaceDatString::setcorrespStrings(std::string stringToFind)
 {
-  this->correspStrings = searchLogic.getcorrespStrings();
+  this->correspStrings = searchLogic.getstringToFind();
 }
 
 void ReplaceDatString::setstringInFile(std::string stringInFile)

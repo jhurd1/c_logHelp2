@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 /* ***************************
 * CONSTRUCTORS
@@ -13,7 +14,7 @@
 SearchLogic::SearchLogic()
 {
     correspPath = "";
-    correspStrings = "";
+    stringToFind = "";
 }
 
 // non-default #1
@@ -23,11 +24,11 @@ SearchLogic::SearchLogic(std::string corresppath)
 }
 
 // non-default #2
-SearchLogic::SearchLogic(std::string correspPath, std::string correspStrings,
+SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
     std::string stringInFile)
 {
     setcorrespPath(correspPath);
-    setcorrespStrings(correspStrings);
+    setstringToFind(stringToFind);
     setStringInFile(stringInFile);
 }
 
@@ -41,9 +42,9 @@ std::string SearchLogic::getcorrespPath() const
     return correspPath;
 }
 
-std::string SearchLogic::getcorrespStrings() const
+std::string SearchLogic::getstringToFind() const
 {
-    return correspStrings;
+    return stringToFind;
 }
 
 std::string SearchLogic::getstringInFile() const
@@ -56,14 +57,30 @@ void SearchLogic::setcorrespPath(std::string correspPath)
     this->correspPath = search.getPath();
 }
 
-void SearchLogic::setcorrespStrings(std::string correspStrings)
+void SearchLogic::setstringToFind(std::string stringToFind)
 {
-    this->correspStrings = search.getStrings();
+    this->stringToFind = search.getStrings();
 }
 
 void SearchLogic::setStringInFile(std::string stringInFile)
 {
     this->stringInFile = stringInFile;
+}
+
+/* **********************************
+* SEARCHVEC
+* Perform the search on the vector
+* Make the call to overwrite the string.
+***************************************/
+std::string SearchLogic::searchVec(std::string stringInFile, std::vector<std::string> tempStorage)
+{
+  std::vector<std::string>::iterator i = find(tempStorage.begin(), tempStorage.end(), stringInFile);
+  if(i != tempStorage.end())
+  {
+   ReplaceDatString replaceDatString(stringInFile);
+   stringInFile = replaceDatString.overwriteContent(stringInFile);
+  }
+  return stringInFile;
 }
 
 /* **********************************
@@ -80,16 +97,12 @@ void SearchLogic::setStringInFile(std::string stringInFile)
     std::fstream in;
     in.open(correspPath, std::ios::in);
     std::string line;
-    //while(in >> stringInFile)
-    while(in >> stringInFile && getline(in, line))
+    while(std::getline(in, line))
     {
-        if(stringInFile == correspStrings)
-        {
-          ReplaceDatString replaceDatString(stringInFile);
-          stringInFile = replaceDatString.overwriteContent(stringInFile);
+          tempStorage.push_back(line);
+          searchVec(stringToFind, tempStorage);
           std::ofstream file("new.txt");
           file << stringInFile << line << "\n" << std::endl;
           in.close();
-        }
     }
  }

@@ -12,16 +12,16 @@ int main()
 {
     SearchLogic search;
     std::string correspPath;
-    std::string correspStrings;
+    std::string stringToFind;
     std::string stringInFile;
 
 
     std::cout << "file path to search: ";
     std::cin >> correspPath;
     std::cout << "string to search: ";
-    std::cin >> correspStrings;
+    std::cin >> stringToFind;
     
-    search.searchLogic(correspPath, correspStrings, stringInFile);
+    search.searchLogic(correspPath, stringToFind, stringInFile);
     
    return 0;
 }
