@@ -15,18 +15,16 @@
 *******************************/
   ReplaceDatString::ReplaceDatString()
   {
-   //stringInFile = getstringInFile();
-   //replacement = getReplacement();
+   
   }
   
-  ReplaceDatString::ReplaceDatString(std::string stringInFile)
+  ReplaceDatString::ReplaceDatString(std::string &stringInFile) // value reaches this point
   {
    setstringInFile(stringInFile);
   }
   
-  ReplaceDatString::ReplaceDatString(std::string correspStrings, std::string stringInFile, std::string replacement)
+  ReplaceDatString::ReplaceDatString(std::string stringInFile, std::string replacement)
   {
-   setcorrespStrings(correspStrings);
    setstringInFile(stringInFile);
    setReplacement(replacement);
   }
@@ -38,6 +36,17 @@
 *********************************/
 SearchLogic searchLogic;
 
+void ReplaceDatString::setstringInFile(std::string stringInFile) // value is lost at this point
+{
+  //setting this to call overwrite() leads to empty string
+  this->stringInFile = stringInFile;
+}
+
+void ReplaceDatString::setReplacement(std::string replacement)
+{
+  this->replacement = replacement;
+}
+
 std::string ReplaceDatString::getReplacement() const
 {
  return replacement;
@@ -46,22 +55,6 @@ std::string ReplaceDatString::getReplacement() const
 std::string ReplaceDatString::getstringInFile() const
 {
  return searchLogic.getstringInFile();
-}
-
-void ReplaceDatString::setcorrespStrings(std::string stringToFind)
-{
-  this->correspStrings = searchLogic.getstringToFind();
-}
-
-void ReplaceDatString::setstringInFile(std::string stringInFile)
-{
-  //setting this to call overwrite() leads to empty string
-  this->stringInFile = searchLogic.getstringInFile();
-}
-
-void ReplaceDatString::setReplacement(std::string replacement)
-{
-  this->replacement = replacement;
 }
 
 /* ****************************************

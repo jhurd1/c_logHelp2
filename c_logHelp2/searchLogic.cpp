@@ -36,22 +36,6 @@ SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
 * ACCESSORS AND MUTATORS
 * for encapsulation, of course!
 *********************************/
-
-std::string SearchLogic::getcorrespPath() const
-{
-    return correspPath;
-}
-
-std::string SearchLogic::getstringToFind() const
-{
-    return stringToFind;
-}
-
-std::string SearchLogic::getstringInFile() const
-{
-    return stringInFile;
-}
-
 void SearchLogic::setcorrespPath(std::string correspPath)
 {
     this->correspPath = search.getPath();
@@ -64,23 +48,41 @@ void SearchLogic::setstringToFind(std::string stringToFind)
 
 void SearchLogic::setStringInFile(std::string stringInFile)
 {
-    this->stringInFile = stringInFile;
+    this->stringInFile = &stringInFile;
 }
+
+std::string SearchLogic::getcorrespPath() const
+{
+    return correspPath;
+}
+
+std::string SearchLogic::getstringToFind() const
+{
+    return stringToFind;
+}
+
+std::string SearchLogic::getstringInFile() const // the predecessor or caller is from replaceDatString
+{
+    return *stringInFile; // bad access because it's NULL
+}
+
+
 
 /* **********************************
 * SEARCHVEC
 * Perform the search on the vector
 * Make the call to overwrite the string.
 ***************************************/
-std::string SearchLogic::searchVec(std::string stringInFile, std::vector<std::string> tempStorage)
+std::string SearchLogic::searchVec(std::string stringToFind, std::vector<std::string> tempStorage)
 {
-  std::vector<std::string>::iterator i = find(tempStorage.begin(), tempStorage.end(), stringInFile);
-  if(i != tempStorage.end())
+  int index = 0;
+  //std::vector<std::string>::iterator i = find(tempStorage.begin(), tempStorage.end(), stringInFile);
+  while(index < tempStorage.size())
   {
-   ReplaceDatString replaceDatString(stringInFile);
-   stringInFile = replaceDatString.overwriteContent(stringInFile);
+   ReplaceDatString replaceDatString(stringToFind);
+   stringInFile = replaceDatString.overwriteContent(*stringInFile);
   }
-  return stringInFile;
+  return *stringInFile;
 }
 
 /* **********************************
@@ -91,14 +93,15 @@ std::string SearchLogic::searchVec(std::string stringInFile, std::vector<std::st
 * and MAC addresses
 * Writes results to a new file.
 ***************************************/
- void SearchLogic::searchLogic(std::string correspPath, std::string correspStrings,
-    std::string stringInFile)
+ void SearchLogic::searchLogic(std::string correspPath, std::string stringToFind,
+    std::string &stringInFile)
  {
     std::fstream in;
     in.open(correspPath, std::ios::in);
     std::string line;
     while(std::getline(in, line))
     {
+          
           tempStorage.push_back(line);
           searchVec(stringToFind, tempStorage);
           std::ofstream file("new.txt");
