@@ -73,16 +73,17 @@ std::string SearchLogic::getstringInFile() const // the predecessor or caller is
 * Perform the search on the vector
 * Make the call to overwrite the string.
 ***************************************/
-std::string SearchLogic::searchVec(std::string stringToFind, std::vector<std::string> tempStorage)
+std::string SearchLogic::searchVec(std::string stringToFind, std::string stringInFile, std::vector<std::string> tempStorage)
 {
   int index = 0;
   //std::vector<std::string>::iterator i = find(tempStorage.begin(), tempStorage.end(), stringInFile);
   while(index < tempStorage.size())
   {
-   ReplaceDatString replaceDatString(stringToFind);
-   stringInFile = replaceDatString.overwriteContent(*stringInFile);
+   index += 1;
+    ReplaceDatString replaceDatString(stringInFile);
+    stringInFile = replaceDatString.overwriteContent(stringInFile);
   }
-  return *stringInFile;
+  return stringInFile;
 }
 
 /* **********************************
@@ -99,13 +100,19 @@ std::string SearchLogic::searchVec(std::string stringToFind, std::vector<std::st
     std::fstream in;
     in.open(correspPath, std::ios::in);
     std::string line;
-    while(std::getline(in, line))
+    while(in.is_open())
     {
-          
-          tempStorage.push_back(line);
-          searchVec(stringToFind, tempStorage);
-          std::ofstream file("new.txt");
-          file << stringInFile << line << "\n" << std::endl;
-          in.close();
+          for( ; std::getline(in, line); )
+          {
+           in >> stringInFile;
+           if(stringToFind == stringInFile)
+           {
+            tempStorage.push_back(line);
+            searchVec(stringToFind, stringInFile, tempStorage);
+           }
+          }
+         std::ofstream file("new.txt");
+         file << stringInFile << line << "\n" << std::endl;
+         in.close();
     }
  }
