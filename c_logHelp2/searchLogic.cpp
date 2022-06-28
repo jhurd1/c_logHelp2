@@ -100,11 +100,10 @@ std::string SearchLogic::searchVec(std::string stringToFind, std::string stringI
     std::fstream in;
     in.open(correspPath, std::ios::in);
     std::string line;
-    while(in.is_open())
+    while(std::getline(in, line))
     {
-          for( ; std::getline(in, line); )
+          while(in >> stringInFile)
           {
-           in >> stringInFile;
            if(stringToFind == stringInFile)
            {
             tempStorage.push_back(line);
