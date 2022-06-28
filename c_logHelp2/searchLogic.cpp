@@ -100,9 +100,12 @@ std::string SearchLogic::searchVec(std::string stringToFind, std::string stringI
     std::fstream in;
     in.open(correspPath, std::ios::in);
     std::string line;
-    while(std::getline(in, line))
+    while(in >> stringInFile)
+    //while(std::getline(in, line))
     {
-          while(in >> stringInFile)
+          while(std::getline(in, line))
+          //while(in >> stringInFile) // this one skips over the line before we chance to check each word
+          //for( ; std::getline(in, stringInFile); ) // doesn't parse the line for the string this one
           {
            if(stringToFind == stringInFile)
            {
