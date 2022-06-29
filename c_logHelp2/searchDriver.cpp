@@ -21,7 +21,7 @@ int main()
     std::cout << "string to search: ";
     std::cin >> stringToFind;
     
-    search.searchLogic(correspPath, stringToFind, stringInFile);
+    search.pushTheLines(correspPath, stringToFind, stringInFile);
     
    return 0;
 }

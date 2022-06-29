@@ -51,6 +51,11 @@ void SearchLogic::setStringInFile(std::string stringInFile)
     this->stringInFile = &stringInFile;
 }
 
+void SearchLogic::setLine(std::string line)
+{
+ this->line = line;
+}
+
 std::string SearchLogic::getcorrespPath() const
 {
     return correspPath;
@@ -64,6 +69,11 @@ std::string SearchLogic::getstringToFind() const
 std::string SearchLogic::getstringInFile() const // the predecessor or caller is from replaceDatString
 {
     return *stringInFile; // bad access because it's NULL
+}
+
+std::string SearchLogic::getLine() const
+{
+ return line;
 }
 
 
@@ -86,6 +96,9 @@ std::string SearchLogic::searchVec(std::string stringToFind, std::string stringI
      {
       ReplaceDatString replaceDatString(stringInFile);
       stringInFile = replaceDatString.overwriteContent(stringInFile);
+      std::ofstream out("new.txt");
+      std::ostream_iterator<std::string> oi(out, "\n");
+      std::copy(tempStorage.begin(), tempStorage.end(), oi);
      }
     }
   }
@@ -100,7 +113,7 @@ std::string SearchLogic::searchVec(std::string stringToFind, std::string stringI
 * and MAC addresses
 * Writes results to a new file.
 ***************************************/
- void SearchLogic::searchLogic(std::string correspPath, std::string stringToFind,
+ void SearchLogic::pushTheLines(std::string correspPath, std::string stringToFind,
     std::string &stringInFile)
  {
     std::fstream in;
@@ -111,14 +124,4 @@ std::string SearchLogic::searchVec(std::string stringToFind, std::string stringI
         tempStorage.push_back(line);
         searchVec(stringToFind, stringInFile, tempStorage);
        }
-        std::ofstream file("new.txt");
-        file << line << "\n" << std::endl;
-        in.close();
-       }
-     
-        
-   
-void SearchLogic::writeToFile()
-{
- 
-}
+  }
