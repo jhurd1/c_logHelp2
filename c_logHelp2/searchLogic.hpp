@@ -32,5 +32,6 @@ class SearchLogic
         std::string searchVec(std::string stringToFind, std::string stringInFile, std::vector<std::string> tempStorage);
         void searchLogic(std::string correspPath, std::string stringToFind,
             std::string &stringInFile);
+        void writeToFile();
 };
 #endif

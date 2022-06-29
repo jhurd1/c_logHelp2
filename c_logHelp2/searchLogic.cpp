@@ -76,12 +76,18 @@ std::string SearchLogic::getstringInFile() const // the predecessor or caller is
 std::string SearchLogic::searchVec(std::string stringToFind, std::string stringInFile, std::vector<std::string> tempStorage)
 {
   int index = 0;
-  //std::vector<std::string>::iterator i = find(tempStorage.begin(), tempStorage.end(), stringInFile);
+  //std::vector<std::string>::iterator it = find(tempStorage.begin(), tempStorage.end(), stringInFile);
   while(index < tempStorage.size())
   {
-   index += 1;
-    ReplaceDatString replaceDatString(stringInFile);
-    stringInFile = replaceDatString.overwriteContent(stringInFile);
+    index += 1;
+    for(auto it : tempStorage)
+    {
+     if(stringInFile == stringToFind)
+     {
+      ReplaceDatString replaceDatString(stringInFile);
+      stringInFile = replaceDatString.overwriteContent(stringInFile);
+     }
+    }
   }
   return stringInFile;
 }
@@ -100,21 +106,19 @@ std::string SearchLogic::searchVec(std::string stringToFind, std::string stringI
     std::fstream in;
     in.open(correspPath, std::ios::in);
     std::string line;
-    while(in >> stringInFile)
-    //while(std::getline(in, line))
-    {
-          while(std::getline(in, line))
-          //while(in >> stringInFile) // this one skips over the line before we chance to check each word
-          //for( ; std::getline(in, stringInFile); ) // doesn't parse the line for the string this one
-          {
-           if(stringToFind == stringInFile)
-           {
-            tempStorage.push_back(line);
-            searchVec(stringToFind, stringInFile, tempStorage);
-           }
-          }
-         std::ofstream file("new.txt");
-         file << stringInFile << line << "\n" << std::endl;
-         in.close();
-    }
- }
+       while(std::getline(in, line))
+       {
+        tempStorage.push_back(line);
+        searchVec(stringToFind, stringInFile, tempStorage);
+       }
+        std::ofstream file("new.txt");
+        file << line << "\n" << std::endl;
+        in.close();
+       }
+     
+        
+   
+void SearchLogic::writeToFile()
+{
+ 
+}
