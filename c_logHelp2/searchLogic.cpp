@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <regex>
 
 /* ***************************
 * CONSTRUCTORS
@@ -48,7 +49,7 @@ void SearchLogic::setstringToFind(std::string stringToFind)
 
 void SearchLogic::setStringInFile(std::string stringInFile)
 {
-    this->stringInFile = &stringInFile;
+    this->stringInFile = stringInFile;
 }
 
 void SearchLogic::setLine(std::string line)
@@ -68,7 +69,7 @@ std::string SearchLogic::getstringToFind() const
 
 std::string SearchLogic::getstringInFile() const // the predecessor or caller is from replaceDatString
 {
-    return *stringInFile; // bad access because it's NULL
+    return stringInFile; // bad access because it's NULL
 }
 
 std::string SearchLogic::getLine() const
@@ -76,33 +77,45 @@ std::string SearchLogic::getLine() const
  return line;
 }
 
-
-
 /* **********************************
 * SEARCHVEC
 * Perform the search on the vector
 * Make the call to overwrite the string.
 ***************************************/
-std::string SearchLogic::searchVec(std::string stringToFind, std::string stringInFile, std::vector<std::string> tempStorage)
+void SearchLogic::searchVec()
 {
   int index = 0;
-  //std::vector<std::string>::iterator it = find(tempStorage.begin(), tempStorage.end(), stringInFile);
+  //std::vector<std::string>::iterator iterate = find(tempStorage.begin(), tempStorage.end(), stringInFile);
+  
   while(index < tempStorage.size())
   {
-    index += 1;
-    for(auto it : tempStorage)
+    for(unsigned int i = 1; i < tempStorage.size(); i++)
     {
-     if(stringInFile == stringToFind)
+     if(tempStorage[i].compare(stringToFind))
      {
-      ReplaceDatString replaceDatString(stringInFile);
-      stringInFile = replaceDatString.overwriteContent(stringInFile);
+      bool breaker = true;
+      std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
+      std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+      std::smatch match;
+    while(breaker)
+    {
+      if((std::regex_match(stringInFile, r)) || (std::regex_match(stringInFile, m)))
+    {
+     replacement = " REDACTED ";
+     stringInFile = replacement;
+     
+    } else
+    {
+     breaker = false;
+    }
+  }
       std::ofstream out("new.txt");
       std::ostream_iterator<std::string> oi(out, "\n");
       std::copy(tempStorage.begin(), tempStorage.end(), oi);
+      index += 1;
      }
     }
   }
-  return stringInFile;
 }
 
 /* **********************************
@@ -114,14 +127,17 @@ std::string SearchLogic::searchVec(std::string stringToFind, std::string stringI
 * Writes results to a new file.
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath, std::string stringToFind,
-    std::string &stringInFile)
+    std::string stringInFile)
  {
     std::fstream in;
     in.open(correspPath, std::ios::in);
-    std::string line;
-       while(std::getline(in, line))
-       {
-        tempStorage.push_back(line);
-        searchVec(stringToFind, stringInFile, tempStorage);
-       }
-  }
+    while(in >> stringInFile)
+    {
+      tempStorage.push_back(stringInFile);
+    }
+    while(in.is_open())
+    {
+      searchVec();
+      in.close();
+    }
+ }

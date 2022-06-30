@@ -11,8 +11,8 @@ class SearchLogic
     private:
         std::string correspPath;
         std::string stringToFind;
-        std::string *stringInFile;
-        std::ifstream *in;
+        std::string stringInFile;
+        std::string replacement;
         std::string line;
         std::vector<std::string> tempStorage;
         Search search;
@@ -34,9 +34,9 @@ class SearchLogic
         SearchLogic(std::string correspPath, std::string stringToFind,
             std::string stringInFile);
         //~SearchLogic();
-        std::string searchVec(std::string stringToFind, std::string stringInFile, std::vector<std::string> tempStorage);
+        void searchVec();
         void pushTheLines(std::string correspPath, std::string stringToFind,
-            std::string &stringInFile);
+            std::string stringInFile);
         void writeToFile();
 };
 #endif
