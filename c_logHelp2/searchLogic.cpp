@@ -92,9 +92,9 @@ void SearchLogic::searchVec()
     for(unsigned int i = 0; i < tempStorage.size(); i++)
     {
     //std::cout << tempStorage.size() << "\n";
-    std::cout << tempStorage[i];
-    index++;
-     /*if(tempStorage[i].compare(stringToFind))
+    //std::cout << tempStorage[i] << "\n";
+     index += 1;
+     if(tempStorage[i].compare(stringToFind))
      {
       std::cout << tempStorage[i] << " " << stringToFind;
       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
@@ -109,11 +109,10 @@ void SearchLogic::searchVec()
       std::ofstream out("new.txt");
       std::ostream_iterator<std::string> oi(out, "\n");
       std::copy(tempStorage.begin(), tempStorage.end(), oi);
-      index += 1;*/
      }
     }
   }
- //}
+ }
 
 /* **********************************
 * SEARCHLOGIC
