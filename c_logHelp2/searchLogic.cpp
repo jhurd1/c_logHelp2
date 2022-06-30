@@ -84,39 +84,36 @@ std::string SearchLogic::getLine() const
 ***************************************/
 void SearchLogic::searchVec()
 {
-  int index = 0;
+  int index = 1;
   //std::vector<std::string>::iterator iterate = find(tempStorage.begin(), tempStorage.end(), stringInFile);
   
   while(index < tempStorage.size())
   {
-    for(unsigned int i = 1; i < tempStorage.size(); i++)
+    for(unsigned int i = 0; i < tempStorage.size(); i++)
     {
-     if(tempStorage[i].compare(stringToFind))
+    //std::cout << tempStorage.size() << "\n";
+    std::cout << tempStorage[i];
+    index++;
+     /*if(tempStorage[i].compare(stringToFind))
      {
-      bool breaker = true;
+      std::cout << tempStorage[i] << " " << stringToFind;
       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
       std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
       std::smatch match;
-    while(breaker)
-    {
-      if((std::regex_match(stringInFile, r)) || (std::regex_match(stringInFile, m)))
+    
+      if((std::regex_match(tempStorage[i], r)) || (std::regex_match(tempStorage[i], m)))
     {
      replacement = " REDACTED ";
-     stringInFile = replacement;
-     
-    } else
-    {
-     breaker = false;
+     tempStorage[i] = replacement;
     }
-  }
       std::ofstream out("new.txt");
       std::ostream_iterator<std::string> oi(out, "\n");
       std::copy(tempStorage.begin(), tempStorage.end(), oi);
-      index += 1;
+      index += 1;*/
      }
     }
   }
-}
+ //}
 
 /* **********************************
 * SEARCHLOGIC
