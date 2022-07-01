@@ -57,6 +57,11 @@ void SearchLogic::setLine(std::string line)
  this->line = line;
 }
 
+void SearchLogic::setnewPath(std::string newPath)
+ {
+ 
+ }
+
 std::string SearchLogic::getcorrespPath() const
 {
     return correspPath;
@@ -77,10 +82,16 @@ std::string SearchLogic::getLine() const
  return line;
 }
 
+std::string SearchLogic::getnewPath() const
+ {
+  return newPath;
+ }
+
 /* **********************************
 * SEARCHVEC
 * Perform the search on the vector
-* Make the call to overwrite the string.
+* Make the call to overwrite the string
+* Write to the new file
 ***************************************/
 void SearchLogic::searchVec()
 {
@@ -101,10 +112,11 @@ void SearchLogic::searchVec()
      replacement = " REDACTED ";
      tempStorage[i] = replacement;
     }
-      index += 1;
+      //index += 1;
       SearchDirs d;
-      d.dirContents(correspPath);
-      std::string newPath = d.getnewPath();
+      d.dirContents(correspPath, stringToFind);
+      std::cout << "Which path (including the file name) would you like the output written to?" << "\n" << std::endl;
+      std::cin >> newPath;
       std::ofstream out(newPath);
       std::ostream_iterator<std::string> oi(out, "\n");
       std::copy(tempStorage.begin(), tempStorage.end(), oi);
@@ -115,11 +127,9 @@ void SearchLogic::searchVec()
 
 /* **********************************
 * SEARCHLOGIC
-* Opens the input stream
-* Takes action based on a conditional match
+* Opens the read stream
 * Calls overwriteContent() to overwrite IPs
 * and MAC addresses
-* Writes results to a new file.
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath, std::string stringToFind,
     std::string stringInFile)

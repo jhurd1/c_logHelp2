@@ -10,6 +10,7 @@
 
 struct dirent * contents;
 
+//CONSTRUCTORS
 SearchDirs::SearchDirs()
 {
 
@@ -20,27 +21,47 @@ SearchDirs::SearchDirs()
   setcorrespPath(correspPath);
  }
  
+ SearchDirs::SearchDirs(std::string correspPath, std::string stringToFind)
+ {
+  setcorrespPath(correspPath);
+  setstringtoFind(stringToFind);
+ }
+ 
+ /* *******************************
+* ACCESSORS AND MUTATORS
+* for encapsulation, of course!
+*********************************/
+ //MUTATORS
  void SearchDirs::setcorrespPath(std::string correspPath)
  {
   this->correspPath = s.getcorrespPath();
  }
  
- void SearchDirs::setnewPath(std::string newPath)
+ void SearchDirs::setstringtoFind(std::string stringToFind)
  {
- 
+  this->stringToFind = s.getstringToFind();
  }
  
- std::string SearchDirs::getcorrespPath()
+ //ACCESSORS
+ std::string SearchDirs::getcorrespPath() const
  {
   return s.getcorrespPath();
  }
  
- std::string SearchDirs::getnewPath()
+ /*******CONSTRAST THIS TO GETCORRESPPATH ABOVE********/
+ std::string SearchDirs::getstringtoFind() const
  {
-  return newPath;
+  return stringToFind; /**Do we need to call
+  s.getcorrespPath() or will the var alone do it?**/
  }
  
- void SearchDirs::dirContents(std::string correspPath)
+ /* **********************************
+* DIRCONTENTS
+* Take the search path
+* Drill into subdirectories
+* Call partner function, pushTheLines()
+***************************************/
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
   char* c_arr;
   c_arr = &correspPath[0];
@@ -52,8 +73,8 @@ SearchDirs::SearchDirs()
   }
   while((contents = readdir(dirs))!=NULL)
   {
-   std::cout << "Which path (including the file name) would you like the output written to?" << "\n" << std::endl;
-   std::cin >> newPath;
+   SearchLogic sl;
+   std::string stringInFile = sl.getstringInFile();
    s.pushTheLines(correspPath, stringToFind, stringInFile);
   }
  }

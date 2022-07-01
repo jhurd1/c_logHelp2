@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "searchLogic.hpp"
-#include "search.hpp"
+#include "searchDirs.hpp"
 /* ****************************************
 * SEARCHDRIVER
 * The "main()" function that
@@ -10,10 +9,10 @@
 *******************************************/
 int main()
 {
-    SearchLogic search;
+    SearchDirs searchDirs;
     std::string correspPath;
     std::string stringToFind;
-    std::string stringInFile;
+    //std::string stringInFile;
 
 
     std::cout << "file path to search: ";
@@ -21,7 +20,7 @@ int main()
     std::cout << "string to search: ";
     std::cin >> stringToFind;
     
-    search.pushTheLines(correspPath, stringToFind, stringInFile);
+ searchDirs.dirContents(correspPath, stringToFind);
     
    return 0;
 }

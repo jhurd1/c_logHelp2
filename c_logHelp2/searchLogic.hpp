@@ -14,6 +14,7 @@ class SearchLogic
         std::string stringInFile;
         std::string replacement;
         std::string line;
+        std::string newPath;
         std::vector<std::string> tempStorage;
         Search search;
 
@@ -23,11 +24,13 @@ class SearchLogic
         void setStringInFile(std::string stringInFile);
         void setIn(std::ifstream in);
         void setLine(std::string line);
+        void setnewPath(std::string newPath);
         
         std::string getcorrespPath() const;
         std::string getstringToFind() const;
         std::string getstringInFile() const;
         std::string getLine() const;
+        std::string getnewPath() const;
         
         SearchLogic();
         SearchLogic(std::string correspPath);
