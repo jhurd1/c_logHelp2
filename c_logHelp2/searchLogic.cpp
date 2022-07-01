@@ -1,11 +1,11 @@
 #include "searchLogic.hpp"
 #include "search.hpp"
-#include "replaceDatString.hpp"
 #include <sstream>
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <regex>
+#include "searchDirs.hpp"
 
 /* ***************************
 * CONSTRUCTORS
@@ -85,18 +85,13 @@ std::string SearchLogic::getLine() const
 void SearchLogic::searchVec()
 {
   int index = 1;
-  //std::vector<std::string>::iterator iterate = find(tempStorage.begin(), tempStorage.end(), stringInFile);
-  
   while(index < tempStorage.size())
   {
     for(unsigned int i = 0; i < tempStorage.size(); i++)
     {
-    //std::cout << tempStorage.size() << "\n";
-    //std::cout << tempStorage[i] << "\n";
      index += 1;
      if(tempStorage[i].compare(stringToFind))
      {
-      std::cout << tempStorage[i] << " " << stringToFind;
       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
       std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
       std::smatch match;
@@ -106,13 +101,17 @@ void SearchLogic::searchVec()
      replacement = " REDACTED ";
      tempStorage[i] = replacement;
     }
-      std::ofstream out("new.txt");
+      index += 1;
+      SearchDirs d;
+      d.dirContents(correspPath);
+      std::string newPath = d.getnewPath();
+      std::ofstream out(newPath);
       std::ostream_iterator<std::string> oi(out, "\n");
       std::copy(tempStorage.begin(), tempStorage.end(), oi);
      }
     }
+   }
   }
- }
 
 /* **********************************
 * SEARCHLOGIC
