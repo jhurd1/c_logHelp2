@@ -74,22 +74,29 @@ SearchDirs::SearchDirs()
   }
   while((contents = readdir(dirs))!=NULL)
   {
-  for(const auto &entry : std::filesystem::directory_iterator(correspPath))
+  for(auto itEntry = std::filesystem::recursive_directory_iterator(correspPath); itEntry != std::filesystem::recursive_directory_iterator(); ++itEntry) // recurse subdirectories once each
   {
-   if(entry.is_directory())
+   if(itEntry->is_directory()) // if it's a directory
    {
-    // drill into the folders
-    // and call fileMap.insert() on the files
+    std::filesystem::file_status stat;
+    if(std::filesystem::exists(stat)) // if it's a file
+    {
+     fileMap.insert(std::pair<int, FILE>()); // dump the file in the map
+    }
    } else
    {
-     // grab the files outside directories
-     // and put them in the map
+     // grab the files outside subdirectories
+     // and put them in the map, too
      fileMap.insert(std::pair<int, FILE>());
    }
-  }
    SearchLogic sl;
    std::string stringInFile = sl.getstringInFile();
-   s.pushTheLines(correspPath, stringToFind, stringInFile);
+   for(auto const& j : fileMap)
+   {
+    
+    s.pushTheLines(correspPath, stringToFind, stringInFile);
+   }
+  }
   }
   closedir(dirs);
  }

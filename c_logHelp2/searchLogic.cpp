@@ -5,7 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <regex>
-#include "searchDirs.hpp"
+//#include "searchDirs.hpp"
 
 /* ***************************
 * CONSTRUCTORS
@@ -113,8 +113,8 @@ void SearchLogic::searchVec()
      tempStorage[i] = replacement;
     }
       //index += 1;
-      SearchDirs d;
-      d.dirContents(correspPath, stringToFind);
+      //SearchDirs d;
+      //d.dirContents(correspPath, stringToFind);
       std::cout << "Which path (including the file name) would you like the output written to?" << "\n" << std::endl;
       std::cin >> newPath;
       std::ofstream out(newPath);
