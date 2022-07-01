@@ -12,6 +12,7 @@
 #include <dirent.h>
 #include <string>
 #include "searchLogic.hpp"
+#include <map>
 
 class SearchDirs
 {
@@ -19,6 +20,7 @@ class SearchDirs
    DIR *dirs;
    std::string correspPath;
    std::string stringToFind;
+   std::map<int, FILE> fileMap;
    
  public:
   SearchLogic s;

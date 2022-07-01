@@ -7,6 +7,7 @@
 
 #include "searchDirs.hpp"
 #include "searchLogic.hpp"
+#include <filesystem>
 
 struct dirent * contents;
 
@@ -73,8 +74,22 @@ SearchDirs::SearchDirs()
   }
   while((contents = readdir(dirs))!=NULL)
   {
+  for(const auto &entry : std::filesystem::directory_iterator(correspPath))
+  {
+   if(entry.is_directory())
+   {
+    // drill into the folders
+    // and call fileMap.insert() on the files
+   } else
+   {
+     // grab the files outside directories
+     // and put them in the map
+     fileMap.insert(std::pair<int, FILE>());
+   }
+  }
    SearchLogic sl;
    std::string stringInFile = sl.getstringInFile();
    s.pushTheLines(correspPath, stringToFind, stringInFile);
   }
+  closedir(dirs);
  }
