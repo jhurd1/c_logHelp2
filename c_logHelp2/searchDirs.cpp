@@ -56,13 +56,21 @@ SearchDirs::SearchDirs()
   s.getcorrespPath() or will the var alone do it?**/
  }
  
+ 
+ std::string returnFiles(std::string correspPath)
+ {
+  std::vector<std::string> fileNames;
+  
+  return correspPath;
+ }
+ 
  /* **********************************
 * DIRCONTENTS
 * Take the search path
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind, std::vector<std::string> fileNames)
  {
   char* c_arr;
   c_arr = &correspPath[0];
@@ -93,8 +101,11 @@ SearchDirs::SearchDirs()
    std::string stringInFile = sl.getstringInFile();
    for(auto const& j : fileMap)
    {
-    
-    s.pushTheLines(correspPath, stringToFind, stringInFile);
+    fileNames.push_back({{j,correspPath}});
+    // stackoverflow.com/questions/9138727/handling-map-of-files-in-c
+    // You will need to extract the file by a dummy name to
+    // send files one by one to pushTheLines().
+    //s.pushTheLines(j.second, stringToFind, stringInFile);
    }
   }
   }
