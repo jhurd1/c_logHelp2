@@ -54,5 +54,6 @@ SearchDirs::SearchDirs()
   {
    std::cout << "Which path (including the file name) would you like the output written to?" << "\n" << std::endl;
    std::cin >> newPath;
+   s.pushTheLines(correspPath, stringToFind, stringInFile);
   }
  }
