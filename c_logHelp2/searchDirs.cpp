@@ -12,17 +12,17 @@
 struct dirent * contents;
 
 //CONSTRUCTORS
-SearchDirs::SearchDirs()
+SearchDirs::SearchDirs(SearchLogic s) : s(s)
 {
-
+ 
 }
 
- SearchDirs::SearchDirs(std::string correspPath)
+ SearchDirs::SearchDirs(std::string correspPath, SearchLogic s) : s(s)
  {
   setcorrespPath(correspPath);
  }
  
- SearchDirs::SearchDirs(std::string correspPath, std::string stringToFind)
+ SearchDirs::SearchDirs(std::string correspPath, std::string stringToFind, SearchLogic s) : s(s)
  {
   setcorrespPath(correspPath);
   setstringtoFind(stringToFind);
@@ -43,6 +43,11 @@ SearchDirs::SearchDirs()
   this->stringToFind = s.getstringToFind();
  }
  
+ void SearchDirs::setstringInFile(std::string stringInFile)
+ {
+  this->stringInFile = s.getstringInFile();
+ }
+ 
  //ACCESSORS
  std::string SearchDirs::getcorrespPath() const
  {
@@ -56,12 +61,9 @@ SearchDirs::SearchDirs()
   s.getcorrespPath() or will the var alone do it?**/
  }
  
- 
- std::string returnFiles(std::string correspPath)
+ std::string SearchDirs::getstringInFile() const
  {
-  std::vector<std::string> fileNames;
-  
-  return correspPath;
+  return stringInFile;
  }
  
  /* **********************************
@@ -89,24 +91,16 @@ SearchDirs::SearchDirs()
     std::filesystem::file_status stat;
     if(std::filesystem::exists(stat)) // if it's a file
     {
-     fileMap.insert(std::pair<int, FILE>()); // dump the file in the map
+     fileMap->insert(std::pair<int, FILE>()); // dump the file in the map
     }
    } else
    {
      // grab the files outside subdirectories
      // and put them in the map, too
-     fileMap.insert(std::pair<int, FILE>());
+    fileMap->insert(std::pair<int, FILE>());
    }
-   SearchLogic sl;
-   std::string stringInFile = sl.getstringInFile();
-   for(auto const& j : fileMap)
-   {
-    fileNames.push_back({{j,correspPath}});
-    // stackoverflow.com/questions/9138727/handling-map-of-files-in-c
-    // You will need to extract the file by a dummy name to
-    // send files one by one to pushTheLines().
-    //s.pushTheLines(j.second, stringToFind, stringInFile);
-   }
+   SearchLogic sl(*fileMap);
+   sl.pushTheLines(correspPath, stringToFind, stringInFile);
   }
   }
   closedir(dirs);

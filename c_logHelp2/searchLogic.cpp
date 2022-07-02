@@ -12,25 +12,26 @@
 *******************************/
 
 // default
-SearchLogic::SearchLogic()
+SearchLogic::SearchLogic(std::map<int,FILE> &fileMap) : fileMap(fileMap)
 {
     correspPath = "";
     stringToFind = "";
 }
 
 // non-default #1
-SearchLogic::SearchLogic(std::string corresppath)
+SearchLogic::SearchLogic(std::string corresppath, std::map<int, FILE> &fileMap) : fileMap(fileMap)
 {
     setcorrespPath(correspPath);
 }
 
 // non-default #2
 SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
-    std::string stringInFile)
+    std::string stringInFile, std::map<int, FILE>& fileMap) : fileMap(fileMap)
 {
     setcorrespPath(correspPath);
     setstringToFind(stringToFind);
     setStringInFile(stringInFile);
+    this->fileMap = fileMap;
 }
 
 /* *******************************
