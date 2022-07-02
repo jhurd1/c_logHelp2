@@ -100,7 +100,7 @@ SearchDirs::SearchDirs(SearchLogic s) : s(s)
     fileMap->insert(std::pair<int, FILE>());
    }
    SearchLogic sl(*fileMap);
-   sl.pushTheLines(correspPath, stringToFind, stringInFile);
+   sl.pushTheLines(correspPath, stringToFind, stringInFile, *fileMap);
   }
   }
   closedir(dirs);

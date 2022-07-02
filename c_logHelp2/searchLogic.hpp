@@ -41,7 +41,7 @@ class SearchLogic
         //~SearchLogic();
         void searchVec();
         void pushTheLines(std::string correspPath, std::string stringToFind,
-            std::string stringInFile);
+            std::string stringInFile, std::map<int,FILE> &fileMap);
         void writeToFile();
 };
 #endif

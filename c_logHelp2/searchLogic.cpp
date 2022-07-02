@@ -133,13 +133,20 @@ void SearchLogic::searchVec()
 * and MAC addresses
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath, std::string stringToFind,
-    std::string stringInFile)
+    std::string stringInFile, std::map<int,FILE> &fileMap)
  {
     std::fstream in;
+    FILE f;
+    std::map<int, FILE>::iterator it = fileMap.begin();
     in.open(correspPath, std::ios::in);
-    while(in >> stringInFile)
+    while(it != fileMap.end())
+    //for(auto& it->second : tempStorage)
     {
+      //int i = it->first;
+      f = it->second;
+      in >> stringInFile;
       tempStorage.push_back(stringInFile);
+      it++;
     }
     while(in.is_open())
     {
