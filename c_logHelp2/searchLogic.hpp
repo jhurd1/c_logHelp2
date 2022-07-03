@@ -18,7 +18,6 @@ class SearchLogic
         std::string newPath;
         std::vector<std::string> tempStorage;
         Search search;
-        std::map<int, FILE>& fileMap;
 
     public:
         void setcorrespPath(std::string correspPath);
@@ -34,14 +33,14 @@ class SearchLogic
         std::string getLine() const;
         std::string getnewPath() const;
         
-        SearchLogic(std::map<int,FILE> &fileMap);
-        SearchLogic(std::string correspPath, std::map<int,FILE> &fileMap);
+        SearchLogic();
+        SearchLogic(std::string correspPath);
         SearchLogic(std::string correspPath, std::string stringToFind,
-            std::string stringInFile, std::map<int,FILE> &fileMap);
+            std::string stringInFile);
         //~SearchLogic();
         void searchVec();
         void pushTheLines(std::string correspPath, std::string stringToFind,
-            std::string stringInFile, std::map<int,FILE> &fileMap);
+            std::string stringInFile);
         void writeToFile();
 };
 #endif

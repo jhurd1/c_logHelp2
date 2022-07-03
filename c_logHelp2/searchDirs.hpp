@@ -20,10 +20,10 @@ class SearchDirs
    DIR *dirs;
    std::string correspPath;
    std::string stringToFind;
-   std::map<int, FILE>* fileMap;
+   //std::map<int, FILE>* fileMap;
    std::vector<std::string> fileNames;
    std::string stringInFile;
-   FILE *f;
+   //FILE *f;
    
  public:
   SearchLogic s;

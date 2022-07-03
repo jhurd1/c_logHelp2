@@ -12,26 +12,25 @@
 *******************************/
 
 // default
-SearchLogic::SearchLogic(std::map<int,FILE> &fileMap) : fileMap(fileMap)
+SearchLogic::SearchLogic()
 {
     correspPath = "";
     stringToFind = "";
 }
 
 // non-default #1
-SearchLogic::SearchLogic(std::string corresppath, std::map<int, FILE> &fileMap) : fileMap(fileMap)
+SearchLogic::SearchLogic(std::string corresppath)
 {
     setcorrespPath(correspPath);
 }
 
 // non-default #2
 SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
-    std::string stringInFile, std::map<int, FILE>& fileMap) : fileMap(fileMap)
+    std::string stringInFile)
 {
     setcorrespPath(correspPath);
     setstringToFind(stringToFind);
     setStringInFile(stringInFile);
-    this->fileMap = fileMap;
 }
 
 /* *******************************
@@ -133,20 +132,13 @@ void SearchLogic::searchVec()
 * and MAC addresses
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath, std::string stringToFind,
-    std::string stringInFile, std::map<int,FILE> &fileMap)
+    std::string stringInFile)
  {
     std::fstream in;
-    FILE f;
-    std::map<int, FILE>::iterator it = fileMap.begin();
     in.open(correspPath, std::ios::in);
-    while(it != fileMap.end())
-    //for(auto& it->second : tempStorage)
+    while(in >> stringInFile)
     {
-      //int i = it->first;
-      f = it->second;
-      in >> stringInFile;
       tempStorage.push_back(stringInFile);
-      it++;
     }
     while(in.is_open())
     {

@@ -91,16 +91,15 @@ SearchDirs::SearchDirs(SearchLogic s) : s(s)
     std::filesystem::file_status stat;
     if(std::filesystem::exists(stat)) // if it's a file
     {
-     fileMap->insert(std::pair<int, FILE>()); // dump the file in the map
+     
+     
     }
    } else
    {
-     // grab the files outside subdirectories
-     // and put them in the map, too
-    fileMap->insert(std::pair<int, FILE>());
+     
    }
-   SearchLogic sl(*fileMap);
-   sl.pushTheLines(correspPath, stringToFind, stringInFile, *fileMap);
+   SearchLogic sl(correspPath);
+   sl.pushTheLines(correspPath, stringToFind, stringInFile);
   }
   }
   closedir(dirs);
