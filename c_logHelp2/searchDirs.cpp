@@ -12,7 +12,7 @@
 struct dirent * contents;
 
 //CONSTRUCTORS
-SearchDirs::SearchDirs(SearchLogic s) : s(s)
+SearchDirs::SearchDirs()
 {
  
 }
@@ -22,7 +22,8 @@ SearchDirs::SearchDirs(SearchLogic s) : s(s)
   setcorrespPath(correspPath);
  }
  
- SearchDirs::SearchDirs(std::string correspPath, std::string stringToFind, SearchLogic s) : s(s)
+ SearchDirs::SearchDirs(std::string correspPath, std::string stringToFind,
+  SearchLogic s) : s(s)
  {
   setcorrespPath(correspPath);
   setstringtoFind(stringToFind);
@@ -48,6 +49,11 @@ SearchDirs::SearchDirs(SearchLogic s) : s(s)
   this->stringInFile = s.getstringInFile();
  }
  
+ void SearchDirs::setfilename(std::string filename)
+ {
+  this->filename = filename;
+ }
+ 
  //ACCESSORS
  std::string SearchDirs::getcorrespPath() const
  {
@@ -66,13 +72,18 @@ SearchDirs::SearchDirs(SearchLogic s) : s(s)
   return stringInFile;
  }
  
+ std::string SearchDirs::getfilename() const
+ {
+  return filename;
+ }
+ 
  /* **********************************
 * DIRCONTENTS
 * Take the search path
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind, std::vector<std::string> fileNames)
+ std::vector<std::string> SearchDirs::dirContents(std::string correspPath, std::string stringToFind, std::vector<std::string> fileNames)
  {
   char* c_arr;
   c_arr = &correspPath[0];
@@ -80,7 +91,6 @@ SearchDirs::SearchDirs(SearchLogic s) : s(s)
   if(!dirs)
   {
    std::cout << "failed to open dir";
-   return;
   }
   while((contents = readdir(dirs))!=NULL)
   {
@@ -91,16 +101,18 @@ SearchDirs::SearchDirs(SearchLogic s) : s(s)
     std::filesystem::file_status stat;
     if(std::filesystem::exists(stat)) // if it's a file
     {
-     
-     
+     filename = contents->d_name;
+     std::cout << "\n" << filename;
+     fileNames.push_back(filename);
     }
    } else
    {
-     
+     fileNames.push_back(filename);
    }
    SearchLogic sl(correspPath);
-   sl.pushTheLines(correspPath, stringToFind, stringInFile);
+   sl.pushTheLines(correspPath, fileNames, stringInFile);
   }
   }
   closedir(dirs);
+  return fileNames; // might be able to keep function as void
  }

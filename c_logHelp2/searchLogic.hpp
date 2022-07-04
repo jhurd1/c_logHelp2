@@ -39,7 +39,7 @@ class SearchLogic
             std::string stringInFile);
         //~SearchLogic();
         void searchVec();
-        void pushTheLines(std::string correspPath, std::string stringToFind,
+        void pushTheLines(std::string correspPath, std::vector<std::string> fileNames,
             std::string stringInFile);
         void writeToFile();
 };

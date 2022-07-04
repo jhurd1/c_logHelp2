@@ -131,12 +131,14 @@ void SearchLogic::searchVec()
 * Calls overwriteContent() to overwrite IPs
 * and MAC addresses
 ***************************************/
- void SearchLogic::pushTheLines(std::string correspPath, std::string stringToFind,
+ void SearchLogic::pushTheLines(std::string correspPath, std::vector<std::string> fileNames,
     std::string stringInFile)
  {
     std::fstream in;
     in.open(correspPath, std::ios::in);
-    while(in >> stringInFile)
+    for(auto it = fileNames.begin(); it != fileNames.end(); ++it)
+    {
+     while(in >> stringInFile)
     {
       tempStorage.push_back(stringInFile);
     }
@@ -144,5 +146,6 @@ void SearchLogic::searchVec()
     {
       searchVec();
       in.close();
+    }
     }
  }

@@ -12,7 +12,7 @@ int main()
     SearchDirs searchDirs;
     std::string correspPath;
     std::string stringToFind;
-    //std::string stringInFile;
+    std::vector<std::string> fileNames;
 
 
     std::cout << "file path to search: ";
@@ -20,7 +20,7 @@ int main()
     std::cout << "string to search: ";
     std::cin >> stringToFind;
     
- searchDirs.dirContents(correspPath, stringToFind);
+ searchDirs.dirContents(correspPath, stringToFind, fileNames);
     
    return 0;
 }
