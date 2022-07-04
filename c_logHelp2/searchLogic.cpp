@@ -108,21 +108,18 @@ void SearchLogic::searchVec()
       std::smatch match;
     
       if((std::regex_match(tempStorage[i], r)) || (std::regex_match(tempStorage[i], m)))
-    {
-     replacement = " REDACTED ";
-     tempStorage[i] = replacement;
+       {
+        replacement = " REDACTED ";
+        tempStorage[i] = replacement;
+       }
+     }
     }
-      //index += 1;
-      //SearchDirs d;
-      //d.dirContents(correspPath, stringToFind);
+   }
       std::cout << "Which path (including the file name) would you like the output written to?" << "\n" << std::endl;
       std::cin >> newPath;
       std::ofstream out(newPath);
       std::ostream_iterator<std::string> oi(out, "\n");
       std::copy(tempStorage.begin(), tempStorage.end(), oi);
-     }
-    }
-   }
   }
 
 /* **********************************
@@ -131,13 +128,11 @@ void SearchLogic::searchVec()
 * Calls overwriteContent() to overwrite IPs
 * and MAC addresses
 ***************************************/
- void SearchLogic::pushTheLines(std::string correspPath, std::vector<std::string> fileNames,
+ void SearchLogic::pushTheLines(std::string correspPath,
     std::string stringInFile)
  {
     std::fstream in;
     in.open(correspPath, std::ios::in);
-    for(auto it = fileNames.begin(); it != fileNames.end(); ++it)
-    {
      while(in >> stringInFile)
     {
       tempStorage.push_back(stringInFile);
@@ -147,5 +142,4 @@ void SearchLogic::searchVec()
       searchVec();
       in.close();
     }
-    }
- }
+   }

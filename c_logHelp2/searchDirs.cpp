@@ -83,36 +83,36 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- std::vector<std::string> SearchDirs::dirContents(std::string correspPath, std::string stringToFind, std::vector<std::string> fileNames)
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
   char* c_arr;
   c_arr = &correspPath[0];
   dirs = opendir(c_arr);
+  //bool flag = true;
   if(!dirs)
   {
    std::cout << "failed to open dir";
   }
-  while((contents = readdir(dirs))!=NULL)
-  {
-  for(auto itEntry = std::filesystem::recursive_directory_iterator(correspPath); itEntry != std::filesystem::recursive_directory_iterator(); ++itEntry) // recurse subdirectories once each
-  {
-   if(itEntry->is_directory()) // if it's a directory
+   for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
    {
-    std::filesystem::file_status stat;
-    if(std::filesystem::exists(stat)) // if it's a file
+    // place an 'if it's a directory' condition
+    if(contents->d_type == DT_DIR)
     {
-     filename = contents->d_name;
-     std::cout << "\n" << filename;
-     fileNames.push_back(filename);
+     for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
+     {
+      filename = contents->d_name;
+      correspPath.append(filename);
+      //correspPath.erase(); //should pop off the top char in the string stack
+      std::cout << correspPath;
+     }
     }
-   } else
-   {
-     fileNames.push_back(filename);
+     /*filename = contents->d_name;
+     correspPath.append(filename);
+     correspPath.erase(); //should pop off the top char in the string stack*/
+     std::cout << correspPath;
+     dirContents(correspPath, stringToFind);
+     //SearchLogic sl(correspPath);
+     //sl.pushTheLines(correspPath, stringInFile);
    }
-   SearchLogic sl(correspPath);
-   sl.pushTheLines(correspPath, fileNames, stringInFile);
+   closedir(dirs);
   }
-  }
-  closedir(dirs);
-  return fileNames; // might be able to keep function as void
- }

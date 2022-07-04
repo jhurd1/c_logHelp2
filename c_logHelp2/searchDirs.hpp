@@ -20,11 +20,8 @@ class SearchDirs
    DIR *dirs;
    std::string correspPath;
    std::string stringToFind;
-   //std::map<int, FILE>* fileMap;
-   std::vector<std::string> fileNames;
    std::string stringInFile;
    std::string filename;
-   //FILE *f;
    
  public:
   SearchLogic s;
@@ -42,7 +39,7 @@ class SearchDirs
   std::string getstringInFile() const;
   std::string getfilename() const;
   
-  std::vector<std::string> dirContents(std::string correspPath, std::string stringToFind, std::vector<std::string> fileNames);
+  void dirContents(std::string correspPath, std::string stringToFind);
 };
 
 #endif /* searchDirs_hpp */
