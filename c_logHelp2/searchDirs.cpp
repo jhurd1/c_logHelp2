@@ -93,15 +93,13 @@ SearchDirs::SearchDirs()
   {
    std::cout << "failed to open dir";
   }
-   for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
+  contents = readdir(dirs);
+   while(contents != NULL)
+   //for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
    {
-    // If it's a directory
-    if(contents->d_type == DT_DIR)
-    {
-     for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
-     {
-      filename = contents->d_name;
-       if((filename != ".") && (filename != "..") && (filename != ".DS_Store") && (contents->d_type != DT_DIR))
+       filename = contents->d_name;
+       if(contents->d_type == DT_DIR && strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, "DS_Store") != 0)
+       //if((filename != ".") && (filename != "..") && (filename != ".DS_Store") && (contents->d_type != DT_DIR))
        {
         correspPath = std::strcat(c_arr, contents->d_name);
         //correspPath.append("/"); //append appears to pop the first char, actually deleting the file operator "/"
@@ -111,13 +109,5 @@ SearchDirs::SearchDirs()
         sl.pushTheLines(correspPath, stringInFile);
         }
        }
-     }
-    else
-    {
-     filename = contents->d_name;
-     correspPath.append(filename);
-     std::cout << correspPath << " entails an empty directory." << std::endl;
-    }
     closedir(dirs);
    }
-  }
