@@ -101,22 +101,23 @@ SearchDirs::SearchDirs()
      for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
      {
       filename = contents->d_name;
-       if(filename != "." || filename != ".. ")
+       if((filename != ".") && (filename != "..") && (filename != ".DS_Store") && (contents->d_type != DT_DIR))
        {
-        correspPath.append(filename);
+        correspPath = std::strcat(c_arr, contents->d_name);
+        //correspPath.append("/"); //append appears to pop the first char, actually deleting the file operator "/"
+        //correspPath = std::strcat(c_arr, "/");
         std::cout << correspPath;
         SearchLogic sl(correspPath);
         sl.pushTheLines(correspPath, stringInFile);
-        //dirContents(correspPath, stringToFind); // recursion because auto-recurse didn't work w/ filesystem
+        }
        }
      }
-    }
     else
     {
      filename = contents->d_name;
      correspPath.append(filename);
      std::cout << correspPath << " entails an empty directory." << std::endl;
     }
+    closedir(dirs);
    }
-   closedir(dirs);
   }
