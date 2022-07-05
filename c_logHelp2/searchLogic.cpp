@@ -115,7 +115,7 @@ void SearchLogic::searchVec()
      }
     }
    }
-      std::cout << "Which path (including the file name) would you like the output written to?" << "\n" << std::endl;
+      std::cout << "Which path (including the file name) would you like the output written to?" << std::endl;
       std::cin >> newPath;
       std::ofstream out(newPath);
       std::ostream_iterator<std::string> oi(out, "\n");
@@ -133,13 +133,21 @@ void SearchLogic::searchVec()
  {
     std::fstream in;
     in.open(correspPath, std::ios::in);
+    
      while(in >> stringInFile)
     {
       tempStorage.push_back(stringInFile);
     }
     while(in.is_open())
     {
-      searchVec();
+     in.seekg(0, std::ios::end);
+     if(in.tellg() == 0) // if it's empty, don't call search on it
+     {
       in.close();
+     } else // otherwise, call search on it
+     {
+       searchVec();
+       in.close();
+     }
     }
    }

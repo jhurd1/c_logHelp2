@@ -95,24 +95,28 @@ SearchDirs::SearchDirs()
   }
    for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
    {
-    // place an 'if it's a directory' condition
+    // If it's a directory
     if(contents->d_type == DT_DIR)
     {
      for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
      {
       filename = contents->d_name;
-      correspPath.append(filename);
-      //correspPath.erase(); //should pop off the top char in the string stack
-      std::cout << correspPath;
+       if(filename != "." || filename != ".. ")
+       {
+        correspPath.append(filename);
+        std::cout << correspPath;
+        SearchLogic sl(correspPath);
+        sl.pushTheLines(correspPath, stringInFile);
+        //dirContents(correspPath, stringToFind); // recursion because auto-recurse didn't work w/ filesystem
+       }
      }
     }
-     /*filename = contents->d_name;
+    else
+    {
+     filename = contents->d_name;
      correspPath.append(filename);
-     correspPath.erase(); //should pop off the top char in the string stack*/
-     std::cout << correspPath;
-     dirContents(correspPath, stringToFind);
-     //SearchLogic sl(correspPath);
-     //sl.pushTheLines(correspPath, stringInFile);
+     std::cout << correspPath << " entails an empty directory." << std::endl;
+    }
    }
    closedir(dirs);
   }
