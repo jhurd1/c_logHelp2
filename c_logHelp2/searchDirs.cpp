@@ -99,26 +99,42 @@ SearchDirs::SearchDirs()
 ***************************************/
  void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
-  char* c_arr;
+  /*char* c_arr;
   c_arr = &correspPath[0];
   dirs = opendir(c_arr);
   
   if(!dirs)
   {
    std::cout << "failed to open dir";
-  }
-  // this loop is only touching the top most layer of dirs, not touching any files
-   for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
+  }*/
+   //for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
+   //using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
+   for(auto const& entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
-       if(/*contents->d_type == DT_DIR &&*/ strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, ".DS_Store") != 0)
-       {
-         //std::string temppath = std::strcat(c_arr, contents->d_name); // store the path in a temp string
-         //std::string temppath = std::filesystem::path(correspPath).filename();
-         std::cout << correspPath;
-         SearchLogic sl(correspPath);
-         sl.pushTheLines(correspPath, stringInFile);
-         //std::swap(temppath, correspPath);
+       /*if(contents->d_type == DT_DIR && strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, ".DS_Store") != 0)*/
+     //if(entry.path() != correspPath + ".DS_Store")
+     {
+        std::cout << entry.path() << std::endl;
+        std::filesystem::file_status s;
+        switch(s.type())
+        {
+        case std::filesystem::file_type::regular:
+         {
+          std::cout << correspPath;
+          SearchLogic sl(correspPath);
+          sl.pushTheLines(correspPath, stringInFile);
+          break;
+         }
+        case std::filesystem::file_type::directory:
+         {
+          break;
+         }
+         default:
+          {
+          break;
         }
        }
-    closedir(dirs);
-   }
+      }
+     }
+    }
+    
