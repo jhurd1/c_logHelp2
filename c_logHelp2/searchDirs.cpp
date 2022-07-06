@@ -108,33 +108,17 @@ SearchDirs::SearchDirs()
    std::cout << "failed to open dir";
   }*/
    //for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
-   //using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
    for(auto const& entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
-       /*if(contents->d_type == DT_DIR && strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, ".DS_Store") != 0)*/
-     //if(entry.path() != correspPath + ".DS_Store")
+     std::cout << entry.path() << std::endl;
+     if(entry.path().extension().string() == ".txt")
      {
-        std::cout << entry.path() << std::endl;
         std::filesystem::file_status s;
-        switch(s.type())
-        {
-        case std::filesystem::file_type::regular:
-         {
-          std::cout << correspPath;
-          SearchLogic sl(correspPath);
-          sl.pushTheLines(correspPath, stringInFile);
-          break;
-         }
-        case std::filesystem::file_type::directory:
-         {
-          break;
-         }
-         default:
-          {
-          break;
-        }
+        std::cout << correspPath;
+        SearchLogic sl(correspPath);
+        sl.pushTheLines(correspPath, stringInFile);
+        
        }
       }
      }
-    }
     
