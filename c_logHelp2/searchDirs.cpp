@@ -110,13 +110,15 @@ SearchDirs::SearchDirs()
    //for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
    for(auto const& entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
+     
      std::cout << entry.path() << std::endl;
      if(entry.path().extension().string() == ".txt")
      {
-        std::filesystem::file_status s;
-        std::cout << correspPath;
-        SearchLogic sl(correspPath);
-        sl.pushTheLines(correspPath, stringInFile);
+        std::string temppath;
+        temppath = entry.path().string();
+        std::cout << temppath;
+        SearchLogic sl(temppath);
+        sl.pushTheLines(temppath, stringInFile);
         
        }
       }

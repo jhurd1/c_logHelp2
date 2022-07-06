@@ -137,18 +137,18 @@ void SearchLogic::searchVec()
      {
       tempStorage.push_back(stringInFile);
      }
-     while(in.is_open())
-     {
-      in.seekg(0, std::ios::end);
-      if(in.tellg() == 0) // if it's empty, don't call search on it
-      {
-       in.close();
-      } else // otherwise, call search on it
-      {
+     //while(in.is_open())
+     //{
+      //in.seekg(0, std::ios::end);
+      //if(in.tellg() == 0) // if it's empty, don't call search on it
+      //{
+       //in.close();
+      //} else // otherwise, call search on it
+      //{
        searchVec();
        in.close();
        //SearchDirs sd;
        //sd.dirContents(correspPath, stringToFind);
      }
-    }
-   }
+    //}
+   //}
