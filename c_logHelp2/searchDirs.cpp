@@ -77,6 +77,11 @@ SearchDirs::SearchDirs()
   return filename;
  }
  
+ void seeFiles(const char* filename)
+ {
+  
+ }
+ 
  /* **********************************
 * DIRCONTENTS
 * Take the search path
@@ -85,28 +90,43 @@ SearchDirs::SearchDirs()
 ***************************************/
  void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
-  char* c_arr;
+  /*char* c_arr;
   c_arr = &correspPath[0];
   dirs = opendir(c_arr);
-  //bool flag = true;
   if(!dirs)
   {
    std::cout << "failed to open dir";
   }
-  contents = readdir(dirs);
-   while(contents != NULL)
-   //for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
+   for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
    {
        filename = contents->d_name;
        if(contents->d_type == DT_DIR && strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, "DS_Store") != 0)
-       //if((filename != ".") && (filename != "..") && (filename != ".DS_Store") && (contents->d_type != DT_DIR))
        {
-        correspPath = std::strcat(c_arr, contents->d_name);
-        //correspPath.append("/"); //append appears to pop the first char, actually deleting the file operator "/"
-        //correspPath = std::strcat(c_arr, "/");
-        std::cout << correspPath;
-        SearchLogic sl(correspPath);
-        sl.pushTheLines(correspPath, stringInFile);
+        if(contents->d_type != DT_DIR) // it's treating test.txt like it's a dir
+        {
+         std::string temppath = std::strcat(c_arr, contents->d_name);
+         // can't use memset on pointers
+         std::cout << temppath;
+         SearchLogic sl(temppath);
+         sl.pushTheLines(temppath, stringInFile);
+        }
+        
+        }
+       }*/
+       char * path;
+       path = &correspPath[0];
+       dirs = opendir(path);
+       while(contents != NULL)
+       {
+        if(contents->d_type == DT_DIR && strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, "DS_Store") != 0)
+        {
+         char * othername;
+         othername = &filename[0];
+         strcat(path, othername);
+         strcat(path, "/");
+         strcat(path, contents->d_name);
+         SearchLogic sl(path);
+         sl.pushTheLines(path, stringInFile);
         }
        }
     closedir(dirs);
