@@ -82,6 +82,15 @@ SearchDirs::SearchDirs()
   
  }
  
+ std::optional<std::string> StringFactory(bool oneOr, std::string correspPath)
+  {
+   if(oneOr)
+   {
+    return correspPath;
+   }
+   return {};
+  }
+ 
  /* **********************************
 * DIRCONTENTS
 * Take the search path
@@ -90,43 +99,25 @@ SearchDirs::SearchDirs()
 ***************************************/
  void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
-  /*char* c_arr;
+  char* c_arr;
   c_arr = &correspPath[0];
   dirs = opendir(c_arr);
+  
   if(!dirs)
   {
    std::cout << "failed to open dir";
   }
+  // this loop is only touching the top most layer of dirs, not touching any files
    for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
    {
-       filename = contents->d_name;
-       if(contents->d_type == DT_DIR && strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, "DS_Store") != 0)
+       if(/*contents->d_type == DT_DIR &&*/ strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, ".DS_Store") != 0)
        {
-        if(contents->d_type != DT_DIR) // it's treating test.txt like it's a dir
-        {
-         std::string temppath = std::strcat(c_arr, contents->d_name);
-         // can't use memset on pointers
-         std::cout << temppath;
-         SearchLogic sl(temppath);
-         sl.pushTheLines(temppath, stringInFile);
-        }
-        
-        }
-       }*/
-       char * path;
-       path = &correspPath[0];
-       dirs = opendir(path);
-       while(contents != NULL)
-       {
-        if(contents->d_type == DT_DIR && strcmp(contents->d_name, ".") != 0 && strcmp(contents->d_name, "..") != 0 && strcmp(contents->d_name, "DS_Store") != 0)
-        {
-         char * othername;
-         othername = &filename[0];
-         strcat(path, othername);
-         strcat(path, "/");
-         strcat(path, contents->d_name);
-         SearchLogic sl(path);
-         sl.pushTheLines(path, stringInFile);
+         //std::string temppath = std::strcat(c_arr, contents->d_name); // store the path in a temp string
+         //std::string temppath = std::filesystem::path(correspPath).filename();
+         std::cout << correspPath;
+         SearchLogic sl(correspPath);
+         sl.pushTheLines(correspPath, stringInFile);
+         //std::swap(temppath, correspPath);
         }
        }
     closedir(dirs);

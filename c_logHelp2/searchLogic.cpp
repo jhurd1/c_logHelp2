@@ -5,7 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <regex>
-//#include "searchDirs.hpp"
+#include "searchDirs.hpp"
 
 /* ***************************
 * CONSTRUCTORS
@@ -111,15 +111,15 @@ void SearchLogic::searchVec()
        {
         replacement = " REDACTED ";
         tempStorage[i] = replacement;
+        std::cout << "Which path (including the file name) would you like the output written to?" << std::endl;
+        std::cin >> newPath;
+        std::ofstream out(newPath);
+        std::ostream_iterator<std::string> oi(out, "\n");
+        std::copy(tempStorage.begin(), tempStorage.end(), oi);
        }
      }
     }
    }
-      std::cout << "Which path (including the file name) would you like the output written to?" << std::endl;
-      std::cin >> newPath;
-      std::ofstream out(newPath);
-      std::ostream_iterator<std::string> oi(out, "\n");
-      std::copy(tempStorage.begin(), tempStorage.end(), oi);
   }
 
 /* **********************************
@@ -133,21 +133,22 @@ void SearchLogic::searchVec()
  {
     std::fstream in;
     in.open(correspPath, std::ios::in);
-    
-     while(in >> stringInFile)
-    {
+     while(in >> stringInFile) //when we come to test.txt, we're not opening it here for some reason
+     {
       tempStorage.push_back(stringInFile);
-    }
-    while(in.is_open())
-    {
-     in.seekg(0, std::ios::end);
-     if(in.tellg() == 0) // if it's empty, don't call search on it
+     }
+     while(in.is_open())
      {
-      in.close();
-     } else // otherwise, call search on it
-     {
+      in.seekg(0, std::ios::end);
+      if(in.tellg() == 0) // if it's empty, don't call search on it
+      {
+       in.close();
+      } else // otherwise, call search on it
+      {
        searchVec();
        in.close();
+       //SearchDirs sd;
+       //sd.dirContents(correspPath, stringToFind);
      }
     }
    }
