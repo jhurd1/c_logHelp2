@@ -17,6 +17,7 @@ class SearchLogic
         std::string line;
         std::string newPath;
         std::vector<std::string> tempStorage;
+        std::vector<std::string> lineStorage;
         Search search;
 
     public:
@@ -38,7 +39,7 @@ class SearchLogic
         SearchLogic(std::string correspPath, std::string stringToFind,
             std::string stringInFile);
         //~SearchLogic();
-        void searchVec();
+        void searchVec(std::string stringToFind);
         void pushTheLines(std::string correspPath,
             std::string stringInFile);
         void writeToFile();

@@ -60,11 +60,9 @@ SearchDirs::SearchDirs()
   return s.getcorrespPath();
  }
  
- /*******CONSTRAST THIS TO GETCORRESPPATH ABOVE********/
  std::string SearchDirs::getstringtoFind() const
  {
-  return stringToFind; /**Do we need to call
-  s.getcorrespPath() or will the var alone do it?**/
+  return stringToFind;
  }
  
  std::string SearchDirs::getstringInFile() const
@@ -82,15 +80,6 @@ SearchDirs::SearchDirs()
   
  }
  
- std::optional<std::string> StringFactory(bool oneOr, std::string correspPath)
-  {
-   if(oneOr)
-   {
-    return correspPath;
-   }
-   return {};
-  }
- 
  /* **********************************
 * DIRCONTENTS
 * Take the search path
@@ -99,18 +88,8 @@ SearchDirs::SearchDirs()
 ***************************************/
  void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
-  /*char* c_arr;
-  c_arr = &correspPath[0];
-  dirs = opendir(c_arr);
-  
-  if(!dirs)
-  {
-   std::cout << "failed to open dir";
-  }*/
-   //for(contents = readdir(dirs); contents != NULL; contents = readdir(dirs))
    for(auto const& entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
-     
      std::cout << entry.path() << std::endl;
      if(entry.path().extension().string() == ".txt")
      {
@@ -119,7 +98,6 @@ SearchDirs::SearchDirs()
         std::cout << temppath;
         SearchLogic sl(temppath);
         sl.pushTheLines(temppath, stringInFile);
-        
        }
       }
      }

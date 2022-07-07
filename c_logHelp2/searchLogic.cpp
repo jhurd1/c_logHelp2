@@ -74,7 +74,7 @@ std::string SearchLogic::getstringToFind() const
 
 std::string SearchLogic::getstringInFile() const // the predecessor or caller is from replaceDatString
 {
-    return stringInFile; // bad access because it's NULL
+    return stringInFile;
 }
 
 std::string SearchLogic::getLine() const
@@ -86,6 +86,11 @@ std::string SearchLogic::getnewPath() const
  {
   return newPath;
  }
+ 
+ bool wanted(const std::string &line, std::string stringToFind)
+ {
+  return (line.find(stringToFind) != std::string::npos);
+ }
 
 /* **********************************
 * SEARCHVEC
@@ -93,15 +98,16 @@ std::string SearchLogic::getnewPath() const
 * Make the call to overwrite the string
 * Write to the new file
 ***************************************/
-void SearchLogic::searchVec()
+void SearchLogic::searchVec(std::string stringToFind)
 {
   int index = 1;
+  //bool wanted(const std::string &line);
   while(index < tempStorage.size())
   {
     for(unsigned int i = 0; i < tempStorage.size(); i++)
     {
      index += 1;
-     if(tempStorage[i].compare(stringToFind))
+     if(tempStorage[i] == stringToFind)
      {
       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
       std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
@@ -109,13 +115,22 @@ void SearchLogic::searchVec()
     
       if((std::regex_match(tempStorage[i], r)) || (std::regex_match(tempStorage[i], m)))
        {
+        std::string line;
         replacement = " REDACTED ";
         tempStorage[i] = replacement;
-        std::cout << "Which path (including the file name) would you like the output written to?" << std::endl;
-        std::cin >> newPath;
-        std::ofstream out(newPath);
-        std::ostream_iterator<std::string> oi(out, "\n");
-        std::copy(tempStorage.begin(), tempStorage.end(), oi);
+        for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line)
+        {
+         for (auto word = tempStorage.begin(); word != tempStorage.end(); ++word)
+         {
+          if (line->find(*word) != std::string::npos)
+          {
+           std::ofstream out("/new.txt");
+           std::ostream_iterator<std::string> oi(out, "\n");
+           std::copy(tempStorage.begin(), tempStorage.end(), oi); // modify this one to capture only the line we want
+           std::copy(lineStorage.begin(), lineStorage.end(), oi); // you must now find the stringToFind in other vec and overwrite
+          }
+         }
+        }
        }
      }
     }
@@ -132,23 +147,25 @@ void SearchLogic::searchVec()
     std::string stringInFile)
  {
     std::fstream in;
-    in.open(correspPath, std::ios::in);
-     while(in >> stringInFile) //when we come to test.txt, we're not opening it here for some reason
+    std::string line;
+  try
+  {
+     in.open(correspPath, std::ios::in);
+     while(in >> stringInFile)
      {
       tempStorage.push_back(stringInFile);
      }
-     //while(in.is_open())
-     //{
-      //in.seekg(0, std::ios::end);
-      //if(in.tellg() == 0) // if it's empty, don't call search on it
-      //{
-       //in.close();
-      //} else // otherwise, call search on it
-      //{
-       searchVec();
-       in.close();
-       //SearchDirs sd;
-       //sd.dirContents(correspPath, stringToFind);
+     while(getline(in, line))
+     {
+      if(wanted(line, stringToFind))
+      {
+       lineStorage.push_back(line);
+      }
      }
-    //}
-   //}
+     } catch (std::exception& e)
+     {
+      std::cout << "Error opening file." << std::endl;
+     }
+       searchVec(stringToFind);
+       in.close();
+    }
