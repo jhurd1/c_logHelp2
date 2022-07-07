@@ -100,13 +100,12 @@ std::string SearchLogic::getnewPath() const
 ***************************************/
 void SearchLogic::searchVec(std::string stringToFind)
 {
-  int index = 1;
-  //bool wanted(const std::string &line);
-  while(index < tempStorage.size())
-  {
-    for(unsigned int i = 0; i < tempStorage.size(); i++)
+  //int index = 1;
+  std::string line;
+  int i = 0;
+  for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line)
     {
-     index += 1;
+     for (auto word = tempStorage.begin(); word != tempStorage.end(); ++word) //use cbegin() if you want it const
      if(tempStorage[i] == stringToFind)
      {
       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
@@ -115,27 +114,23 @@ void SearchLogic::searchVec(std::string stringToFind)
     
       if((std::regex_match(tempStorage[i], r)) || (std::regex_match(tempStorage[i], m)))
        {
-        std::string line;
+        
         replacement = " REDACTED ";
         tempStorage[i] = replacement;
-        for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line)
-        {
-         for (auto word = tempStorage.begin(); word != tempStorage.end(); ++word)
+        
          {
           if (line->find(*word) != std::string::npos)
           {
            std::ofstream out("/new.txt");
            std::ostream_iterator<std::string> oi(out, "\n");
-           std::copy(tempStorage.begin(), tempStorage.end(), oi); // modify this one to capture only the line we want
-           std::copy(lineStorage.begin(), lineStorage.end(), oi); // you must now find the stringToFind in other vec and overwrite
-          }
+           std::copy(tempStorage.begin(), tempStorage.end(), oi);
+           std::copy(lineStorage.begin(), lineStorage.end(), oi);
          }
         }
-       }
+      }
      }
     }
    }
-  }
 
 /* **********************************
 * SEARCHLOGIC
@@ -155,7 +150,7 @@ void SearchLogic::searchVec(std::string stringToFind)
      {
       tempStorage.push_back(stringInFile);
      }
-     while(getline(in, line))
+     while(std::getline(in, line)) // The program does not enter this block.
      {
       if(wanted(line, stringToFind))
       {

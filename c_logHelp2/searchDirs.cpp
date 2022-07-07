@@ -88,10 +88,11 @@ SearchDirs::SearchDirs()
 ***************************************/
  void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
-   for(auto const& entry : std::filesystem::recursive_directory_iterator(correspPath))
+  try {
+   for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
      std::cout << entry.path() << std::endl;
-     if(entry.path().extension().string() == ".txt")
+     if(entry.path().extension().string() == ".txt" /*|| entry.path().extension().string() == ".docx"*/) //Skip over the docx for testing, for now
      {
         std::string temppath;
         temppath = entry.path().string();
@@ -100,5 +101,10 @@ SearchDirs::SearchDirs()
         sl.pushTheLines(temppath, stringInFile);
        }
       }
-     }
+  } catch (std::exception &e)
+  {
+   std::cout << "Recursive iteration failed" << std::endl;
+   std::cout << "This is likely because you didn't place a slash ahead of the path" << std::endl;
+  }
+ }
     
