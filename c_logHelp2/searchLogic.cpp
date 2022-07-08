@@ -104,7 +104,7 @@ void SearchLogic::searchVec(std::string stringToFind)
   //int index = 1;
   std::string line;
   int i = 0;
-  for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line)
+  for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line) // we've already filtered line with wanted()
     {
      for (auto word = tempStorage.begin(); word != tempStorage.end(); ++word) //use cbegin() if you want it const
      if(tempStorage[i] == stringToFind)
@@ -115,25 +115,16 @@ void SearchLogic::searchVec(std::string stringToFind)
     
       if((std::regex_match(tempStorage[i], r)) || (std::regex_match(tempStorage[i], m)))
        {
-        
         replacement = " REDACTED ";
         tempStorage[i] = replacement;
-        
-         {
-          if (line->find(*word) != std::string::npos) // The program does not enter this block.
-          // It doesn't enter because the word has been redacted by this point,
-          // so it will never match anything!
-          {
-           std::ofstream out("/new.txt");
-           std::ostream_iterator<std::string> oi(out, "\n");
-           std::copy(tempStorage.begin(), tempStorage.end(), oi);
-           std::copy(lineStorage.begin(), lineStorage.end(), oi);
-         }
-        }
+        std::ofstream out("/new.txt");
+        std::ostream_iterator<std::string> oi(out, "\n");
+        std::copy(tempStorage.begin(), tempStorage.end(), oi);
+        std::copy(lineStorage.begin(), lineStorage.end(), oi);
+       }
       }
      }
     }
-   }
 
 /* **********************************
 * SEARCHLOGIC
@@ -157,16 +148,17 @@ void SearchLogic::searchVec(std::string stringToFind)
      {
       std::stringstream ss(line);
       ss >> word;
-      /*if(wanted(line, stringToFind))
+      
+      if(wanted(line, stringToFind) && (word == stringToFind)) // We are now capturing the entire line; ss >> line was treating "line" as a single word
       {
        lineStorage.push_back(line);
-      }*/
-      if(word == stringToFind)
-      {
-       ss >> line;
-       lineStorage.push_back(line);
-       tempStorage.push_back(stringToFind);
+       tempStorage.push_back(word);  // Okay, we are now pushing in the line containing a match thanks to bool wanted()
       }
+      /*if(word == stringToFind)
+      {
+       //ss >> line;
+       tempStorage.push_back(stringToFind);
+      }*/
      }
      } catch (std::exception& e)
      {
