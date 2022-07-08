@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <regex>
 #include "searchDirs.hpp"
@@ -119,7 +120,9 @@ void SearchLogic::searchVec(std::string stringToFind)
         tempStorage[i] = replacement;
         
          {
-          if (line->find(*word) != std::string::npos)
+          if (line->find(*word) != std::string::npos) // The program does not enter this block.
+          // It doesn't enter because the word has been redacted by this point,
+          // so it will never match anything!
           {
            std::ofstream out("/new.txt");
            std::ostream_iterator<std::string> oi(out, "\n");
@@ -139,22 +142,30 @@ void SearchLogic::searchVec(std::string stringToFind)
 * and MAC addresses
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath,
-    std::string stringInFile)
+    std::string stringInFile, std::string stringToFind)
  {
     std::fstream in;
-    std::string line;
+    std::string line, word;
   try
   {
      in.open(correspPath, std::ios::in);
-     while(in >> stringInFile)
+     /*while(in >> stringInFile)
      {
       tempStorage.push_back(stringInFile);
-     }
-     while(std::getline(in, line)) // The program does not enter this block.
+     }*/
+     while(std::getline(in, line))
      {
-      if(wanted(line, stringToFind))
+      std::stringstream ss(line);
+      ss >> word;
+      /*if(wanted(line, stringToFind))
       {
        lineStorage.push_back(line);
+      }*/
+      if(word == stringToFind)
+      {
+       ss >> line;
+       lineStorage.push_back(line);
+       tempStorage.push_back(stringToFind);
       }
      }
      } catch (std::exception& e)
