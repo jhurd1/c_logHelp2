@@ -18,6 +18,7 @@ class SearchLogic
         std::string newPath;
         std::vector<std::string> tempStorage;
         std::vector<std::string> lineStorage;
+        int word_number;
         Search search;
 
     public:
@@ -27,12 +28,14 @@ class SearchLogic
         void setIn(std::ifstream in);
         void setLine(std::string line);
         void setnewPath(std::string newPath);
+        void setword_number(int line_number);
         
         std::string getcorrespPath() const;
         std::string getstringToFind() const;
         std::string getstringInFile() const;
         std::string getLine() const;
         std::string getnewPath() const;
+        int getword_number() const;
         
         SearchLogic();
         SearchLogic(std::string correspPath);
