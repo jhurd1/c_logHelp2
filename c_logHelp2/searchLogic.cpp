@@ -108,10 +108,11 @@ std::string SearchLogic::getnewPath() const
     //while(wanted(line, stringToFind))
     //{
      size_t index = 0;
-     std::string replacement = " REDACTED ";
+     std::string replacement(" REDACTED ");
      while((index = line.find(stringToFind, index)) != std::string::npos)
      {
-      line.replace(index, stringToFind.length(), replacement);
+      //line.replace(index, stringToFind.length(), replacement);
+      stringToFind.replace(index, stringToFind.length(), replacement);
       index += replacement.length();
      }
      
@@ -143,7 +144,7 @@ void SearchLogic::searchVec(std::string stringToFind)
     
       if((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m)))
        {
-        convert(*line, stringToFind);
+        convert(*line, stringToFind, word_number);
         std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
         std::ostream_iterator<std::string> oi(out, "\n");
         //std::copy(tempStorage.begin(), tempStorage.end(), oi);
@@ -177,7 +178,7 @@ void SearchLogic::searchVec(std::string stringToFind)
       std::stringstream ss(line);
       ss >> word;
       word_number++;
-      std::cout << "\n" << word_number;
+      std::cout << "\n" << word_number << " " <<  word; // this is returning line number, not word number
       if(wanted(line, stringToFind) && (word == stringToFind)) // We are now capturing the entire line; ss >> line was treating "line" as a single word
       {
        lineStorage.push_back(line);
@@ -193,6 +194,6 @@ void SearchLogic::searchVec(std::string stringToFind)
      {
       std::cout << "Error opening file." << std::endl;
      }
-       searchVec(stringToFind, word_number);
+       searchVec(stringToFind);
        in.close();
     }
