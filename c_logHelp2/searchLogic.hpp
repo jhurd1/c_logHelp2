@@ -42,7 +42,7 @@ class SearchLogic
         SearchLogic(std::string correspPath, std::string stringToFind,
             std::string stringInFile);
         //~SearchLogic();
-        void searchVec(std::string stringToFind);
+        void searchVec(std::string stringToFind, int word_number);
         void pushTheLines(std::string correspPath,
             std::string stringInFile, std::string stringToFind);
         void writeToFile();

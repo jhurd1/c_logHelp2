@@ -3,9 +3,9 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <vector>
 #include <regex>
+#include <cctype>
 #include "searchDirs.hpp"
 
 /* ***************************
@@ -98,28 +98,58 @@ std::string SearchLogic::getnewPath() const
   return word_number;
  }
  
+ int countWords(const char* str)
+{
+   if (str == NULL)
+      return 1;
+
+   bool inSpaces = true;
+   int numWords = 0;
+
+   while (*str != '\0')
+   {
+      if (std::isspace(*str))
+      {
+         inSpaces = true;
+      }
+      else if (inSpaces)
+      {
+         numWords++;
+         inSpaces = false;
+      }
+
+      ++str;
+   }
+
+   return numWords;
+}
+ 
+/* **********************************
+* WANTED
+* Return whether the search word
+* exists in a line.
+***************************************/
  bool wanted(const std::string &line, std::string stringToFind)
 {
  return (line.find(stringToFind) != std::string::npos);
 }
  
+/* **********************************
+* CONVERT
+* Replace the word in the line.
+***************************************/
  std::string convert(const std::string &line, std::string stringToFind, int word_number)
  {
-    //while(wanted(line, stringToFind))
-    //{
      size_t index = 0;
      std::string replacement(" REDACTED ");
      while((index = line.find(stringToFind, index)) != std::string::npos)
      {
-      //line.replace(index, stringToFind.length(), replacement);
-      stringToFind.replace(index, stringToFind.length(), replacement);
+      stringToFind.replace(word_number, stringToFind.length(), replacement);
       index += replacement.length();
      }
-     
-     //stringToFind = replacement;
+     std::cout << "\n" << line;
      return line;
      }
- //}
 
 /* **********************************
 * SEARCHVEC
@@ -127,73 +157,68 @@ std::string SearchLogic::getnewPath() const
 * Make the call to overwrite the string
 * Write to the new file
 ***************************************/
-void SearchLogic::searchVec(std::string stringToFind)
+void SearchLogic::searchVec(std::string stringToFind, int word_number)
 {
-  //int index = 1;
-  std::string line;
-  //int i = 0;
+  //std::string line;
   for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line) // we've already filtered line with wanted()
     {
-     //for (auto word = tempStorage.begin(); word != tempStorage.end(); ++word) //use cbegin() if you want it const
-     //if(tempStorage[i] == stringToFind)
-     if(wanted(*line, stringToFind))
-     {
       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
       std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
       std::smatch match;
-    
       if((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m)))
        {
         convert(*line, stringToFind, word_number);
+        std::cout << word_number << "\n";
         std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
         std::ostream_iterator<std::string> oi(out, "\n");
-        //std::copy(tempStorage.begin(), tempStorage.end(), oi);
         std::copy(lineStorage.begin(), lineStorage.end(), oi); // This block is not outputting the line w/ the overwritten word
        }
       }
      }
-    }
 
 /* **********************************
 * SEARCHLOGIC
 * Opens the read stream
-* Calls overwriteContent() to overwrite IPs
-* and MAC addresses
+* Discern a line with a match
+* Pass that line to a partner member to
+* overwrite and output.
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath,
     std::string stringInFile, std::string stringToFind)
  {
     std::fstream in;
-    std::string line, word;
+    std::string line;
+    std::string word;
     word_number = 0;
   try
   {
      in.open(correspPath, std::ios::in);
-     /*while(in >> stringInFile)
-     {
-      tempStorage.push_back(stringInFile);
-     }*/
+     
      while(std::getline(in, line))
      {
-      std::stringstream ss(line);
-      ss >> word;
-      word_number++;
-      std::cout << "\n" << word_number << " " <<  word; // this is returning line number, not word number
-      if(wanted(line, stringToFind) && (word == stringToFind)) // We are now capturing the entire line; ss >> line was treating "line" as a single word
+     std::stringstream ss(line); // This has to instantiate here for ss to work or open.
+      while(ss >> word)
       {
+        std::cout << word << " ";
+        word_number++;
+        if(word == stringToFind)
+        {
+          break;// Once you find the match, break out of the loop to stop the count.
+        }
+       }
+       std::cout << word_number << std::endl;
+       word_number = 0;
+      if(wanted(line, stringToFind))
+      {
+       std::cout << word_number << std::endl;
        lineStorage.push_back(line);
-       //tempStorage.push_back(word);  // Okay, we are now pushing in the line containing a match thanks to bool wanted()
       }
-      /*if(word == stringToFind)
-      {
-       //ss >> line;
-       tempStorage.push_back(stringToFind);
-      }*/
-     }
+      }
      } catch (std::exception& e)
      {
       std::cout << "Error opening file." << std::endl;
      }
-       searchVec(stringToFind);
+       searchVec(stringToFind, word_number);
        in.close();
     }
+    
