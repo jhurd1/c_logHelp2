@@ -154,15 +154,15 @@ bool SearchLogic::convert(const std::string &line, std::string stringToFind, int
  {
      //size_t index = 0;
      std::string replacement(" REDACTED ");
+     
      while(wanted(line, stringToFind))
      {
      //https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string
       stringToFind.replace(word_number, line.length(), replacement); // All values look correct.
-      //line.replace(word_number,stringToFind.length(),replacement);
-      //stringToFind.replace(stringToFind.begin(), stringToFind.end(),stringToFind,replacement);
-      //std::cout << "\n" << line;
+      std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
+      out << stringToFind << line;
      }
-     std::cout << "\n" << line;
+     //std::cout << "\n" << line;
      return true;
      }
 
@@ -171,6 +171,8 @@ bool SearchLogic::replacer(std::string& str, const std::string& stringToFind, co
     if(start_pos == std::string::npos)
         return false;
     str.replace(start_pos, stringToFind.length(), getreplacement());
+    std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
+    out << stringToFind << str;
     std::cout << str;
     return true;
 }
@@ -188,9 +190,10 @@ int len(std::string str)
 //std::string string("hello $name");
 //replace(string, "$name", "Somename");
 
-void replaceString(std::string str, std::string stringToFind, std::string replacement)
+void SearchLogic::replaceString(std::string str, std::string stringToFind, std::string replacement)
 {
  bool status = false;
+ replacement = " REDACTED ";
  int startIndex = 0, endIndex = len(stringToFind);
  for(int i = 0; i < len(str); i++)
   {
@@ -209,9 +212,14 @@ void replaceString(std::string str, std::string stringToFind, std::string replac
 			}
 			if (status) {
 				str.replace(startIndex, endIndex, replacement);
-				std::cout << str;
+                std::cout << str;
+                std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
+                //out << str << line;
+                out << str; // it's the next line in the text file leading to a second overwrite here
+                out.close();
 				return;
 			}
+                
   }
   }
 }
@@ -234,9 +242,11 @@ void SearchLogic::searchVec(std::string stringToFind, int word_number)
        {
         std::string str = *line;
         replaceString(str, stringToFind, *replacement);
-        std::cout << word_number << "\n";
-        std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
-        
+        //convert(*line, stringToFind, word_number);
+        //replacer(str, stringToFind, *replacement);
+        //std::cout << word_number << "\n";
+        //std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
+        //out << str;
        }
       }
      }
@@ -265,7 +275,7 @@ void SearchLogic::searchVec(std::string stringToFind, int word_number)
      std::stringstream ss(line); // This has to instantiate here for ss to work or open.
       while(ss >> word)
       {
-        std::cout << word << " ";
+        //std::cout << word << " ";
         if(word != stringToFind)
         {
             ++word_number;
@@ -274,7 +284,7 @@ void SearchLogic::searchVec(std::string stringToFind, int word_number)
           break;// Once you find the match, break out of the loop to stop the count.
         }
        }
-       std::cout << word_number << std::endl;
+       //std::cout << word_number << std::endl;
        //word_number = 0;
       if(wanted(line, stringToFind))
       {

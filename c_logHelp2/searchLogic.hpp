@@ -45,6 +45,7 @@ class SearchLogic
             std::string stringInFile, std::string &replacement);
         //~SearchLogic();
         bool convert(const std::string &line, std::string stringToFind, int word_number);
+        void replaceString(std::string str, std::string stringToFind, std::string replacement);
         bool replacer(std::string& str, const std::string& stringToFind, const std::string& replacement);
         void searchVec(std::string stringToFind, int word_number);
         void pushTheLines(std::string correspPath,
