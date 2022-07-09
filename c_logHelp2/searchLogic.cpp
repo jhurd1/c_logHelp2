@@ -131,7 +131,7 @@ std::string SearchLogic::getnewPath() const
 ***************************************/
  bool wanted(const std::string &line, std::string stringToFind)
 {
- return (line.find(stringToFind) != std::string::npos);
+ return (line.find(stringToFind) != std::string::npos); // This shows the value of the overwritten word on the second iteration of the convert() loop.
 }
  
 /* **********************************
@@ -140,12 +140,18 @@ std::string SearchLogic::getnewPath() const
 ***************************************/
  std::string convert(const std::string &line, std::string stringToFind, int word_number)
  {
-     size_t index = 0;
+     //size_t index = 0;
      std::string replacement(" REDACTED ");
-     while((index = line.find(stringToFind, index)) != std::string::npos)
+     while(wanted(line, stringToFind))
      {
-      stringToFind.replace(word_number, stringToFind.length(), replacement);
-      index += replacement.length();
+      char* c_arr;
+      c_arr = &stringToFind[0];
+      char* c_arr2;
+      c_arr2 = &replacement[0];
+      //stringToFind.replace(word_number, line.length(), replacement); // All values look correct.
+      std::replace(line.begin(), line.end(),c_arr, c_arr2);
+      //word_number += replacement.length();
+      std::cout << "\n" << "initial test of line: " << line; // Values change on looping, yet it prints the original! Why?!
      }
      std::cout << "\n" << line;
      return line;
@@ -189,36 +195,38 @@ void SearchLogic::searchVec(std::string stringToFind, int word_number)
     std::fstream in;
     std::string line;
     std::string word;
-    word_number = 0;
+    //word_number = 0;
   try
   {
      in.open(correspPath, std::ios::in);
      
      while(std::getline(in, line))
      {
+      word_number = 0;
      std::stringstream ss(line); // This has to instantiate here for ss to work or open.
       while(ss >> word)
       {
         std::cout << word << " ";
-        word_number++;
-        if(word == stringToFind)
+        if(word != stringToFind)
+        {
+            ++word_number;
+        } else
         {
           break;// Once you find the match, break out of the loop to stop the count.
         }
        }
        std::cout << word_number << std::endl;
-       word_number = 0;
+       //word_number = 0;
       if(wanted(line, stringToFind))
       {
        std::cout << word_number << std::endl;
        lineStorage.push_back(line);
+       searchVec(stringToFind, word_number);
       }
       }
      } catch (std::exception& e)
      {
       std::cout << "Error opening file." << std::endl;
      }
-       searchVec(stringToFind, word_number);
        in.close();
     }
-    
