@@ -91,12 +91,10 @@ SearchDirs::SearchDirs()
   try {
    for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
-     //std::cout << entry.path() << std::endl;
      if(entry.path().extension().string() == ".txt" /*|| entry.path().extension().string() == ".docx"*/) //Skip over the docx for testing, for now
      {
         std::string temppath;
         temppath = entry.path().string();
-        //std::cout << temppath;
         SearchLogic sl(temppath);
         sl.pushTheLines(temppath, stringInFile, stringToFind);
        }

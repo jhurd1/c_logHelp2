@@ -193,7 +193,7 @@ int len(std::string str)
 void SearchLogic::replaceString(std::string str, std::string stringToFind, std::string replacement)
 {
  bool status = false;
- replacement = " REDACTED ";
+ //replacement = "REDACTED";
  int startIndex = 0, endIndex = len(stringToFind);
  for(int i = 0; i < len(str); i++)
   {
@@ -213,8 +213,7 @@ void SearchLogic::replaceString(std::string str, std::string stringToFind, std::
 			if (status) {
 				str.replace(startIndex, endIndex, replacement);
                 std::cout << str;
-                std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
-                //out << str << line;
+                std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
                 out << str; // it's the next line in the text file leading to a second overwrite here
                 out.close();
 				return;
@@ -230,9 +229,8 @@ void SearchLogic::replaceString(std::string str, std::string stringToFind, std::
 * Make the call to overwrite the string
 * Write to the new file
 ***************************************/
-void SearchLogic::searchVec(std::string stringToFind, int word_number)
+void SearchLogic::searchVec(std::string stringToFind)
 {
-  //std::string line;
   for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line) // we've already filtered line with wanted()
     {
       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
@@ -241,12 +239,8 @@ void SearchLogic::searchVec(std::string stringToFind, int word_number)
       if((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m)))
        {
         std::string str = *line;
+        *replacement = "REDACTED";
         replaceString(str, stringToFind, *replacement);
-        //convert(*line, stringToFind, word_number);
-        //replacer(str, stringToFind, *replacement);
-        //std::cout << word_number << "\n";
-        //std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
-        //out << str;
        }
       }
      }
@@ -272,25 +266,21 @@ void SearchLogic::searchVec(std::string stringToFind, int word_number)
      while(std::getline(in, line))
      {
       word_number = 0;
-     std::stringstream ss(line); // This has to instantiate here for ss to work or open.
+     std::stringstream ss(line);
       while(ss >> word)
       {
-        //std::cout << word << " ";
         if(word != stringToFind)
         {
             ++word_number;
         } else
         {
-          break;// Once you find the match, break out of the loop to stop the count.
+          break;
         }
        }
-       //std::cout << word_number << std::endl;
-       //word_number = 0;
       if(wanted(line, stringToFind))
       {
-       std::cout << word_number << std::endl;
        lineStorage.push_back(line);
-       searchVec(stringToFind, word_number);
+       //searchVec(stringToFind);
       }
       }
      } catch (std::exception& e)
@@ -298,4 +288,5 @@ void SearchLogic::searchVec(std::string stringToFind, int word_number)
       std::cout << "Error opening file." << std::endl;
      }
        in.close();
+       searchVec(stringToFind);
     }
