@@ -150,7 +150,7 @@ std::string SearchLogic::getnewPath() const
 * CONVERT
 * Replace the word in the line.
 ***************************************/
- /*std::string convert(const std::string &line, std::string stringToFind, int word_number)
+bool SearchLogic::convert(const std::string &line, std::string stringToFind, int word_number)
  {
      //size_t index = 0;
      std::string replacement(" REDACTED ");
@@ -158,13 +158,15 @@ std::string SearchLogic::getnewPath() const
      {
      //https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string
       stringToFind.replace(word_number, line.length(), replacement); // All values look correct.
+      //line.replace(word_number,stringToFind.length(),replacement);
       //stringToFind.replace(stringToFind.begin(), stringToFind.end(),stringToFind,replacement);
+      //std::cout << "\n" << line;
      }
      std::cout << "\n" << line;
-     return line;
-     }*/
+     return true;
+     }
 
-bool SearchLogic::convert(std::string& str, const std::string& stringToFind, const std::string& replacement) {
+bool SearchLogic::replacer(std::string& str, const std::string& stringToFind, const std::string& replacement) {
     size_t start_pos = str.find(stringToFind);
     if(start_pos == std::string::npos)
         return false;
@@ -173,8 +175,46 @@ bool SearchLogic::convert(std::string& str, const std::string& stringToFind, con
     return true;
 }
 
+int len(std::string str)
+{
+ int length = 0;
+ for (int i = 0; str[i] != '\0'; i++)
+ {
+  length++;
+ }
+ return length;
+}
+
 //std::string string("hello $name");
 //replace(string, "$name", "Somename");
+
+void replaceString(std::string str, std::string stringToFind, std::string replacement)
+{
+ bool status = false;
+ int startIndex = 0, endIndex = len(stringToFind);
+ for(int i = 0; i < len(str); i++)
+  {
+  if(str[i] == stringToFind[0])
+  {
+   startIndex = i;
+    for (int j = 0; j < len(stringToFind); j++, i++) {
+				if (str[i] != stringToFind[j]) {
+					status = false;
+					break;
+				}
+				else
+				{
+					status = true;
+				}
+			}
+			if (status) {
+				str.replace(startIndex, endIndex, replacement);
+				std::cout << str;
+				return;
+			}
+  }
+  }
+}
 
 /* **********************************
 * SEARCHVEC
@@ -192,11 +232,11 @@ void SearchLogic::searchVec(std::string stringToFind, int word_number)
       std::smatch match;
       if((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m)))
        {
-        convert(*line, stringToFind, *replacement);
+        std::string str = *line;
+        replaceString(str, stringToFind, *replacement);
         std::cout << word_number << "\n";
         std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt");
-        std::ostream_iterator<std::string> oi(out, "\n");
-        std::copy(lineStorage.begin(), lineStorage.end(), oi); // This block is not outputting the line w/ the overwritten word
+        
        }
       }
      }
