@@ -115,7 +115,7 @@ std::string SearchLogic::getnewPath() const
 * Return whether the search word
 * exists in a line.
 ***************************************/
- bool wanted(const std::string &line, std::string stringToFind)
+ bool linehasthestring(const std::string &line, std::string stringToFind)
 {
  return (line.find(stringToFind) != std::string::npos); // This shows the value of the overwritten word on the second iteration of the convert() loop.
 }
@@ -144,36 +144,38 @@ int len(std::string str)
 void SearchLogic::replaceString(std::string str, std::string stringToFind, std::string replacement)
 {
  bool status = false;
- //replacement = "REDACTED";
  int startIndex = 0, endIndex = len(stringToFind);
- for(int i = 0; i < len(str); i++)
+ for(int i = 0; i < len(str); i++) // str embodies the line; traverse that line.
   {
-  if(str[i] == stringToFind[0])
+  if(str[i] == stringToFind[0]) // If the line item (word) matches the search string as translated into an array of characters...
   {
    startIndex = i;
-    for (int j = 0; j < len(stringToFind); j++, i++) {
-				if (str[i] != stringToFind[j]) {
-					status = false;
-					break;
-				}
-				else
-				{
-					status = true;
-				}
-			}
-            std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
-            std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
-            std::smatch match;
-			if (status && ((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m)))) {
-				str.replace(startIndex, endIndex, replacement);
-                std::cout << str;
-                std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
-                out << str; // it's the next line in the text file leading to a second overwrite here
-                out.close();
-				return;
-			}
-                
-  }
+    for (int j = 0; j < len(stringToFind); j++, i++) // Traverse each character in the search word.
+    {
+      if (str[i] != stringToFind[j]) // If the line item does not match the string to find...
+    {
+      status = false;
+      break;
+     } else
+      {
+        status = true;
+      }
+       }
+        std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
+         std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+         std::smatch match;
+          if (status && ((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m))))
+          // If the match status remains true and there's a match for an IP or MAC address in the search string,
+          // then we replace it and write the line.
+          {
+            str.replace(startIndex, endIndex, replacement);
+            std::cout << str;
+            std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
+            out << str;
+            out.close();
+            return;
+           }
+   }
   }
 }
 
@@ -187,17 +189,11 @@ void SearchLogic::searchVec(std::string stringToFind)
 {
   for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line) // we've already filtered line with wanted()
     {
-      /*std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
-      std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
-      std::smatch match;
-      if((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m)))
-       {*/
         std::string str = *line;
         *replacement = "REDACTED";
         replaceString(str, stringToFind, *replacement);
        }
       }
-    // }
 
 /* **********************************
 * SEARCHLOGIC
@@ -219,7 +215,7 @@ void SearchLogic::searchVec(std::string stringToFind)
      while(std::getline(in, line))
      {
      std::stringstream ss(line);
-      if(wanted(line, stringToFind))
+      if(linehasthestring(line, stringToFind))
       {
        lineStorage.push_back(line);
       }
