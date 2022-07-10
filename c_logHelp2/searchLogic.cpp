@@ -145,39 +145,71 @@ void SearchLogic::replaceString(std::string str, std::string stringToFind, std::
 {
  bool status = false;
  int startIndex = 0, endIndex = len(stringToFind);
- for(int i = 0; i < len(str); i++) // str embodies the line; traverse that line.
+ std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
+  std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+  std::smatch match;
+ 
+ for(int i = 0; i < len(str); i++) // Traverse the line (embodied in "str").
   {
-  if(str[i] == stringToFind[0]) // If the line item (word) matches the search string as translated into an array of characters...
-  {
-   startIndex = i;
-    for (int j = 0; j < len(stringToFind); j++, i++) // Traverse each character in the search word.
+    switch(std::match_results<const char*>)
     {
-      if (str[i] != stringToFind[j]) // If the line item does not match the string to find...
-    {
-      status = false;
+     case 1:
+      std::regex_match(&str[i], r);
+      str.replace(startIndex, endIndex, replacement);
       break;
-     } else
+     case 2:
+      std::regex_match(&str[i], m);
+      str.replace(startIndex, endIndex, replacement);
+      break;
+     case 3:
+      std::regex_match(stringToFind, r);
+      str.replace(startIndex, endIndex, replacement);
+      break;
+     case 4:
+      std::regex_match(stringToFind, m);
+      str.replace(startIndex, endIndex, replacement);
+      break;
+     default:
+      std::cout << "";
+      std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
+      out << str;
+      out.close();
+    }
+    /*if(std::regex_match(&str[i], r) || std::regex_match(&str[i], m)) //Never enters the subsequent block.
+      
+       str.replace(startIndex, endIndex, replacement);
+       std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
+       out << str;
+       out.close();
+       //std::cout << str;*/
+      
+    /*if((std::regex_match(&str[i],r) || (std::regex_match(&str[i],m))))
+     {
+      startIndex = i;
+      str.replace(startIndex, endIndex, replacement);
+      for (int j = 0; j < len(stringToFind); j++, i++) // Traverse each character in the search word.
+      {
+        if (str[i] != stringToFind[j]) // If the line item does not match the string to find...
+       {
+        status = false;
+        break;
+       } else
       {
         status = true;
       }
        }
-        std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
-         std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
-         std::smatch match;
-          if (status && ((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m))))
-          // If the match status remains true and there's a match for an IP or MAC address in the search string,
-          // then we replace it and write the line.
+          if (status || ((std::regex_match(stringToFind, r)) || (std::regex_match(stringToFind, m))))
           {
             str.replace(startIndex, endIndex, replacement);
-            std::cout << str;
+            //std::cout << str;
             std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
             out << str;
             out.close();
             return;
-           }
-   }
+          }
+   }*/
   }
-}
+ }
 
 /* **********************************
 * SEARCHVEC
