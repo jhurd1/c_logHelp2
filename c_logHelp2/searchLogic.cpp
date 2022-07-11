@@ -137,56 +137,6 @@ int len(std::string str)
 }
 
 /* **********************************
-* REPLACESTRING
-* Calls len() and
-* replaces the search word.
-***************************************/
-void SearchLogic::replaceString(std::string str, std::string stringToFind, std::string replacement)
-{
- //bool status = false;
- int startIndex = 0, endIndex = len(stringToFind);
- std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
-  std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
-  std::smatch match;
- 
- for(int i = 0; i < len(str); i++) // Traverse the line (embodied in "str").
-  {
-    //std::cout << str;
-   for (int j = 0; j < len(stringToFind); j++, i++)
-   {
-    if(std::regex_match(&str[i], r) || std::regex_match(&str[i], m) || (std::regex_match(stringToFind, r) || std::regex_match(stringToFind, m))) // Program says it can't find any match in lines that should match!
-    {
-     str.replace(startIndex, endIndex, replacement);
-     std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
-     out << str;
-     out.close();
-    } else
-    {
-     std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
-     out << str;
-     out.close();
-    }
-    }
-  }
- }
-
-/* **********************************
-* SEARCHVEC
-* Perform the search on the vector
-* Make the call to overwrite the string
-* Write to the new file
-***************************************/
-void SearchLogic::searchVec(std::string stringToFind)
-{
-  for (auto line = lineStorage.begin(); line != lineStorage.end(); ++line) // we've already filtered line with wanted()
-    {
-        std::string str = *line;
-        *replacement = "REDACTED";
-        replaceString(str, stringToFind, *replacement);
-       }
-      }
-
-/* **********************************
 * SEARCHLOGIC
 * Opens the read stream
 * Discern a line with a match
@@ -199,6 +149,7 @@ void SearchLogic::searchVec(std::string stringToFind)
     std::fstream in;
     std::string line;
     std::string word;
+    std::string replacement = "REDACTED";
   try
   {
      in.open(correspPath, std::ios::in);
@@ -208,7 +159,24 @@ void SearchLogic::searchVec(std::string stringToFind)
      std::stringstream ss(line);
       if(linehasthestring(line, stringToFind))
       {
-       lineStorage.push_back(line);
+       ss >> word;
+       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
+      std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+      std::smatch match;
+      if(std::regex_match(word, r) || (std::regex_match(word, m))) // Checks if match on the same line exists to IP or MAC
+      {
+       std::cout << "The word before replacement is " << word << std::endl;
+       word = std::regex_replace(word, std::regex(word), "REDACTED");
+       std::cout << "The word replaced is " << word << std::endl;
+       std::cout << line;
+       
+      }
+       //lineStorage.push_back(line);
+       //word = replacement;
+       std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
+       out << word << line;
+       out.close();
+       return;
       }
       }
      } catch (std::exception& e)
@@ -216,5 +184,5 @@ void SearchLogic::searchVec(std::string stringToFind)
       std::cout << "Error opening file." << std::endl;
      }
        in.close();
-       searchVec(stringToFind);
+       //searchVec(stringToFind);
     }
