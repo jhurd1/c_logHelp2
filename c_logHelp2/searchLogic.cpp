@@ -158,11 +158,11 @@ int len(std::string str)
      while(in)
      {
       std::getline(in, line);
-      int index = 0;
       std::stringstream ss(line);
       if(linehasthestring(line, stringToFind))
       {
-       ss >> word;
+       while(ss >> word)
+       {
        std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
       std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
       std::smatch match;
@@ -171,7 +171,8 @@ int len(std::string str)
        auto iter = line.find(word);
        while(iter != std::string::npos)
        {
-        line.replace(index, word.length() + 1, replacement);
+        size_t s = line.find(word);
+        line.replace(s, word.length() + 1, replacement);
         iter = line.find(word, iter);
         std::cout << "The word replaced is: " << word << std::endl;
         std::cout << "The line containing the replaced word is " << line << std::endl;
@@ -179,6 +180,7 @@ int len(std::string str)
         out << line;
         out.close();
         //return;
+        }
        }
       }
      }
