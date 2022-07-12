@@ -157,6 +157,7 @@ int len(std::string str)
      while(std::getline(in, line))
      {
      std::stringstream ss(line);
+     int index = 0;
       if(linehasthestring(line, stringToFind))
       {
        ss >> word;
@@ -165,18 +166,20 @@ int len(std::string str)
       std::smatch match;
       if(std::regex_match(word, r) || (std::regex_match(word, m))) // Checks if match on the same line exists to IP or MAC
       {
-       std::cout << "The word before replacement is " << word << std::endl;
-       word = std::regex_replace(word, std::regex(word), "REDACTED");
-       std::cout << "The word replaced is " << word << std::endl;
-       std::cout << line;
-       
+       auto iter = line.find(word);
+       while(iter != std::string::npos)
+       {
+        //line.erase(iter, word.length() + 1);
+        line.replace(index, word.length() + 1, replacement);
+        iter = line.find(word, iter);
+        std::cout << "The word replaced is: " << word << std::endl;
+        std::cout << "The line containing the replaced word is " << line << std::endl;
+        std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
+        out << line;
+        out.close();
+        return;
+       }
       }
-       //lineStorage.push_back(line);
-       //word = replacement;
-       std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
-       out << word << line;
-       out.close();
-       return;
       }
       }
      } catch (std::exception& e)
