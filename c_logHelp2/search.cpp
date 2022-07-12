@@ -7,20 +7,26 @@
 * CONSTRUCTORS
 ***********************/
 
-//default
+/***************
+* Default.
+***************/
 Search::Search()
 {
     fpath = "";
     searchStrings = "";
 }
 
-// non-default #1
+/********************
+* Non-default, one.
+*********************/
 Search::Search(std::string fpath)
 {
     setPath(fpath);
 }
 
-// non-default #2
+/*****************
+* Non-default, two.
+******************/
 Search::Search(std::string fpath, std::string searchStrings)
 {
     setPath(fpath);
@@ -28,24 +34,40 @@ Search::Search(std::string fpath, std::string searchStrings)
 }
 
 /* *******************************
-* ACCESSORS AND MUTATORS
-* for encapsulation, of course!
+* MUTATORS
 *********************************/
+
+/*****************
+* setstrings
+******************/
 void Search::setStrings(std::string searchStrings)
 {
     this->searchStrings = searchStrings;
 }
 
+/*******************
+* setpath
+********************/
 void Search::setPath(std::string fpath)
 {
     this->fpath = fpath;
 }
 
+/* *******************************
+* ACCESSORS
+**********************************/
+
+/********************
+* getstrings
+*********************/
 std::string Search::getStrings() const
 {
     return searchStrings;
 }
 
+/*******************
+* getpath
+********************/
 std::string Search::getPath() const
 {
     return fpath;

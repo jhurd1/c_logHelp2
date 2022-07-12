@@ -12,20 +12,26 @@
 * CONSTRUCTORS
 *******************************/
 
-// default
+/***************
+* Default.
+***************/
 SearchLogic::SearchLogic()
 {
     correspPath = "";
     stringToFind = "";
 }
 
-// non-default #1
+/********************
+* Non-default, one.
+*********************/
 SearchLogic::SearchLogic(std::string corresppath)
 {
     setcorrespPath(correspPath);
 }
 
-// non-default #2
+/*****************
+* Non-default, one.
+******************/
 SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
     std::string stringInFile, std::string &replacement)
 {
@@ -36,82 +42,97 @@ SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
 }
 
 /* *******************************
-* ACCESSORS AND MUTATORS
-* for encapsulation, of course!
+* MUTATORS
 *********************************/
+
+/*****************
+* setcorrespPath
+******************/
 void SearchLogic::setcorrespPath(std::string correspPath)
 {
     this->correspPath = search.getPath();
 }
 
+/*****************
+* setstringtofind
+******************/
 void SearchLogic::setstringToFind(std::string stringToFind)
 {
     this->stringToFind = search.getStrings();
 }
 
+/*****************
+* setstringinfile
+******************/
 void SearchLogic::setStringInFile(std::string stringInFile)
 {
     this->stringInFile = stringInFile;
 }
 
+/*****************
+* setline
+******************/
 void SearchLogic::setLine(std::string line)
 {
  this->line = line;
 }
-
-void SearchLogic::setnewPath(std::string newPath)
- {
  
- }
  
- void SearchLogic::setword_number(int word_number)
- {
-  this->word_number = word_number;
- }
- 
+/* *****************
+* setreplacement
+********************/
  void SearchLogic::setreplacement(std::string &replacement)
  {
   replacement = " REDACTED ";
   this->replacement = &replacement;
  }
 
+/* *******************************
+* ACCESSORS
+**********************************/
+
+/*****************
+* getcorresppath
+******************/
 std::string SearchLogic::getcorrespPath() const
 {
     return correspPath;
 }
 
+/*****************
+* getstringtofind
+******************/
 std::string SearchLogic::getstringToFind() const
 {
     return stringToFind;
 }
 
+/*****************
+* getstringinfile
+******************/
 std::string SearchLogic::getstringInFile() const // the predecessor or caller is from replaceDatString
 {
     return stringInFile;
 }
 
+/*****************
+* getline
+******************/
 std::string SearchLogic::getLine() const
 {
  return line;
 }
 
-std::string SearchLogic::getnewPath() const
- {
-  return newPath;
- }
- 
- int SearchLogic::getword_number() const
- {
-  return word_number;
- }
- 
+/*****************
+* getreplacement
+******************/
  std::string SearchLogic::getreplacement() const
  {
   return *replacement;
  }
  
 /* **********************************
-* WANTED
+* LINEHASTHESTRING
 * Return whether the search word
 * exists in a line.
 ***************************************/
@@ -121,27 +142,11 @@ std::string SearchLogic::getnewPath() const
 }
 
 /* **********************************
-* LEN
-* Currently, a non-static
-* function belonging to no class.
-* Measure the length of a string.
-***************************************/
-int len(std::string str)
-{
- int length = 0;
- for (int i = 0; str[i] != '\0'; i++)
- {
-  length++;
- }
- return length;
-}
-
-/* **********************************
 * SEARCHLOGIC
 * Opens the read stream
 * Discern a line with a match
-* Pass that line to a partner member to
-* overwrite and output.
+* Overwrite as needed
+* Output to a new file.
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath,
     std::string stringInFile, std::string stringToFind)
@@ -150,7 +155,6 @@ int len(std::string str)
     std::string line;
     std::string word;
     std::string replacement = " REDACTED ";
-    //bool endcycle = false;
   try
   {
      in.open(correspPath, std::ios::in);
@@ -177,9 +181,8 @@ int len(std::string str)
         std::cout << "The word replaced is: " << word << std::endl;
         std::cout << "The line containing the replaced word is " << line << std::endl;
         std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
-        out << line;
+        out << line << std::endl;
         out.close();
-        //return;
         }
        }
       }
