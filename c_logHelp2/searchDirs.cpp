@@ -95,6 +95,7 @@ SearchDirs::SearchDirs()
      {
         std::string temppath;
         temppath = entry.path().string();
+        std::cout << temppath << std::endl;
         SearchLogic sl(temppath);
         sl.pushTheLines(temppath, stringInFile, stringToFind);
        }

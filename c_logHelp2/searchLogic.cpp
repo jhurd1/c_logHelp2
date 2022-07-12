@@ -117,7 +117,7 @@ std::string SearchLogic::getnewPath() const
 ***************************************/
  bool linehasthestring(const std::string &line, std::string stringToFind)
 {
- return (line.find(stringToFind) != std::string::npos); // This shows the value of the overwritten word on the second iteration of the convert() loop.
+ return (line.find(stringToFind) != std::string::npos);
 }
 
 /* **********************************
@@ -149,15 +149,17 @@ int len(std::string str)
     std::fstream in;
     std::string line;
     std::string word;
-    std::string replacement = "REDACTED";
+    std::string replacement = " REDACTED ";
+    //bool endcycle = false;
   try
   {
      in.open(correspPath, std::ios::in);
      
-     while(std::getline(in, line))
+     while(in)
      {
-     std::stringstream ss(line);
-     int index = 0;
+      std::getline(in, line);
+      int index = 0;
+      std::stringstream ss(line);
       if(linehasthestring(line, stringToFind))
       {
        ss >> word;
@@ -169,7 +171,6 @@ int len(std::string str)
        auto iter = line.find(word);
        while(iter != std::string::npos)
        {
-        //line.erase(iter, word.length() + 1);
         line.replace(index, word.length() + 1, replacement);
         iter = line.find(word, iter);
         std::cout << "The word replaced is: " << word << std::endl;
@@ -177,15 +178,14 @@ int len(std::string str)
         std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
         out << line;
         out.close();
-        return;
+        //return;
        }
       }
-      }
-      }
-     } catch (std::exception& e)
-     {
-      std::cout << "Error opening file." << std::endl;
      }
-       in.close();
-       //searchVec(stringToFind);
     }
+   } catch (std::exception& e)
+    {
+     std::cout << "Error opening file." << std::endl;
+    }
+      in.close();
+   }
