@@ -170,9 +170,10 @@ std::string SearchLogic::getLine() const
       {
        while(ss >> word)
        {
-        word.erase(std::remove_if(word.begin(), word.end(), ispunct), word.end());
-        //std::remove_if(word.begin(), word.end(), ispunct);
-        std::cout << word << std::endl;
+        if(word.length() && word.back() == '.')
+        {
+         word.pop_back();
+        }
         std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
         std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
         std::smatch match;
