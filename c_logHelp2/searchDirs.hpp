@@ -17,11 +17,9 @@
 class SearchDirs
 {
  private:
-   DIR *dirs;
    std::string correspPath;
    std::string stringToFind;
    std::string stringInFile;
-   std::string filename;
    
  public:
   SearchLogic s;

@@ -3,7 +3,6 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <regex>
 #include <cctype>
 #include "searchDirs.hpp"
@@ -136,7 +135,7 @@ std::string SearchLogic::getLine() const
 * Return whether the search word
 * exists in a line.
 ***************************************/
- bool linehasthestring(const std::string &line, std::string stringToFind)
+ bool SearchLogic::linehasthestring(const std::string &line, std::string stringToFind)
 {
  return (line.find(stringToFind) != std::string::npos);
 }
