@@ -152,7 +152,7 @@ std::string SearchLogic::getLine() const
 * Output to a new file.
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath,
-    std::string stringInFile, std::string stringToFind)
+    std::string stringInFile, std::string stringToFind, std::vector<std::string> temporary)
  {
     std::fstream in;
     std::string line;
@@ -166,10 +166,13 @@ std::string SearchLogic::getLine() const
      {
       std::getline(in, line);
       std::stringstream ss(line);
+      
       if(linehasthestring(line, stringToFind))
       {
        while(ss >> word)
        {
+       for(auto &word : temporary) // Line or word?
+      {
         if(word.length() && word.back() == '.')
         {
          word.pop_back();
@@ -188,6 +191,7 @@ std::string SearchLogic::getLine() const
             std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
             out << line << std::endl;
             out.close();
+          }
          }
         }
        }

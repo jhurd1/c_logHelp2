@@ -37,7 +37,7 @@ class SearchDirs
   std::string getstringInFile() const;
   std::string getfilename() const;
   
-  void dirContents(std::string correspPath, std::string stringToFind);
+  void dirContents(std::string correspPath, std::string stringToFind, std::vector<std::string> temporary);
 };
 
 #endif /* searchDirs_hpp */

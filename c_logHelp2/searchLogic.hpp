@@ -16,6 +16,7 @@ class SearchLogic
         std::string *replacement;
         std::string line;
         Search search;
+        std::vector<std::string> temporary;
 
     public:
         void setcorrespPath(std::string correspPath);
@@ -38,6 +39,6 @@ class SearchLogic
    
         bool linehasthestring(const std::string &line, std::string stringToFind);
         void pushTheLines(std::string correspPath,
-            std::string stringInFile, std::string stringToFind);
+            std::string stringInFile, std::string stringToFind, std::vector<std::string> temporary);
 };
 #endif
