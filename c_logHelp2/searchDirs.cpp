@@ -122,7 +122,6 @@ SearchDirs::SearchDirs()
   } catch (std::exception &e)
   {
    std::cout << "Recursive iteration failed from dirContents() in searchDirs" << std::endl;
-   std::cout << "This is likely because you didn't place a slash ahead of the path" << std::endl;
   }
  }
     
