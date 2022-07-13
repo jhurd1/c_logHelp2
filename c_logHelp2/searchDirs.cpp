@@ -106,29 +106,15 @@ SearchDirs::SearchDirs()
   try {
    for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
-     /*if(entry.path().extension().string() == ".txt" || entry.path().extension().string() == ".docx") //Skip over the docx for testing, for now
-     {*/
-        std::string switchstring = entry.path().extension().string();
-        char c = *switchstring.c_str();
-        switch(c)
-        {
-         case '.log':
-          break;
-         case '.txt':
-          break;
-         case '.docx':
-          break;
-         default:
-          break;
-          
-        }
+     if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log") /* || entry.path().extension().string() == ".docx"*/)
+     {
         std::string temppath;
         temppath = entry.path().string();
         std::cout << temppath << std::endl;
         SearchLogic sl(temppath);
         sl.pushTheLines(temppath, stringInFile, stringToFind);
        }
-      //}
+      }
   } catch (std::exception &e)
   {
    std::cout << "Recursive iteration failed from dirContents() in searchDirs" << std::endl;
