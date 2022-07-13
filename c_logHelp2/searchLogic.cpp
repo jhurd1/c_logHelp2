@@ -140,6 +140,10 @@ std::string SearchLogic::getLine() const
  return (line.find(stringToFind) != std::string::npos);
 }
 
+/* *******************************
+* OTHER DATA MEMBERS
+**********************************/
+
 /* **********************************
 * SEARCHLOGIC
 * Opens the read stream
@@ -166,30 +170,33 @@ std::string SearchLogic::getLine() const
       {
        while(ss >> word)
        {
-       std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
-      std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
-      std::smatch match;
-      if(std::regex_match(word, r) || (std::regex_match(word, m))) // Checks if match on the same line exists to IP or MAC
-      {
-       auto iter = line.find(word);
-       while(iter != std::string::npos)
-       {
-        size_t s = line.find(word);
-        line.replace(s, word.length() + 1, replacement);
-        iter = line.find(word, iter);
-        std::cout << "The word replaced is: " << word << std::endl;
-        std::cout << "The line containing the replaced word is " << line << std::endl;
-        std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
-        out << line << std::endl;
-        out.close();
+        word.erase(std::remove_if(word.begin(), word.end(), ispunct), word.end());
+        //std::remove_if(word.begin(), word.end(), ispunct);
+        std::cout << word << std::endl;
+        std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
+        std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+        std::smatch match;
+         if(std::regex_match(word, r) || (std::regex_match(word, m))) // Checks if match on the same line exists to IP or MAC
+         {
+          auto iter = line.find(word);
+          while(iter != std::string::npos)
+          {
+            size_t s = line.find(word);
+            line.replace(s, word.length() + 1, replacement);
+            iter = line.find(word, iter);
+            //std::cout << "The word replaced is: " << word << std::endl;
+            //std::cout << "The line containing the replaced word is " << line << std::endl;
+            std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
+            out << line << std::endl;
+            out.close();
+          }
         }
        }
       }
      }
+    } catch (std::exception& e)
+     {
+      std::cout << "Error opening file." << std::endl;
+     }
+       in.close();
     }
-   } catch (std::exception& e)
-    {
-     std::cout << "Error opening file." << std::endl;
-    }
-      in.close();
-   }

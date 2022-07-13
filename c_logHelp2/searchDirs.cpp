@@ -95,6 +95,10 @@ SearchDirs::SearchDirs()
   return stringInFile;
  }
  
+ /* *******************************
+* OTHER DATA MEMBERS
+**********************************/
+
  /* **********************************
 * DIRCONTENTS
 * Take the search path
@@ -106,11 +110,11 @@ SearchDirs::SearchDirs()
   try {
    for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
-     if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log") /* || entry.path().extension().string() == ".docx"*/)
+     if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log"))
      {
         std::string temppath;
         temppath = entry.path().string();
-        std::cout << temppath << std::endl;
+        //std::cout << temppath << std::endl;
         SearchLogic sl(temppath);
         sl.pushTheLines(temppath, stringInFile, stringToFind);
        }
