@@ -12,33 +12,32 @@ class SearchLogic
     private:
         std::string correspPath;
         std::string stringToFind;
-        std::string stringInFile;
         std::string *replacement;
         std::string line;
         Search search;
-        std::vector<std::string> temporary;
+       std::string arr;
 
     public:
         void setcorrespPath(std::string correspPath);
         void setstringToFind(std::string stringToFind);
-        void setStringInFile(std::string stringInFile);
+        
         void setIn(std::ifstream in);
         void setLine(std::string line);
         void setreplacement(std::string &replacement);
         
         std::string getcorrespPath() const;
         std::string getstringToFind() const;
-        std::string getstringInFile() const;
+        
         std::string getLine() const;
         std::string getreplacement() const;
         
         SearchLogic();
         SearchLogic(std::string correspPath);
         SearchLogic(std::string correspPath, std::string stringToFind,
-            std::string stringInFile, std::string &replacement);
+           std::string &replacement);
    
         bool linehasthestring(const std::string &line, std::string stringToFind);
         void pushTheLines(std::string correspPath,
-            std::string stringInFile, std::string stringToFind, std::vector<std::string> temporary);
+            std::string stringToFind);
 };
 #endif

@@ -32,11 +32,10 @@ SearchLogic::SearchLogic(std::string corresppath)
 * Non-default, one.
 ******************/
 SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
-    std::string stringInFile, std::string &replacement)
+  std::string &replacement)
 {
     setcorrespPath(correspPath);
     setstringToFind(stringToFind);
-    setStringInFile(stringInFile);
     setreplacement(replacement);
 }
 
@@ -58,14 +57,6 @@ void SearchLogic::setcorrespPath(std::string correspPath)
 void SearchLogic::setstringToFind(std::string stringToFind)
 {
     this->stringToFind = search.getStrings();
-}
-
-/*****************
-* setstringinfile
-******************/
-void SearchLogic::setStringInFile(std::string stringInFile)
-{
-    this->stringInFile = stringInFile;
 }
 
 /*****************
@@ -107,14 +98,6 @@ std::string SearchLogic::getstringToFind() const
 }
 
 /*****************
-* getstringinfile
-******************/
-std::string SearchLogic::getstringInFile() const // the predecessor or caller is from replaceDatString
-{
-    return stringInFile;
-}
-
-/*****************
 * getline
 ******************/
 std::string SearchLogic::getLine() const
@@ -152,7 +135,7 @@ std::string SearchLogic::getLine() const
 * Output to a new file.
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath,
-    std::string stringInFile, std::string stringToFind, std::vector<std::string> temporary)
+    std::string stringToFind)
  {
     std::fstream in;
     std::string line;
@@ -171,8 +154,9 @@ std::string SearchLogic::getLine() const
       {
        while(ss >> word)
        {
-       for(auto &word : temporary) // Line or word?
-      {
+       /*for(int i = 0; i < stringToFind.length(); i++) // This should iterate across each word in stringToFind
+       // instead it seems to only send the process immediately back to while() above.
+      {*/
         if(word.length() && word.back() == '.')
         {
          word.pop_back();
@@ -191,7 +175,7 @@ std::string SearchLogic::getLine() const
             std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
             out << line << std::endl;
             out.close();
-          }
+          //}
          }
         }
        }

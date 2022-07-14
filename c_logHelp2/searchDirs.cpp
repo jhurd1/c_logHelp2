@@ -59,14 +59,6 @@ SearchDirs::SearchDirs()
   this->stringToFind = s.getstringToFind();
  }
  
- /*******************
-* setstringinfile
-********************/
- void SearchDirs::setstringInFile(std::string stringInFile)
- {
-  this->stringInFile = s.getstringInFile();
- }
- 
 /* *******************************
 * ACCESSORS
 *********************************/
@@ -105,7 +97,7 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind, std::vector<std::string> temporary)
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
   try {
    for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))
@@ -114,9 +106,8 @@ SearchDirs::SearchDirs()
      {
         std::string temppath;
         temppath = entry.path().string();
-        //std::cout << temppath << std::endl;
         SearchLogic sl(temppath);
-        sl.pushTheLines(temppath, stringInFile, stringToFind, temporary);
+        sl.pushTheLines(temppath, stringToFind);
        }
       }
   } catch (std::exception &e)
