@@ -12,8 +12,12 @@ int main()
 {
     SearchDirs searchDirs;
     std::string correspPath;
-    std::string stringToFind;
-    int i = 0;
+    //std::string stringToFind;
+    int const words = 3;
+    int const wordlength = 25;
+    char array[words][wordlength];
+    int i;
+    int j;
    
  try {
  
@@ -34,18 +38,21 @@ int main()
      }
     
     std::cout << "Enter up to three words, pressing enter between each. " << std::endl;
-    while(std::getline(std::cin, stringToFind[i]) && i <= 2)
+  for(int i = 0; i < words; i++)
+  {
+   for(int j = 0; j < wordlength; j++)
     {
-      std::cin >> stringToFind[i];
+      std::cin >> i;
       i++;
-     if(std::regex_match(stringToFind[i], isnumber))
+     if(std::regex_match(array[i], isnumber))
      {
       std::cout << "Inappropriate data type for input." << std::endl;
       return 1;
      }
     }
-      std::cout << stringToFind[i] << std::endl;
-      searchDirs.dirContents(correspPath, stringToFind);
+  }
+      std::cout << array << std::endl;
+      searchDirs.dirContents(correspPath, array[i][j]);
  } catch (std::exception &e) {
   std::cout << "searchDriver failed." << std::endl;
  }

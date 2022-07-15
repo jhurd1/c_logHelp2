@@ -97,7 +97,7 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
+ void SearchDirs::dirContents(std::string correspPath, char array[words][wordlength])
  {
   try {
    for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))

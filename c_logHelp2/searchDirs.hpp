@@ -20,6 +20,11 @@ class SearchDirs
    std::string correspPath;
    std::string stringToFind;
    std::string stringInFile;
+   int i;
+   int j;
+   const int words = 3;
+   const int wordlength = 25;
+   char array[words][wordlength];
    
  public:
   SearchLogic s;
@@ -37,7 +42,7 @@ class SearchDirs
   std::string getstringInFile() const;
   std::string getfilename() const;
   
-  void dirContents(std::string correspPath, std::string stringToFind);
+  void dirContents(std::string correspPath, char array[i][j]);
 };
 
 #endif /* searchDirs_hpp */
