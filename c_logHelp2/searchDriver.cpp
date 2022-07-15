@@ -12,7 +12,7 @@ int main()
 {
     SearchDirs searchDirs;
     std::string correspPath;
-    std::string stringToFind[3];
+    std::string stringToFind;
     int i = 0;
    
  try {
@@ -29,7 +29,7 @@ int main()
       std::cout << "You truly seek the holy grail." << "\n" << "Therefore, you may pass." << "\n" << std::endl;
      } else
      {
-      std::cout << "Not a path. You shall perish." << "\n" << "\n" << std::endl;
+      std::cout << "\n" << "Not a path. You shall perish." << "\n" << "\n" << std::endl;
       return 1;
      }
     
@@ -45,7 +45,7 @@ int main()
      }
     }
       std::cout << stringToFind[i] << std::endl;
-      searchDirs.dirContents(correspPath, stringToFind[i]);
+      searchDirs.dirContents(correspPath, stringToFind);
  } catch (std::exception &e) {
   std::cout << "searchDriver failed." << std::endl;
  }

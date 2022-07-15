@@ -144,16 +144,20 @@ std::string SearchLogic::getLine() const
   try
   {
      in.open(correspPath, std::ios::in);
+     size_t n = stringToFind.length();
+     std::stringstream ss(line);
      
-     while(in)
-     {
-      std::getline(in, line);
-      std::stringstream ss(line);
-      
-      if(linehasthestring(line, stringToFind))
+      //while(in)
+       //{
+      for(int i = 0; i <= n; i++)
       {
-       while(ss >> word)
-       {
+       std::cout << n << " " << &stringToFind[i];
+        ss >> word;
+        std::getline(in, line);
+        if(linehasthestring(line, &stringToFind[i])) // The controller of lines with relevant content failing now
+        {
+       //while(ss >> word)
+       //{
        /*for(int i = 0; i < stringToFind.length(); i++) // This should iterate across each word in stringToFind
        // instead it seems to only send the process immediately back to while() above.
       {*/
@@ -176,8 +180,10 @@ std::string SearchLogic::getLine() const
             out << line << std::endl;
             out.close();
           //}
-         }
-        }
+         //}
+        //}
+      }// iterate over each word in stringToFind here to get their value
+      
        }
       }
      }
