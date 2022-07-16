@@ -153,9 +153,9 @@ std::string SearchLogic::getLine() const
       
       if(linehasthestring(line, stringToFind))
         {
-        std::stringstream ss(line);
+        std::istringstream ss(line);
         std::string word;
-        while(ss << word)
+        while(ss >> word)
         {
          if(word.length() && word.back() == '.')
           {
