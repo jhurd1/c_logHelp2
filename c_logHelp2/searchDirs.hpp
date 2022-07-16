@@ -24,7 +24,7 @@ class SearchDirs
    int j;
    const int words = 3;
    const int wordlength = 25;
-   char array[words][wordlength];
+   char array[3][25];
    
  public:
   SearchLogic s;
@@ -36,13 +36,15 @@ class SearchDirs
   void setstringtoFind(std::string stringToFind);
   void setstringInFile(std::string stringInFile);
   void setfilename(std::string filename);
+  void setwords(const int *words);
   
   std::string getcorrespPath() const;
   std::string getstringtoFind() const;
   std::string getstringInFile() const;
   std::string getfilename() const;
+  int getwords() const;
   
-  void dirContents(std::string correspPath, char array[i][j]);
+  void dirContents(std::string correspPath, std::array<std::string, 3> stringsToFind);
 };
 
 #endif /* searchDirs_hpp */

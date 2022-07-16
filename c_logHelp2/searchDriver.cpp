@@ -2,6 +2,7 @@
 #include <string>
 #include "searchDirs.hpp"
 #include <regex>
+#include <array>
 
 /* ****************************************
 * SEARCHDRIVER
@@ -11,13 +12,10 @@
 int main()
 {
     SearchDirs searchDirs;
+    std::string word;
     std::string correspPath;
-    //std::string stringToFind;
-    int const words = 3;
-    int const wordlength = 25;
-    char array[words][wordlength];
-    int i;
-    int j;
+    std::array<std::string, 3> stringsToFind;
+    int i = 0;
    
  try {
  
@@ -38,22 +36,19 @@ int main()
      }
     
     std::cout << "Enter up to three words, pressing enter between each. " << std::endl;
-  for(int i = 0; i < words; i++)
+  for(int i = 0; i < stringsToFind.size() && std::cin >> word; ++i)
   {
-   for(int j = 0; j < wordlength; j++)
-    {
-      std::cin >> i;
-      i++;
-     if(std::regex_match(array[i], isnumber))
+      stringsToFind[i] = word;
+     if(std::regex_match(stringsToFind[i], isnumber))
      {
       std::cout << "Inappropriate data type for input." << std::endl;
       return 1;
      }
-    }
   }
-      std::cout << array << std::endl;
-      searchDirs.dirContents(correspPath, array[i][j]);
- } catch (std::exception &e) {
+      std::cout << stringsToFind[i] << std::endl;
+      searchDirs.dirContents(correspPath, stringsToFind);
+ } catch (std::exception &e)
+ {
   std::cout << "searchDriver failed." << std::endl;
  }
     

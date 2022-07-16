@@ -8,6 +8,7 @@
 #include "searchDirs.hpp"
 #include "searchLogic.hpp"
 #include <filesystem>
+#include <array>
 
 /* ***************************
 * CONSTRUCTORS
@@ -97,9 +98,10 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, char array[words][wordlength])
+ void SearchDirs::dirContents(std::string correspPath, std::array<std::string, 3> stringsToFind)
  {
-  try {
+  try
+  {
    for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
      if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log"))
@@ -107,7 +109,7 @@ SearchDirs::SearchDirs()
         std::string temppath;
         temppath = entry.path().string();
         SearchLogic sl(temppath);
-        sl.pushTheLines(temppath, stringToFind);
+        sl.pushTheLines(temppath, stringsToFind);
        }
       }
   } catch (std::exception &e)

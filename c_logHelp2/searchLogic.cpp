@@ -5,6 +5,7 @@
 #include <fstream>
 #include <regex>
 #include <cctype>
+#include <array>
 #include "searchDirs.hpp"
 
 /* ***************************
@@ -135,7 +136,7 @@ std::string SearchLogic::getLine() const
 * Output to a new file.
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath,
-    std::string stringToFind)
+    std::array<std::string, 3> stringsToFind)
  {
     std::fstream in;
     std::string line;
@@ -144,46 +145,34 @@ std::string SearchLogic::getLine() const
   try
   {
      in.open(correspPath, std::ios::in);
-     size_t n = stringToFind.length();
+     
      std::stringstream ss(line);
      
-      //while(in)
-       //{
-      for(int i = 0; i <= n; i++)
-      {
-       std::cout << n << " " << &stringToFind[i];
-        ss >> word;
-        std::getline(in, line);
-        if(linehasthestring(line, &stringToFind[i])) // The controller of lines with relevant content failing now
+     for(const auto& word : stringsToFind)
+     {
+      ss << word;
+      std::getline(in, line);
+      if(linehasthestring(line, word)) // The controller of lines with relevant content failing now
         {
-       //while(ss >> word)
-       //{
-       /*for(int i = 0; i < stringToFind.length(); i++) // This should iterate across each word in stringToFind
-       // instead it seems to only send the process immediately back to while() above.
-      {*/
-        if(word.length() && word.back() == '.')
-        {
-         word.pop_back();
-        }
-         std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
-         std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
-         std::smatch match;
-          if(std::regex_match(word, r) || (std::regex_match(word, m))) // Checks if match on the same line exists to IP or MAC
+         /*if(word.length() && word.back() == '.')
           {
-           auto iter = line.find(word);
-           while(iter != std::string::npos)
+           word.pop_back();
+          }*/
+          std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
+          std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+          std::smatch match;
+           if(std::regex_match(word, r) || (std::regex_match(word, m))) // Checks if match on the same line exists to IP or MAC
            {
-            size_t s = line.find(word);
-            line.replace(s, word.length() + 1, replacement);
-            iter = line.find(word, iter); // Third instance of "find" in five lines!
-            std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
-            out << line << std::endl;
-            out.close();
-          //}
-         //}
-        //}
-      }// iterate over each word in stringToFind here to get their value
-      
+            auto iter = line.find(word);
+            while(iter != std::string::npos)
+            {
+             size_t s = line.find(word);
+             line.replace(s, word.length() + 1, replacement);
+             iter = line.find(word, iter); // Third instance of "find" in five lines!
+             std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
+             out << line << std::endl;
+             out.close();
+        }
        }
       }
      }
