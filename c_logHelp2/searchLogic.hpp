@@ -38,6 +38,6 @@ class SearchLogic
    
         bool linehasthestring(const std::string &line, std::string stringToFind);
         void pushTheLines(std::string correspPath,
-            std::array<std::string, 3> stringsToFind);
+            std::string stringToFind);
 };
 #endif

@@ -37,17 +37,23 @@ int main()
     
     std::cout << "\n" << "Enter up to three words, pressing enter between each. " << std::endl;
     
-  for(int i = 0; i < stringsToFind.size() && std::cin >> word; ++i)
+  for(int i = 0; i < stringsToFind.size() && std::cin >> word; i++)
   {
       stringsToFind[i] = word;
-     if(std::regex_match(stringsToFind[i], isnumber))
+     if(std::regex_match(word, isnumber))
      {
       std::cout << "Inappropriate data type for input." << std::endl;
       return 1;
+     } else
+     {
+      searchDirs.dirContents(correspPath, word);
      }
-     searchDirs.dirContents(correspPath, stringsToFind);
+     
   }
-      
+     for(int j = 0; j < stringsToFind.size(); j++)
+      {
+       std::cout << " " << stringsToFind[j];
+      }
       
  } catch (std::exception &e)
  {

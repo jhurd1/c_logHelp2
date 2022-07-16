@@ -98,7 +98,7 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::array<std::string, 3> stringsToFind)
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
   try
   {
@@ -109,7 +109,7 @@ SearchDirs::SearchDirs()
         std::string temppath;
         temppath = entry.path().string();
         SearchLogic sl(temppath);
-        sl.pushTheLines(temppath, stringsToFind);
+        sl.pushTheLines(temppath, stringToFind);
        }
       }
   } catch (std::exception &e)

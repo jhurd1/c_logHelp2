@@ -136,7 +136,7 @@ std::string SearchLogic::getLine() const
 * Output to a new file.
 ***************************************/
  void SearchLogic::pushTheLines(std::string correspPath,
-    std::array<std::string, 3> stringsToFind)
+    std::string stringToFind)
  {
     std::fstream in;
     std::string line;
@@ -148,16 +148,18 @@ std::string SearchLogic::getLine() const
      
      std::stringstream ss(line);
      
-     for(const auto& word : stringsToFind)
+     while(in)
      {
-      ss << word;
+      //ss << word;
       std::getline(in, line);
-      if(linehasthestring(line, word)) // The controller of lines with relevant content failing now
+      if(linehasthestring(line, stringToFind)) // The controller of lines with relevant content failing now
         {
-         /*if(word.length() && word.back() == '.')
+         while(ss >> word)
+         {
+         if(word.length() && word.back() == '.')
           {
            word.pop_back();
-          }*/
+          }
           std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
           std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
           std::smatch match;
@@ -172,6 +174,7 @@ std::string SearchLogic::getLine() const
              std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
              out << line << std::endl;
              out.close();
+         }
         }
        }
       }
