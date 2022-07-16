@@ -15,7 +15,6 @@ int main()
     std::string word;
     std::string correspPath;
     std::array<std::string, 3> stringsToFind;
-    int i = 0;
    
  try {
  
@@ -26,16 +25,18 @@ int main()
     std::cout << "file path to search: ";
     std::cin >> correspPath;
     std::cout << std::endl;
+    
      if(std::regex_match(correspPath, ispath))
      {
-      std::cout << "You truly seek the holy grail." << "\n" << "Therefore, you may pass." << "\n" << std::endl;
+      std::cout << "You truly seek the holy grail." << "\n" << "\n" << "You may pass." << "\n" << std::endl;
      } else
      {
-      std::cout << "\n" << "Not a path. You shall perish." << "\n" << "\n" << std::endl;
+      std::cout << "\n" << "Not a path." << "\n" << "You shall perish." << "\n" << "\n" << std::endl;
       return 1;
      }
     
-    std::cout << "Enter up to three words, pressing enter between each. " << std::endl;
+    std::cout << "\n" << "Enter up to three words, pressing enter between each. " << std::endl;
+    
   for(int i = 0; i < stringsToFind.size() && std::cin >> word; ++i)
   {
       stringsToFind[i] = word;
@@ -44,9 +45,10 @@ int main()
       std::cout << "Inappropriate data type for input." << std::endl;
       return 1;
      }
+     searchDirs.dirContents(correspPath, stringsToFind);
   }
-      std::cout << stringsToFind[i] << std::endl;
-      searchDirs.dirContents(correspPath, stringsToFind);
+      
+      
  } catch (std::exception &e)
  {
   std::cout << "searchDriver failed." << std::endl;
