@@ -148,7 +148,6 @@ std::string SearchLogic::getLine() const
  
      while(in)
      {
-      //ss << word;
       std::getline(in, line);
       
       if(linehasthestring(line, stringToFind))
@@ -161,7 +160,6 @@ std::string SearchLogic::getLine() const
           {
            word.pop_back();
           }
-          std::cout << word;
           std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
           std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
           std::smatch match;

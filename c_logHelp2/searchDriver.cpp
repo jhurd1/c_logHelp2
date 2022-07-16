@@ -48,12 +48,9 @@ int main()
      {
       searchDirs.dirContents(correspPath, word);
      }
-     
   }
-     for(int j = 0; j < stringsToFind.size(); j++)
-      {
-       std::cout << " " << stringsToFind[j];
-      }
+ 
+      
       
  } catch (std::exception &e)
  {
