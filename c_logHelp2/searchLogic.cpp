@@ -171,7 +171,7 @@ std::string SearchLogic::getLine() const
              size_t s = line.find(word);
              line.replace(s, word.length() + 1, replacement);
              iter = line.find(word, iter); // Third instance of "find" in five lines!
-             std::ofstream out("/Users/jamiehurd/desktop/c_logHelp2/c_logHelp2/new.txt", std::fstream::app);
+             std::ofstream out(correspPath + "/output.txt", std::fstream::app);
              out << line << std::endl;
              out.close();
           }

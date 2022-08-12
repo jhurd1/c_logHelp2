@@ -22,7 +22,7 @@ int main()
     std::regex ispath("/.*/+");
     std::smatch match;
     
-    std::cout << "file path to search: ";
+    std::cout << "file path to search ending with a '/': ";
     std::cin >> correspPath;
     std::cout << std::endl;
     
@@ -34,7 +34,8 @@ int main()
       std::cout << "\n" << "Not a path." << "\n" << "You shall perish." << "\n" << "\n" << std::endl;
       return 1;
      }
-    
+    // Create an option for the user to select the quantity of search words
+    // using a switch-case block. Then, prompt the user for the words.
     std::cout << "\n" << "Enter up to three words, pressing enter between each. " << std::endl;
     
   for(int i = 0; i < stringsToFind.size() && std::cin >> word; i++)
@@ -49,9 +50,6 @@ int main()
       searchDirs.dirContents(correspPath, word);
      }
   }
- 
-      
-      
  } catch (std::exception &e)
  {
   std::cout << "searchDriver failed." << std::endl;
