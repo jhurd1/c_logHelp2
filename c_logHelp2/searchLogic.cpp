@@ -67,6 +67,11 @@ void SearchLogic::setLine(std::string line)
 {
  this->line = line;
 }
+
+void SearchLogic::setoutpath(std::string *outPath)
+{
+ this->outPath = outPath;
+}
  
  
 /* *****************
@@ -96,6 +101,11 @@ std::string SearchLogic::getcorrespPath() const
 std::string SearchLogic::getstringToFind() const
 {
     return stringToFind;
+}
+
+std::string SearchLogic::getoutpath() const
+{
+ return *outPath;
 }
 
 /*****************
@@ -163,17 +173,21 @@ std::string SearchLogic::getLine() const
           std::regex r("\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b");
           std::regex m("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
           std::smatch match;
-           if(std::regex_match(word, r) || (std::regex_match(word, m))) // Checks if match on the same line exists to IP or MAC
+          auto iter = line.find(word);
+          while(iter != std::string::npos)
            {
-            auto iter = line.find(word);
-            while(iter != std::string::npos)
+            if(std::regex_match(word, r) || (std::regex_match(word, m)))
             {
              size_t s = line.find(word);
              line.replace(s, word.length() + 1, replacement);
-             iter = line.find(word, iter); // Third instance of "find" in five lines!
-             std::ofstream out(correspPath + "/output.txt", std::fstream::app);
+             iter = line.find(word, iter);
+             std::ofstream out(*outPath, std::fstream::app);
              out << line << std::endl;
              out.close();
+          } else
+          {
+           std::ofstream out(*outPath, std::fstream::app);
+           out << line << std::endl;
           }
         }
        }

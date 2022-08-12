@@ -11,6 +11,7 @@
 *******************************************/
 int main()
 {
+    SearchLogic SL;
     SearchDirs searchDirs;
     std::string word;
     std::string correspPath;

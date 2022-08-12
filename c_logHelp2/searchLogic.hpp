@@ -13,29 +13,34 @@ class SearchLogic
         std::string correspPath;
         std::string stringToFind;
         std::string *replacement;
+        std::string *outPath;
         std::string line;
         Search search;
        std::string arr;
 
     public:
+       // Mutators
         void setcorrespPath(std::string correspPath);
         void setstringToFind(std::string stringToFind);
-        
+        void setoutpath(std::string *outPath);
         void setIn(std::ifstream in);
         void setLine(std::string line);
         void setreplacement(std::string &replacement);
         
+        // Accessors
         std::string getcorrespPath() const;
         std::string getstringToFind() const;
-        
+        std::string getoutpath() const;
         std::string getLine() const;
         std::string getreplacement() const;
         
+        // Constructors
         SearchLogic();
         SearchLogic(std::string correspPath);
         SearchLogic(std::string correspPath, std::string stringToFind,
            std::string &replacement);
-   
+        
+        // Other Data Members
         bool linehasthestring(const std::string &line, std::string stringToFind);
         void pushTheLines(std::string correspPath,
             std::string stringToFind);
