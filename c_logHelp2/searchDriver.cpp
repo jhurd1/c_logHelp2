@@ -11,12 +11,14 @@
 *******************************************/
 int main()
 {
-    SearchLogic SL;
+    SearchLogic logic;
     SearchDirs searchDirs;
     std::string word;
     std::string correspPath;
     std::array<std::string, 3> stringsToFind;
-   
+    
+    logic.prompt(); // bad access
+    
  try {
  
     std::regex isnumber("^-?\\d+");

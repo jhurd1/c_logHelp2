@@ -137,6 +137,13 @@ std::string SearchLogic::getLine() const
 /* *******************************
 * OTHER DATA MEMBERS
 **********************************/
+void SearchLogic::prompt()
+{
+     
+    std::cout << "The file path, including the file name, wherein to write the output: " << std::endl;
+    std::cin >> *outPath;
+}
+
 
 /* **********************************
 * SEARCHLOGIC
@@ -150,8 +157,8 @@ std::string SearchLogic::getLine() const
  {
     std::fstream in;
     std::string line;
-    
     std::string replacement = " REDACTED ";
+    
   try
   {
      in.open(correspPath, std::ios::in);
