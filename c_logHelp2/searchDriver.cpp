@@ -17,7 +17,7 @@ int main()
     std::string correspPath;
     std::array<std::string, 3> stringsToFind;
     
-    logic.prompt(); // bad access
+    logic.prompt();
     
  try {
  

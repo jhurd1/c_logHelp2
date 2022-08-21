@@ -13,7 +13,7 @@ class SearchLogic
         std::string correspPath;
         std::string stringToFind;
         std::string *replacement;
-        std::string *outPath;
+        std::string outPath;
         std::string line;
         Search search;
        std::string arr;
@@ -22,7 +22,7 @@ class SearchLogic
        // Mutators
         void setcorrespPath(std::string correspPath);
         void setstringToFind(std::string stringToFind);
-        void setoutpath(std::string *outPath);
+        void setoutpath(std::string outPath);
         void setIn(std::ifstream in);
         void setLine(std::string line);
         void setreplacement(std::string &replacement);
@@ -41,6 +41,7 @@ class SearchLogic
            std::string &replacement);
         
         // Other Data Members
+        void prompt();
         bool linehasthestring(const std::string &line, std::string stringToFind);
         void pushTheLines(std::string correspPath,
             std::string stringToFind);

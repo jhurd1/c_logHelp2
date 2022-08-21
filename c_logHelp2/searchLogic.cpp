@@ -68,7 +68,7 @@ void SearchLogic::setLine(std::string line)
  this->line = line;
 }
 
-void SearchLogic::setoutpath(std::string *outPath)
+void SearchLogic::setoutpath(std::string outPath)
 {
  this->outPath = outPath;
 }
@@ -105,7 +105,7 @@ std::string SearchLogic::getstringToFind() const
 
 std::string SearchLogic::getoutpath() const
 {
- return *outPath;
+ return outPath;
 }
 
 /*****************
@@ -139,9 +139,7 @@ std::string SearchLogic::getLine() const
 **********************************/
 void SearchLogic::prompt()
 {
-     
-    std::cout << "The file path, including the file name, wherein to write the output: " << std::endl;
-    std::cin >> *outPath;
+   std::cout << "The file path, including the file name, wherein to write the output: " << std::endl;
 }
 
 
@@ -188,12 +186,12 @@ void SearchLogic::prompt()
              size_t s = line.find(word);
              line.replace(s, word.length() + 1, replacement);
              iter = line.find(word, iter);
-             std::ofstream out(*outPath, std::fstream::app);
+             std::ofstream out(outPath, std::fstream::app);
              out << line << std::endl;
              out.close();
           } else
           {
-           std::ofstream out(*outPath, std::fstream::app);
+           std::ofstream out(outPath, std::fstream::app);
            out << line << std::endl;
           }
         }
