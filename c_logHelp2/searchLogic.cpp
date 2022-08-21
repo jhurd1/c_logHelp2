@@ -140,6 +140,7 @@ std::string SearchLogic::getLine() const
 void SearchLogic::prompt()
 {
    std::cout << "The file path, including the file name, wherein to write the output: " << std::endl;
+   std::cin >> outPath;
 }
 
 
