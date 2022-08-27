@@ -15,48 +15,65 @@ int main()
     SearchDirs searchDirs;
     std::string word;
     std::string correspPath;
+    int wordQuantity = 0;
+    int j = 0;
     std::array<std::string, 3> stringsToFind;
-    
-    logic.prompt();
-    
- try {
- 
-    std::regex isnumber("^-?\\d+");
-    std::regex ispath("/.*/+");
-    std::smatch match;
-    
-    std::cout << "file path to search ending with a '/': ";
-    std::cin >> correspPath;
-    std::cout << std::endl;
-    
-     if(std::regex_match(correspPath, ispath))
-     {
-      std::cout << "You truly seek the holy grail." << "\n" << "\n" << "You may pass." << "\n" << std::endl;
-     } else
-     {
-      std::cout << "\n" << "Not a path." << "\n" << "You shall perish." << "\n" << "\n" << std::endl;
-      return 1;
-     }
-    // Create an option for the user to select the quantity of search words
-    // using a switch-case block. Then, prompt the user for the words.
-    std::cout << "\n" << "Enter up to three words, pressing enter between each. " << std::endl;
-    
-  for(int i = 0; i < stringsToFind.size() && std::cin >> word; i++)
-  {
-      stringsToFind[i] = word;
-     if(std::regex_match(word, isnumber))
-     {
-      std::cout << "Inappropriate data type for input." << std::endl;
-      return 1;
-     } else
-     {
-      searchDirs.dirContents(correspPath, word);
-     }
-  }
- } catch (std::exception &e)
- {
-  std::cout << "searchDriver failed." << std::endl;
- }
-    
-   return 0;
+
+    try {
+
+       
+        std::regex isMacPath("/.*/+");
+        std::regex isWindowsPath("^(?:[a-zA-Z]\\:|\\\\[\\w\\.]+\\[\w.$]+)\\(?:[\w]+\\)*\w([\w.])+$");
+        std::smatch match;
+
+        std::cout << "Enter the file path to search ending with a '/': ";
+        std::cin >> correspPath;
+        std::cout << std::endl;
+       
+        if (std::regex_match(correspPath, isMacPath))
+        {
+            std::cout << "You truly seek the holy grail." << "\n" << "\n" << "You may pass." << "\n" << std::endl;
+        }
+        else if (std::regex_match(correspPath, isWindowsPath))
+        {
+            std::cout << "Congratulations! You use Windows!" << " " << "(If such a thing proves congratulatory.)" << std::endl;
+        }
+        else
+        {
+            std::cout << "Testing path..." << std::endl;
+            std::cout << "Path failed." << std::endl;
+            main();
+        }
+
+        std::cout << "\n" << "Select the quantity of words--up to three--you wish to search for. Then, press Enter. " << std::endl;
+
+        switch (wordQuantity)
+        {
+        case 1:
+            j = 0;
+            std::cin >> j;
+            logic.prompt(j);
+            break;
+        case 2:
+            j = 1;
+            std::cin >> j;
+            logic.prompt(j);
+            break;
+        case 3:
+            j = 2;
+            std::cin >> j;
+            logic.prompt(j);
+            break;
+        default:
+            break;
+        }
+
+       
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "searchDriver failed." << std::endl;
+    }
+
+    return 0;
 }
