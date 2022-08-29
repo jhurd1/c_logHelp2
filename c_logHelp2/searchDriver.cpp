@@ -23,7 +23,7 @@ int main()
 
        
         std::regex isMacPath("/.*/+");
-        std::regex isWindowsPath("[a-zA-Z]:[\\\/](?:[a-zA-Z0-9]+[\\\/])*([a-zA-Z0-9]+\\.txt)");
+        std::regex isWindowsPath("[a-zA-Z]:[\\/\/](?:[a-zA-Z0-9]+[\\\/])*([a-zA-Z0-9]+\\.txt)");
         std::smatch match;
 
         std::cout << "Enter the file path to search ending with a '/': ";
