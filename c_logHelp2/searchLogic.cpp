@@ -188,6 +188,14 @@ int SearchLogic::prompt(int &j)
        mes = &test;
        l.setLogger(mes);
        std::cout << mes << std::endl;
+       FILE *pFile;
+       pFile = fopen("/users/jamiehurd/desktop/temp/logfile.log/", "w");
+       if(pFile != NULL)
+       {
+        char const *temp = mes->c_str();
+        fputs(temp, pFile);
+        fclose(pFile);
+       }
       }
     } catch (std::exception &e)
     {
