@@ -23,7 +23,7 @@ int main()
 
        
         std::regex isMacPath("/.*/+");
-        std::regex isWindowsPath("[a-zA-Z]:[\\/\/](?:[a-zA-Z0-9]+[\\\/])*([a-zA-Z0-9]+\\.txt)");
+        //std::regex isWindowsPath("[a-zA-Z]:[\\/\/](?:[a-zA-Z0-9]+[\\\/])*([a-zA-Z0-9]+\\.txt)");
         std::smatch match;
 
         std::cout << "Enter the file path to search ending with a '/': ";
@@ -34,10 +34,10 @@ int main()
         {
             std::cout << "You truly seek the holy grail." << "\n" << "\n" << "You may pass." << "\n" << std::endl;
         }
-        else if (std::regex_match(correspPath, isWindowsPath))
+        /*else if (std::regex_match(correspPath, isWindowsPath))
         {
             std::cout << "Congratulations! You use Windows!" << " " << "(If such a thing proves congratulatory.)" << std::endl;
-        }
+        }*/
         else
         {
             std::cout << "Testing path..." << std::endl;
@@ -46,29 +46,24 @@ int main()
         }
 
         std::cout << "\n" << "Select the quantity of words--up to three--you wish to search for. Then, press Enter. " << std::endl;
-
+        std::cin >> wordQuantity;
         switch (wordQuantity)
         {
         case 1:
             j = 0;
-            std::cin >> j;
             logic.prompt(j);
             break;
         case 2:
             j = 1;
-            std::cin >> j;
             logic.prompt(j);
             break;
         case 3:
             j = 2;
-            std::cin >> j;
             logic.prompt(j);
             break;
         default:
             break;
         }
-
-       
     }
     catch (std::exception& e)
     {

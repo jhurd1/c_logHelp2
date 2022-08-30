@@ -7,6 +7,7 @@
 #include <cctype>
 #include <array>
 #include "searchDirs.hpp"
+#include "Logger.h"
 
 /* ***************************
 * CONSTRUCTORS
@@ -159,24 +160,41 @@ int SearchLogic::prompt(int &j)
     std::array<std::string, 3> stringsToFind;
     std::string word;
     std::regex isnumber("^-?\\d+");
-    std::cout << "The file path, including the file name, wherein to write the output: " << std::endl;
-    std::cin >> outPath;
-    for (int i = 0; i < j && std::cin >> word; i++)
+    try
     {
+     std::cout << "The file path, including the file name, wherein to write the output: " << std::endl;
+     std::cin >> outPath;
+     if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
+      {
+       std::cout << "The word or words you'd like to search for." << std::endl;
+       for (int i = 0; i <= j && std::cin >> word; i++)
+       {
         stringsToFind[i] = word;
         if (std::regex_match(word, isnumber))
         {
-            std::cout << "Inappropriate data type for input." << std::endl;
-            return 1;
+           std::cout << "Inappropriate data type for input." << std::endl;
+           return 1;
         }
-        else
+         else
         {
-            searchDirs.dirContents(correspPath, word);
+           searchDirs.dirContents(correspPath, word);
         }
+       }
+      } else
+      {
+       Logger l;
+       std::string *mes = nullptr;
+       std::string test = "ERROR: The program won't use this type of file.";
+       mes = &test;
+       l.setLogger(mes);
+       std::cout << mes << std::endl;
+      }
+    } catch (std::exception &e)
+    {
+     std::cout << "" << std::endl;
     }
     return j;
 }
-
 
 /* **********************************
 * SEARCHLOGIC
