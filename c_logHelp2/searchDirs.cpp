@@ -98,7 +98,7 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind) // No values passed to this point.
  {
   try
   {

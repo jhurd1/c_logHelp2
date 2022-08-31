@@ -190,7 +190,7 @@ int SearchLogic::prompt(int &j)
        std::cout << mes << std::endl;
        FILE *pFile;
        pFile = fopen("/users/jamiehurd/desktop/temp/logfile.log/", "w");
-       if(pFile != NULL)
+       if(pFile != NULL) // Never enters.
        {
         char const *temp = mes->c_str();
         fputs(temp, pFile);
