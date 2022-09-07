@@ -69,7 +69,7 @@ std::string Search::getStrings() const
 ********************/
 std::string Search::getPath() const
 {
-    return *fpath;
+    return *fpath; // dirContents appears to stop abruptly here.
 }
 
 

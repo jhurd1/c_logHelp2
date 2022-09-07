@@ -98,17 +98,19 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind) // No values passed to this point.
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
   try
   {
    for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
+     std::cout << "\n" << "The file path this iteration is " << correspPath << " ." << std::endl;
      if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log"))
      {
         std::string temppath;
         temppath = entry.path().string();
         SearchLogic sl(temppath);
+        std::cout << "The temppath is " << temppath << std::endl;
         sl.pushTheLines(temppath, stringToFind);
        }
       }

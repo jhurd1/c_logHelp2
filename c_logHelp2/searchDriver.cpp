@@ -47,6 +47,7 @@ int main()
 
         std::cout << "\n" << "Select the quantity of words--up to three--you wish to search for. Then, press Enter. " << std::endl;
         std::cin >> wordQuantity;
+        std::cout << std::endl;
         switch (wordQuantity)
         {
         case 1:

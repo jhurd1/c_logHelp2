@@ -26,7 +26,7 @@ SearchLogic::SearchLogic()
 *********************/
 SearchLogic::SearchLogic(std::string corresppath)
 {
-    setcorrespPath(correspPath);
+    setcorrespPath(correspPath); // Conflates the search word with the correspPath!
 }
 
 /*****************
@@ -162,11 +162,12 @@ int SearchLogic::prompt(int &j, std::string &correspPath)
     std::regex isnumber("^-?\\d+");
     try
     {
-     std::cout << "The file path, including the file name, wherein to write the output: " << std::endl;
+     std::cout << "The file path, including the file name, wherein to write the output: " << "\n" << std::endl;
      std::cin >> outPath;
+     std::cout << std::endl;
      if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
       {
-       std::cout << "The word or words you'd like to search for." << std::endl;
+       std::cout << "The word or words you'd like to search for." << "\n" << std::endl;
        for (int i = 0; i <= j && std::cin >> word; i++)
        {
         stringsToFind[i] = word;
