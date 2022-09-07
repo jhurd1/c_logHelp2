@@ -18,7 +18,7 @@ Search::Search()
 /********************
 * Non-default, one.
 *********************/
-Search::Search(std::string fpath)
+Search::Search(std::string *fpath)
 {
     setPath(fpath);
 }
@@ -26,7 +26,7 @@ Search::Search(std::string fpath)
 /*****************
 * Non-default, two.
 ******************/
-Search::Search(std::string fpath, std::string searchStrings)
+Search::Search(std::string *fpath, std::string searchStrings)
 {
     setPath(fpath);
     setStrings(searchStrings);
@@ -47,7 +47,7 @@ void Search::setStrings(std::string searchStrings)
 /*******************
 * setpath
 ********************/
-void Search::setPath(std::string fpath)
+void Search::setPath(std::string *fpath)
 {
     this->fpath = fpath;
 }
@@ -69,7 +69,7 @@ std::string Search::getStrings() const
 ********************/
 std::string Search::getPath() const
 {
-    return fpath;
+    return *fpath;
 }
 
 

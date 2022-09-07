@@ -51,15 +51,15 @@ int main()
         {
         case 1:
             j = 0;
-            logic.prompt(j);
+            logic.prompt(j, correspPath);
             break;
         case 2:
             j = 1;
-            logic.prompt(j);
+            logic.prompt(j, correspPath);
             break;
         case 3:
             j = 2;
-            logic.prompt(j);
+            logic.prompt(j, correspPath);
             break;
         default:
             break;

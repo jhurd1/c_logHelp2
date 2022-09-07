@@ -6,12 +6,12 @@ class Search
 {
     private:
     
-        std::string fpath;
+        std::string *fpath;
         std::string searchStrings;
 
     public:
     
-        void setPath(std::string fpath);
+        void setPath(std::string *fpath);
         void setStrings(std::string searchStrings);
 
         std::string getPath() const;
@@ -19,9 +19,9 @@ class Search
         
         Search();
 
-        Search(std::string fpath);
+        Search(std::string *fpath);
 
-        Search(std::string fpath, std::string searchStrings);
+        Search(std::string *fpath, std::string searchStrings);
 
 };
 

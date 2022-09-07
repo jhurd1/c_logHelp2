@@ -35,7 +35,7 @@ SearchLogic::SearchLogic(std::string corresppath)
 SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
     std::string& replacement)
 {
-    setcorrespPath(correspPath);
+    setcorrespPath(&correspPath);
     setstringToFind(stringToFind);
     setreplacement(replacement);
 }
@@ -47,9 +47,10 @@ SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
 /*****************
 * setcorrespPath
 ******************/
-void SearchLogic::setcorrespPath(std::string correspPath)
+void SearchLogic::setcorrespPath(std::string *correspPath)
 {
-    this->correspPath = search.getPath();
+  *correspPath = search.getPath();
+  //this->correspPath = search.getPath();
 }
 
 /*****************
@@ -100,7 +101,7 @@ void SearchLogic::setJ(int& j)
 ******************/
 std::string SearchLogic::getcorrespPath() const
 {
-    return correspPath;
+    return *correspPath;
 }
 
 /*****************
@@ -153,7 +154,7 @@ bool SearchLogic::linehasthestring(const std::string& line, std::string stringTo
 /* *******************************
 * OTHER DATA MEMBERS
 **********************************/
-int SearchLogic::prompt(int &j)
+int SearchLogic::prompt(int &j, std::string &correspPath)
 {
     SearchDirs searchDirs;
     std::array<std::string, 3> stringsToFind;
