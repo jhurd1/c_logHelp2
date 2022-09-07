@@ -12,8 +12,7 @@
 ***************/
 Search::Search()
 {
-    fpath = "";
-    searchStrings = "";
+    
 }
 
 /********************

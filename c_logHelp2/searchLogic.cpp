@@ -18,8 +18,7 @@
 ***************/
 SearchLogic::SearchLogic()
 {
-    correspPath = "";
-    stringToFind = "";
+  
 }
 
 /********************
