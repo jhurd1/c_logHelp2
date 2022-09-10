@@ -39,7 +39,7 @@ public:
 
     // Constructors
     SearchLogic();
-    SearchLogic(std::string correspPath);
+    SearchLogic(std::string *correspPath);
     SearchLogic(std::string correspPath, std::string stringToFind,
         std::string& replacement);
 

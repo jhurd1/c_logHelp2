@@ -22,15 +22,15 @@ SearchLogic::SearchLogic()
 }
 
 /********************
-* Non-default, one.
+* Non-default
 *********************/
-SearchLogic::SearchLogic(std::string corresppath)
+SearchLogic::SearchLogic(std::string *correspPath)
 {
     setcorrespPath(correspPath); // Conflates the search word with the correspPath!
 }
 
 /*****************
-* Non-default, one.
+* Non-default
 ******************/
 SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
     std::string& replacement)

@@ -107,11 +107,11 @@ SearchDirs::SearchDirs()
      std::cout << "\n" << "The file path this iteration is " << correspPath << " ." << std::endl;
      if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log"))
      {
-        std::string temppath;
-        temppath = entry.path().string();
+        std::string *temppath = nullptr;
+        *temppath = entry.path().string();
         SearchLogic sl(temppath);
         std::cout << "The temppath is " << temppath << std::endl;
-        sl.pushTheLines(temppath, stringToFind);
+        sl.pushTheLines(*temppath, stringToFind);
        }
       }
   } catch (std::exception &e)
