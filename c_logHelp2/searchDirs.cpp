@@ -98,7 +98,7 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind) // stringToFind has no value here
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
  {
   try
   {
@@ -107,6 +107,8 @@ SearchDirs::SearchDirs()
      std::cout << "\n" << "The file path this iteration is " << correspPath << " ." << std::endl;
      if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log"))
      {
+        SearchLogic l;
+        stringToFind = l.getstringToFind();
         std::string *temppath = nullptr;
         *temppath = entry.path().string();
         SearchLogic sl(temppath);

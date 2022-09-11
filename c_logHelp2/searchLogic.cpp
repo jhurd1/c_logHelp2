@@ -58,7 +58,7 @@ void SearchLogic::setcorrespPath(std::string *correspPath)
 ******************/
 void SearchLogic::setstringToFind(std::string stringToFind)
 {
-    this->stringToFind = search.getStrings();
+    this->stringToFind = stringToFind;
 }
 
 /*****************
@@ -158,7 +158,6 @@ int SearchLogic::prompt(int &j, std::string &correspPath)
 {
     SearchDirs searchDirs;
     std::array<std::string, 3> stringsToFind;
-    std::string word;
     std::regex isnumber("^-?\\d+");
     try
     {
@@ -168,17 +167,17 @@ int SearchLogic::prompt(int &j, std::string &correspPath)
      if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
       {
        std::cout << "The word or words you'd like to search for." << "\n" << std::endl;
-       for (int i = 0; i <= j && std::cin >> word; i++)
+       for (int i = 0; i <= j && std::cin >> stringToFind; i++)
        {
-        stringsToFind[i] = word;
-        if (std::regex_match(word, isnumber))
+        stringsToFind[i] = stringToFind;
+        if (std::regex_match(stringToFind, isnumber))
         {
            std::cout << "Inappropriate data type for input." << std::endl;
            return 1;
         }
          else
         {
-           searchDirs.dirContents(correspPath, word);
+           searchDirs.dirContents(correspPath, stringToFind);
         }
        }
       } else
