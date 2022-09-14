@@ -168,7 +168,9 @@ int SearchLogic::prompt(int &j, std::string &correspPath)
       {
       // Bad access happens in this block.
        std::cout << "The word or words you'd like to search for." << "\n" << std::endl;
-       std::getline(std::cin, *stringToFind);
+       std::string temp("");
+       std::cin >> temp;
+       stringToFind = &temp;
        for (int i = 0; i <= j && std::cin >> *stringToFind; i++)
        {
         stringsToFind[i] = *stringToFind;
