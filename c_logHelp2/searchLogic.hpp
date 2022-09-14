@@ -11,7 +11,7 @@ class SearchLogic
 {
 private:
     std::string *correspPath;
-    std::string stringToFind;
+    std::string *stringToFind;
     std::string *replacement;
     std::string outPath;
     std::string line;
@@ -22,7 +22,7 @@ private:
 public:
     // Mutators
     void setcorrespPath(std::string *correspPath);
-    void setstringToFind(std::string stringToFind);
+    void setstringToFind(std::string *stringToFind);
     void setoutpath(std::string outPath);
     void setIn(std::ifstream in);
     void setLine(std::string line);
@@ -40,7 +40,7 @@ public:
     // Constructors
     SearchLogic();
     SearchLogic(std::string *correspPath);
-    SearchLogic(std::string correspPath, std::string stringToFind,
+    SearchLogic(std::string correspPath, std::string *stringToFind,
         std::string& replacement);
 
     // Other Data Members

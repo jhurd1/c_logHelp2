@@ -32,7 +32,7 @@ SearchLogic::SearchLogic(std::string *correspPath)
 /*****************
 * Non-default
 ******************/
-SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
+SearchLogic::SearchLogic(std::string correspPath, std::string *stringToFind,
     std::string& replacement)
 {
     setcorrespPath(&correspPath);
@@ -56,7 +56,7 @@ void SearchLogic::setcorrespPath(std::string *correspPath)
 /*****************
 * setstringtofind
 ******************/
-void SearchLogic::setstringToFind(std::string stringToFind)
+void SearchLogic::setstringToFind(std::string *stringToFind)
 {
     this->stringToFind = stringToFind;
 }
@@ -109,7 +109,7 @@ std::string SearchLogic::getcorrespPath() const
 ******************/
 std::string SearchLogic::getstringToFind() const
 {
-    return stringToFind;
+    return *stringToFind;
 }
 
 std::string SearchLogic::getoutpath() const
@@ -167,17 +167,17 @@ int SearchLogic::prompt(int &j, std::string &correspPath)
      if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
       {
        std::cout << "The word or words you'd like to search for." << "\n" << std::endl;
-       for (int i = 0; i <= j && std::cin >> stringToFind; i++)
+       for (int i = 0; i <= j && std::cin >> *stringToFind; i++)
        {
-        stringsToFind[i] = stringToFind;
-        if (std::regex_match(stringToFind, isnumber))
+        stringsToFind[i] = *stringToFind; // I need this array in case we possess >1 search words.
+        if (std::regex_match(*stringToFind, isnumber))
         {
            std::cout << "Inappropriate data type for input." << std::endl;
            return 1;
         }
          else
         {
-           searchDirs.dirContents(correspPath, stringToFind);
+           searchDirs.dirContents(correspPath, *stringToFind);
         }
        }
       } else

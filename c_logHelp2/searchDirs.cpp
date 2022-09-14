@@ -98,7 +98,7 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind)
+ void SearchDirs::dirContents(std::string correspPath, std::string stringToFind) // The program resets stringToFind somewhere.
  {
   try
   {
@@ -110,7 +110,7 @@ SearchDirs::SearchDirs()
         SearchLogic l;
         stringToFind = l.getstringToFind();
         std::string *temppath = nullptr;
-        *temppath = entry.path().string();
+        *temppath = entry.path().string(); // Bad access; empty stringToFind and worse, empty pointer!
         SearchLogic sl(temppath);
         std::cout << "The temppath is " << temppath << std::endl;
         sl.pushTheLines(*temppath, stringToFind);
