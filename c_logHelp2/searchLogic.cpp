@@ -166,10 +166,12 @@ int SearchLogic::prompt(int &j, std::string &correspPath)
      std::cout << std::endl;
      if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
       {
+      // Bad access happens in this block.
        std::cout << "The word or words you'd like to search for." << "\n" << std::endl;
+       std::getline(std::cin, *stringToFind);
        for (int i = 0; i <= j && std::cin >> *stringToFind; i++)
        {
-        stringsToFind[i] = *stringToFind; // I need this array in case we possess >1 search words.
+        stringsToFind[i] = *stringToFind;
         if (std::regex_match(*stringToFind, isnumber))
         {
            std::cout << "Inappropriate data type for input." << std::endl;
