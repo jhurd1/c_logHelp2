@@ -16,9 +16,10 @@
 
 class SearchDirs
 {
+ SearchLogic s;
  private:
    std::string correspPath;
-   std::string stringToFind;
+   std::string *stringToFind;
    std::string stringInFile;
    int i;
    int j;
@@ -27,13 +28,13 @@ class SearchDirs
    char array[3][25];
    
  public:
-  SearchLogic s;
+  
   SearchDirs();
   SearchDirs(std::string correspPath, SearchLogic s);
-  SearchDirs(std::string correspPath, std::string stringToFind, SearchLogic s);
+  SearchDirs(std::string correspPath, std::string *stringToFind, SearchLogic s);
   
   void setcorrespPath(std::string correspPath);
-  void setstringtoFind(std::string stringToFind);
+  void setstringtoFind(std::string *stringToFind);
   void setstringInFile(std::string stringInFile);
   void setfilename(std::string filename);
   void setwords(const int *words);
@@ -44,7 +45,7 @@ class SearchDirs
   std::string getfilename() const;
   int getwords() const;
   
-  void dirContents(std::string correspPath, std::string stringToFind);
+  void dirContents(std::string correspPath, std::string *stringToFind);
 };
 
 #endif /* searchDirs_hpp */

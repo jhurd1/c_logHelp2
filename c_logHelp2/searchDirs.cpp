@@ -33,7 +33,7 @@ SearchDirs::SearchDirs()
  /*******************
 * Non-default, two.
 *********************/
- SearchDirs::SearchDirs(std::string correspPath, std::string stringToFind,
+ SearchDirs::SearchDirs(std::string correspPath, std::string *stringToFind,
   SearchLogic s) : s(s)
  {
   setcorrespPath(correspPath);
@@ -55,9 +55,12 @@ SearchDirs::SearchDirs()
  /*******************
 * setstringtofind
 *********************/
- void SearchDirs::setstringtoFind(std::string stringToFind)
+ void SearchDirs::setstringtoFind(std::string *stringToFind)
  {
-  this->stringToFind = s.getstringToFind();
+  std::string t("");
+  stringToFind = &t;
+  t = s.getstringToFind();
+  this->stringToFind = &t;
  }
  
 /* *******************************
@@ -77,7 +80,7 @@ SearchDirs::SearchDirs()
 *********************/
  std::string SearchDirs::getstringtoFind() const
  {
-  return stringToFind;
+  return *stringToFind;
  }
  
  /********************
@@ -98,7 +101,7 @@ SearchDirs::SearchDirs()
 * Drill into subdirectories
 * Call partner function, pushTheLines()
 ***************************************/
- void SearchDirs::dirContents(std::string correspPath, std::string stringToFind) // The program resets stringToFind somewhere.
+ void SearchDirs::dirContents(std::string correspPath, std::string *stringToFind) // The program resets stringToFind somewhere.
  {
   try
   {
@@ -108,12 +111,12 @@ SearchDirs::SearchDirs()
      if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log"))
      {
         SearchLogic l;
-        stringToFind = l.getstringToFind();
+        *stringToFind = l.getstringToFind();
         std::string *temppath = nullptr;
         *temppath = entry.path().string(); // Bad access; empty stringToFind and worse, empty pointer!
         SearchLogic sl(temppath);
         std::cout << "The temppath is " << temppath << std::endl;
-        sl.pushTheLines(*temppath, stringToFind);
+        sl.pushTheLines(*temppath, *stringToFind);
        }
       }
   } catch (std::exception &e)

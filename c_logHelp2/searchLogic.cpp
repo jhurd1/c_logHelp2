@@ -171,7 +171,8 @@ int SearchLogic::prompt(int &j, std::string &correspPath)
        std::string temp("");
        std::cin >> temp;
        stringToFind = &temp;
-       for (int i = 0; i <= j && std::cin >> *stringToFind; i++)
+       //for (int i = 0; i <= j && std::cin >> *stringToFind; i++)
+       for (int i = 0; i <= j; i++)
        {
         stringsToFind[i] = *stringToFind;
         if (std::regex_match(*stringToFind, isnumber))
@@ -181,7 +182,7 @@ int SearchLogic::prompt(int &j, std::string &correspPath)
         }
          else
         {
-           searchDirs.dirContents(correspPath, *stringToFind);
+           searchDirs.dirContents(correspPath, stringToFind);
         }
        }
       } else
