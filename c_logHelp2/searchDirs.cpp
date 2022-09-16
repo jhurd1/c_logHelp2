@@ -107,11 +107,9 @@ SearchDirs::SearchDirs()
   {
    for(const auto &entry : std::filesystem::recursive_directory_iterator(correspPath))
    {
-     std::cout << "\n" << "The file path this iteration is " << correspPath << " ." << std::endl;
      if((entry.path().extension().string() == ".txt") || (entry.path().extension().string() == ".log"))
      {
         SearchLogic sl;
-        std::cout << "The temppath is " << correspPath << std::endl;
         sl.pushTheLines(correspPath, *stringToFind);
        }
       }
