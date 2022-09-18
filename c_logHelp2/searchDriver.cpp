@@ -9,6 +9,7 @@
 * The "main()" function that
 * presses my objects into service.
 *******************************************/
+
 int main()
 {
     SearchLogic logic;
@@ -17,7 +18,7 @@ int main()
     std::string correspPath;
     int wordQuantity = 0;
     int j = 0;
-    std::array<std::string, 3> stringsToFind;
+    std::array<std::string, 3> *stringsToFind = nullptr;
 
     try {
 
@@ -52,15 +53,15 @@ int main()
         {
         case 1:
             j = 0;
-            logic.prompt(j, correspPath);
+            logic.prompt(&stringsToFind[j], correspPath);
             break;
         case 2:
             j = 1;
-            logic.prompt(j, correspPath);
+            logic.prompt(&stringsToFind[j], correspPath);
             break;
         case 3:
             j = 2;
-            logic.prompt(j, correspPath);
+            logic.prompt(&stringsToFind[j], correspPath);
             break;
         default:
             break;

@@ -18,6 +18,7 @@ private:
     Search search;
     std::string arr;
     int* j;
+    std::array<std::string, 3> *stringsToFind;
 
 public:
     // Mutators
@@ -28,6 +29,7 @@ public:
     void setLine(std::string line);
     void setreplacement(std::string& replacement);
     void setJ(int& j);
+    void setStringsToFind(std::array<std::string, 3> *stringsToFind);
 
     // Accessors
     std::string getcorrespPath() const;
@@ -36,6 +38,7 @@ public:
     std::string getLine() const;
     std::string getreplacement() const;
     int getJ() const;
+    std::array<std::string, 3> getStrings() const;
 
     // Constructors
     SearchLogic();
@@ -44,7 +47,7 @@ public:
         std::string& replacement);
 
     // Other Data Members
-    int prompt(int &j, std::string &correspPath);
+    int prompt(std::array<std::string, 3> *stringsToFind, std::string &correspPath);
     bool linehasthestring(const std::string& line, std::string stringToFind);
     void pushTheLines(std::string correspPath,
         std::string stringToFind);
