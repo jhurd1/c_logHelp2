@@ -47,6 +47,7 @@ public:
         std::string& replacement);
 
     // Other Data Members
+    std::string operator =(std::string *stringsToFind);
     int prompt(std::array<std::string, 3> *stringsToFind, std::string &correspPath);
     bool linehasthestring(const std::string& line, std::string stringToFind);
     void pushTheLines(std::string correspPath,

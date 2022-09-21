@@ -167,6 +167,20 @@ bool SearchLogic::linehasthestring(const std::string& line, std::string stringTo
     return (line.find(stringToFind) != std::string::npos);
 }
 
+/* **********************************
+* Overloaded '='
+* to handle assignment of string value
+* to array of strings.
+***************************************/
+std::string SearchLogic::operator = (std::string *stringsToFind)
+{
+ for(int i = 0; i < sizeof(&stringsToFind)/sizeof(stringsToFind[0]); i++)
+ {
+  stringsToFind[i] = stringToFind[i];
+ }
+ return *stringsToFind;
+}
+
 /* *******************************
 * OTHER DATA MEMBERS
 **********************************/
