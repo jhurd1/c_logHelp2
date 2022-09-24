@@ -18,8 +18,8 @@ int main()
     std::string correspPath;
     int wordQuantity = 0;
     int j = 0;
-    std::array<std::string, 3> *stringsToFind = nullptr;
-
+    std::string **stringsToFind = new std::string *[3];
+    
     try {
 
        
@@ -71,6 +71,6 @@ int main()
     {
         std::cout << "searchDriver failed." << std::endl;
     }
-
+    delete stringsToFind;
     return 0;
 }

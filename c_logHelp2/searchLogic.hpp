@@ -18,7 +18,7 @@ private:
     Search search;
     std::string arr;
     int* j;
-    std::array<std::string, 3> *stringsToFind;
+    std::string **stringsToFind = new std::string *[3];
 
 public:
     // Mutators
@@ -47,7 +47,6 @@ public:
         std::string& replacement);
 
     // Other Data Members
-    std::string operator =(std::string *stringsToFind);
     int prompt(std::array<std::string, 3> *stringsToFind, std::string &correspPath);
     bool linehasthestring(const std::string& line, std::string stringToFind);
     void pushTheLines(std::string correspPath,

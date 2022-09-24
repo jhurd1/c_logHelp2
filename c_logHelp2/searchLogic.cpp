@@ -168,24 +168,6 @@ bool SearchLogic::linehasthestring(const std::string& line, std::string stringTo
     return (line.find(stringToFind) != std::string::npos);
 }
 
-/* **********************************
-* Overloaded '='
-* to handle assignment of string value
-* to array of strings. This code
-* may prove redundant because operat-
-* or overloading remains primarily for
-* custom data types, such as a
-* car parent class.
-***************************************
-std::string SearchLogic::operator = (std::string *stringsToFind)
-{
- for(int i = 0; i < sizeof(&stringsToFind)/sizeof(stringsToFind[0]); i++)
- {
-  stringsToFind[i] = stringToFind[i];
- }
- return *stringsToFind;
-}*/
-
 /* *******************************
 * OTHER DATA MEMBERS
 **********************************/
@@ -195,19 +177,15 @@ int SearchLogic::prompt(std::array<std::string, 3> *stringsToFind, std::string &
     std::regex isnumber("^-?\\d+");
     try
     {
-     std::cout << "The file path, including the file name, wherein to write the output: " << "\n" << std::endl;
+     std::cout << "Output file path: " << "\n" << std::endl;
      std::cin >> outPath;
      std::cout << std::endl;
      if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
       {
-      // Bad access happens in this block.
-       std::cout << "The word or words you'd like to search for." << "\n" << std::endl;
-       std::string temp("");
-       std::cin >> temp;
-       stringToFind = &temp;
+       std::cout << "Search word: " << "\n" << std::endl;
        for (int i = 0; i <= *j; i++)
        {
-        //stringsToFind[i] = stringToFind[i];
+        stringsToFind[i] = stringToFind;
         if (std::regex_match(*stringToFind, isnumber))
         {
            std::cout << "Inappropriate data type for input." << std::endl;
@@ -304,4 +282,6 @@ void SearchLogic::pushTheLines(std::string correspPath,
         std::cout << "Error opening file." << std::endl;
     }
     in.close();
+    
+    delete stringsToFind;
 }
