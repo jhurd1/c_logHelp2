@@ -164,14 +164,19 @@ std::array<std::string, 3> SearchLogic::getStrings() const
 ***************************************/
 bool SearchLogic::linehasthestring(const std::string& line, std::string stringToFind)
 {
+
     return (line.find(stringToFind) != std::string::npos);
 }
 
 /* **********************************
 * Overloaded '='
 * to handle assignment of string value
-* to array of strings.
-***************************************/
+* to array of strings. This code
+* may prove redundant because operat-
+* or overloading remains primarily for
+* custom data types, such as a
+* car parent class.
+***************************************
 std::string SearchLogic::operator = (std::string *stringsToFind)
 {
  for(int i = 0; i < sizeof(&stringsToFind)/sizeof(stringsToFind[0]); i++)
@@ -179,7 +184,7 @@ std::string SearchLogic::operator = (std::string *stringsToFind)
   stringsToFind[i] = stringToFind[i];
  }
  return *stringsToFind;
-}
+}*/
 
 /* *******************************
 * OTHER DATA MEMBERS
@@ -202,7 +207,7 @@ int SearchLogic::prompt(std::array<std::string, 3> *stringsToFind, std::string &
        stringToFind = &temp;
        for (int i = 0; i <= *j; i++)
        {
-        stringsToFind[i] = stringToFind;
+        //stringsToFind[i] = stringToFind[i];
         if (std::regex_match(*stringToFind, isnumber))
         {
            std::cout << "Inappropriate data type for input." << std::endl;
