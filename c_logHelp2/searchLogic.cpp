@@ -95,7 +95,7 @@ void SearchLogic::setJ(int& j)
 /**************************
 * setStringsToFind
 **************************/
-void SearchLogic::setStringsToFind(std::array<std::string, 3> *stringsToFind)
+void SearchLogic::setStringsToFind(std::string *stringsToFind)
 {
  this->stringsToFind = stringsToFind;
 }
@@ -171,7 +171,7 @@ bool SearchLogic::linehasthestring(const std::string& line, std::string stringTo
 /* *******************************
 * OTHER DATA MEMBERS
 **********************************/
-int SearchLogic::prompt(std::array<std::string, 3> *stringsToFind, std::string &correspPath)
+int SearchLogic::prompt(std::string *stringsToFind, std::string &correspPath)
 {
     SearchDirs searchDirs;
     std::regex isnumber("^-?\\d+");
@@ -185,7 +185,7 @@ int SearchLogic::prompt(std::array<std::string, 3> *stringsToFind, std::string &
        std::cout << "Search word: " << "\n" << std::endl;
        for (int i = 0; i <= *j; i++)
        {
-        stringsToFind[i] = stringToFind;
+        stringsToFind = stringToFind;
         if (std::regex_match(*stringToFind, isnumber))
         {
            std::cout << "Inappropriate data type for input." << std::endl;
