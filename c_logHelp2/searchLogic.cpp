@@ -183,10 +183,10 @@ int SearchLogic::prompt(std::string &correspPath)
      if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
       {
        std::cout << "Search word: " << "\n" << std::endl;
-       std::cin >> *stringToFind;
+       std::getline(std::cin, *stringToFind);
        for (int i = 0; i <= *j; i++)
        {
-        stringsToFind = stringToFind;
+        stringsToFind[i] = *stringToFind;
         if (std::regex_match(*stringToFind, isnumber))
         {
            std::cout << "Inappropriate data type for input." << std::endl;
