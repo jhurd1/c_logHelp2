@@ -18,7 +18,7 @@ int main()
     std::string correspPath;
     int wordQuantity = 0;
     int j = 0;
-    std::string *stringsToFind = new std::string [3];
+    //std::string *stringsToFind = new std::string [3];
     
     try {
 
@@ -53,15 +53,16 @@ int main()
         {
         case 1:
             j = 0;
-            logic.prompt(&stringsToFind[j], correspPath);
+            // Why pass prompt the array if there's nothing in it yet?
+            logic.prompt(correspPath);
             break;
         case 2:
             j = 1;
-            logic.prompt(&stringsToFind[j], correspPath);
+            logic.prompt(correspPath);
             break;
         case 3:
             j = 2;
-            logic.prompt(&stringsToFind[j], correspPath);
+            logic.prompt(correspPath);
             break;
         default:
             break;
@@ -71,6 +72,6 @@ int main()
     {
         std::cout << "searchDriver failed." << std::endl;
     }
-    delete[] stringsToFind;
+    //delete[] stringsToFind;
     return 0;
 }

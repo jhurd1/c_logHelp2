@@ -150,9 +150,9 @@ int SearchLogic::getJ() const
 }
 
 /**************************
-* setStringsToFind
+* getStrings()
 **************************/
-std::array<std::string, 3> SearchLogic::getStrings() const
+std::string SearchLogic::getStrings() const
 {
  return *stringsToFind;
 }
@@ -171,7 +171,7 @@ bool SearchLogic::linehasthestring(const std::string& line, std::string stringTo
 /* *******************************
 * OTHER DATA MEMBERS
 **********************************/
-int SearchLogic::prompt(std::string *stringsToFind, std::string &correspPath)
+int SearchLogic::prompt(std::string &correspPath)
 {
     SearchDirs searchDirs;
     std::regex isnumber("^-?\\d+");
@@ -183,6 +183,7 @@ int SearchLogic::prompt(std::string *stringsToFind, std::string &correspPath)
      if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
       {
        std::cout << "Search word: " << "\n" << std::endl;
+       std::cin >> *stringToFind;
        for (int i = 0; i <= *j; i++)
        {
         stringsToFind = stringToFind;
@@ -283,5 +284,5 @@ void SearchLogic::pushTheLines(std::string correspPath,
     }
     in.close();
     
-    delete stringsToFind;
+    delete[] stringsToFind;
 }
