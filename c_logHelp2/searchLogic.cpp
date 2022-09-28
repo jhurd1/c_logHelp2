@@ -32,7 +32,7 @@ SearchLogic::SearchLogic(std::string *correspPath)
 /*****************
 * Non-default
 ******************/
-SearchLogic::SearchLogic(std::string correspPath, std::string *stringToFind,
+SearchLogic::SearchLogic(std::string correspPath, std::string stringToFind,
     std::string& replacement)
 {
     setcorrespPath(&correspPath);
@@ -56,7 +56,7 @@ void SearchLogic::setcorrespPath(std::string *correspPath)
 /*****************
 * setstringtofind
 ******************/
-void SearchLogic::setstringToFind(std::string *stringToFind)
+void SearchLogic::setstringToFind(std::string stringToFind)
 {
     this->stringToFind = stringToFind;
 }
@@ -95,9 +95,9 @@ void SearchLogic::setJ(int& j)
 /**************************
 * setStringsToFind
 **************************/
-void SearchLogic::setStringsToFind(std::string *stringsToFind)
+void SearchLogic::setStringsToFind(std::string stringsToFind)
 {
- this->stringsToFind = stringsToFind;
+ this->stringsToFind = &stringsToFind;
 }
 
 /* *******************************
@@ -117,7 +117,7 @@ std::string SearchLogic::getcorrespPath() const
 ******************/
 std::string SearchLogic::getstringToFind() const
 {
-    return *stringToFind;
+    return stringToFind;
 }
 
 std::string SearchLogic::getoutpath() const
@@ -183,18 +183,18 @@ int SearchLogic::prompt(std::string &correspPath)
      if(outPath.substr(outPath.find_last_of(".") + 1) == "txt" || outPath.substr(outPath.find_last_of(".") + 1) == "log")
       {
        std::cout << "Search word: " << "\n" << std::endl;
-       std::getline(std::cin, *stringToFind);
+       std::cin >> stringToFind;
        for (int i = 0; i <= *j; i++)
        {
-        stringsToFind[i] = *stringToFind;
-        if (std::regex_match(*stringToFind, isnumber))
+        stringsToFind[i] = stringToFind;
+        if (std::regex_match(stringToFind, isnumber))
         {
            std::cout << "Inappropriate data type for input." << std::endl;
            return 1;
         }
          else
         {
-           searchDirs.dirContents(correspPath, stringToFind);
+           searchDirs.dirContents(correspPath, &stringToFind);
         }
        }
       } else
