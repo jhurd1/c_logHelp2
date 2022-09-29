@@ -18,7 +18,7 @@ private:
     Search search;
     std::string arr;
     int* j;
-    std::string *stringsToFind = new std::string [3];
+    std::string *stringsToFind = new std::string[3];
 
 public:
     // Mutators

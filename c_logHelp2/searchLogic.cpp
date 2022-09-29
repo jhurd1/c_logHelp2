@@ -284,5 +284,5 @@ void SearchLogic::pushTheLines(std::string correspPath,
     }
     in.close();
     
-    //delete[] stringsToFind;
+    delete[] stringsToFind;
 }
